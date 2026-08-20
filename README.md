@@ -217,18 +217,6 @@ dotnet test tests/ETS2LA.Hardened.Tests/ETS2LA.Hardened.Tests.csproj -c Release
 
 这些测试不代替真实游戏、图形驱动、共享内存、在线 API 和第三方插件的集成测试。
 
-## GitHub Pages 文档
-
-文档站源码位于 `site/`，不需要 Node 或额外前端构建工具。GitHub Actions 会在 `main` 分支的站点文件变化后自动部署到 GitHub Pages。
-
-本地预览可以直接打开 `site/index.html`，或使用任意静态 HTTP 服务器：
-
-```bash
-python -m http.server 8080 --directory site
-```
-
-然后访问 <http://localhost:8080>。
-
 ## 贡献与许可
 
 提交行为修改前，请先补充可重复测试；提交安全相关改动时，请同步更新 `SECURITY.md` 和测试用例。不要提交：
