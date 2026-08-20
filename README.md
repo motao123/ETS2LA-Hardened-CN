@@ -43,6 +43,10 @@
 
 - **Windows x64 便携版**：下载 `ETS2LA-Hardened-CN-windows-x64.zip`，解压后运行 `ETS2LA.exe`（self-contained，无需另装 .NET）。
 
+完整的「下载 → 连接游戏 → 装插件 → 开驾驶辅助 → 覆盖层交互」图文教程见文档站：
+
+- 使用教程：https://motao123.github.io/ETS2LA-Hardened-CN/tutorial.html
+
 ## 快速开始
 
 ### 1. 克隆仓库

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ETS2LA Hardened CN 完整使用教程">
+  <title>使用教程 · ETS2LA Hardened CN</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="ETS2LA Hardened CN 文档首页">
+      <span class="brand-mark">E</span>
+      <span>ETS2LA <b>Hardened CN</b></span>
+    </a>
+    <nav class="topnav" aria-label="主导航">
+      <a href="index.html">文档首页</a>
+      <a href="#tutorial" class="active">使用教程</a>
+      <a href="https://github.com/motao123/ETS2LA-Hardened-CN" target="_blank" rel="noreferrer">GitHub</a>
+    </nav>
+  </header>
+
+  <main class="page-main" style="max-width: 960px;">
+    <article id="tutorial">
+      <div class="section-kicker">TUTORIAL</div>
+      <h1>ETS2LA Hardened CN 完整使用教程</h1>
+      <p>从下载、连接游戏、安装插件到开启驾驶辅助，一步步带你跑起来。界面默认中文，也支持一键切换英文。</p>
+
+      <section id="t1">
+        <h2>1. 下载与启动</h2>
+        <p>最新版本在 GitHub Releases：</p>
+        <div class="code-block"><div class="code-head"><span>下载</span><button class="copy-button" type="button" data-copy="https://github.com/motao123/ETS2LA-Hardened-CN/releases">复制</button></div><pre><code>https://github.com/motao123/ETS2LA-Hardened-CN/releases</code></pre></div>
+        <ol>
+          <li>下载 <code>ETS2LA-Hardened-CN-windows-x64-v*.zip</code>。</li>
+          <li>解压到任意目录（路径不要有中文以外的特殊符号导致的权限问题，普通目录即可）。</li>
+          <li>双击运行 <code>ETS2LA.exe</code>。发布包是 self-contained，无需安装 .NET。</li>
+        </ol>
+      </section>
+
+      <section id="t2">
+        <h2>2. 连接游戏（安装 SCS SDK 插件）</h2>
+        <p>程序要读到游戏数据，必须让游戏加载 ETS2LA 的 SDK 插件。</p>
+        <ol>
+          <li>先确认游戏是 <strong>Steam 正版</strong> ETS2 或 ATS，并且已正常启动过一次。</li>
+          <li>打开 ETS2LA，进入「设置 → SDK」。</li>
+          <li>看到检测到的游戏列表后，点击对应游戏的卡片即可安装 SDK（会把 <code>ets2la_plugin.dll</code>、<code>scs-telemetry.dll</code>、<code>scs_sdk_controller.dll</code> 复制到游戏 <code>bin\win_x64\plugins</code>）。</li>
+          <li><strong>完全退出游戏再重新启动</strong>（插件只在游戏启动那一刻加载，不重启不会生效）。</li>
+          <li>重启后进入一个存档，打开「可视化」页面看到「已连接」即成功。</li>
+        </ol>
+        <div class="callout"><strong>排查</strong><span>如果仍显示「无法连接到游戏」，确认三点：游戏运行中、SDK 已装到 <code>bin\win_x64\plugins</code>、游戏是在安装 SDK 之后启动的（先装后开）。</span></div>
+      </section>
+
+      <section id="t3">
+        <h2>3. 界面与语言</h2>
+        <ul class="clean-list">
+          <li><strong>仪表盘</strong>：版本信息、文档/GitHub 链接、原作者项目入口。</li>
+          <li><strong>插件目录</strong>：浏览并安装/更新/卸载插件。</li>
+          <li><strong>插件管理器</strong>：查看已加载插件、打开插件目录、重载/卸载。</li>
+          <li><strong>可视化</strong>：实时显示速度、转速、档位、油门/刹车/转向、燃油、转向灯、货物与坐标。</li>
+          <li><strong>性能</strong>：实时 FPS、单帧耗时、CPU 使用率、内存、游戏连接/暂停状态。</li>
+          <li><strong>路线图</strong>：已完成与规划中的里程碑、GitHub 入口。</li>
+        </ul>
+        <p>切换语言：进入「设置 → 用户 → 界面语言」，选「中文」或「English」，主界面、设置、插件页、覆盖层和教程会立即切换。</p>
+      </section>
+
+      <section id="t4">
+        <h2>4. 安装驾驶插件</h2>
+        <p>自动驾驶依赖插件（核心算法在插件里）。推荐安装：</p>
+        <ol>
+          <li>进入「插件目录」。</li>
+          <li>点击「Lane Assist（车道辅助）」「Adaptive Cruise Control（自适应巡航）」「Pathfinding（路径规划）」等卡片进行安装；依赖（如 PathLib、PIDLib）会自动一起装。</li>
+          <li>安装完成后按提示<strong>重启 ETS2LA</strong>。</li>
+          <li>插件目录中的插件来自官方 API；本项目对下载做了 HTTPS + SHA-256 + 解压安全检查。</li>
+        </ol>
+      </section>
+
+      <section id="t5">
+        <h2>5. 驾驶辅助设置</h2>
+        <p>进入「设置 → 辅助功能」，常用项：</p>
+        <ul class="clean-list">
+          <li><strong>分离巡航与转向</strong>：单击触发巡航、双击同时启用两者。</li>
+          <li><strong>SET 行为 / 速度控制步长</strong>：设定巡航速度、吸附到最近 10 单位。</li>
+          <li><strong>转向响应 / 加速响应</strong>：调节变道和加减速的反应快慢。</li>
+          <li><strong>跟车距离</strong>：自适应巡航与前车保持的距离。</li>
+          <li><strong>碰撞规避 / 限速警告 / 最高速度</strong>：安全边界。</li>
+        </ul>
+        <p>「设置 → 数据」里的「强制加载地图」「强制基础地图名称」主要用于 RusMap 等地图 mod 无法正确加载时开启。</p>
+      </section>
+
+      <section id="t6">
+        <h2>6. 覆盖层与游戏内交互</h2>
+        <p>运行游戏后，桌面上会出现一个覆盖层（ImGui）。</p>
+        <ol>
+          <li>按住 <strong>右 Alt</strong>（默认交互键，可在「设置 → 控制」修改）进入交互模式。</li>
+          <li>交互模式显示各覆盖层窗口开关（交互模式、性能叠加层、控制台、叠加层信息、状态信息、视觉摄像头）。</li>
+          <li>点击窗口项可开关对应窗口，悬停显示提示。</li>
+          <li>退出交互模式后恢复正常驾驶视角。</li>
+        </ol>
+        <div class="callout"><strong>提示</strong><span>覆盖层窗口标题和教程文字现在会跟随主界面的中英文切换。</span></div>
+      </section>
+
+      <section id="t7">
+        <h2>7. 控制与按键绑定</h2>
+        <p>进入「设置 → 控制」查看所有控制项（ASSIST、SET/OK、Next/Cancel、增减等）。</p>
+        <ol>
+          <li>点击卡片进入绑定状态，按下键盘键、手柄按钮或移动轴来绑定。</li>
+          <li>右键「普通轴」可修改轴类型（居中/反向/拆分正负）。</li>
+          <li>游戏里同样需要在游戏设置中启用 ETS2LA 的控制（部分辅助功能依赖游戏按键）。</li>
+        </ol>
+      </section>
+
+      <section id="t8">
+        <h2>8. 可视化 / 性能 / 路线图</h2>
+        <ul class="clean-list">
+          <li><strong>可视化</strong>：连接游戏后实时刷新速度（km/h）、发动机转速、档位、燃油、转向灯等，适合查看车辆状态。</li>
+          <li><strong>性能</strong>：看 FPS、CPU、内存，判断是否撞墙/降频。</li>
+          <li><strong>路线图</strong>：查看项目已完成与规划中的功能，以及 GitHub / 原作者项目入口。</li>
+        </ul>
+      </section>
+
+      <section id="t9">
+        <h2>9. 连接与更新排查</h2>
+        <ul class="clean-list">
+          <li><strong>显示无法连接游戏</strong>：先开游戏、装好 SDK、完全重启游戏（见第 2 节）。</li>
+          <li><strong>检查更新不工作</strong>：便携版不支持应用内自动更新（Velopack 需安装版）；到 GitHub Releases 手动下载新版本替换即可。</li>
+          <li><strong>插件装不上</strong>：确认有网络、能访问 <code>api.ets2la.com</code>，且目录能正常刷新出插件。</li>
+        </ul>
+      </section>
+
+      <section id="t10">
+        <h2>10. 注意事项与免责声明（参考官方文档）</h2>
+        <ul class="clean-list">
+          <li>仅支持 <strong>Steam 正版</strong> ETS2/ATS；请使用原版 Windows，避免第三方修改版系统。</li>
+          <li>安装/使用时，请关闭虚拟网卡、虚拟局域网类软件，避免影响运行。</li>
+          <li><strong>TrucksBook</strong> 会因使用 ETS2LA 而封禁账号——如使用 TrucksBook 请卸载 ETS2LA。</li>
+          <li><strong>TruckersMP</strong> 可用，但由此产生的碰撞后果自负。</li>
+          <li>项目免费开源，倒卖或收费帮装安装包可能被屏蔽/封 IP。</li>
+          <li>本项目不会分发游戏资源、用户存档、SDK/插件之外的第三方二进制；实际驾驶需自行确认符合游戏规则与当地规定。</li>
+        </ul>
+      </section>
+
+      <section id="t11">
+        <h2>11. 常见问题</h2>
+        <div class="property-row"><code>启动报错「无法连接游戏」</code><span class="type-badge">连接</span><p>参考第 2 节，重点是“先装 SDK、再完全重启游戏”。</p></div>
+        <div class="property-row"><code>覆盖层中文乱码</code><span class="type-badge">字体</span><p>本版本已内嵌 CJK 字体回退（Noto Sans SC），请更新到最新版。</p></div>
+        <div class="property-row"><code>路径规划在东欧/巴尔干 DLC 报错</code><span class="type-badge">已修复</span><p>v0.1.0 起已修复 prefab 缓存空引用，升级即可。</p></div>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
