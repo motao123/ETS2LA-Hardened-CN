@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationManifest>ETS2LA.manifest</ApplicationManifest>
+
+    <Title>ETS2LA Hardened CN</Title>
+    <Description>Security-hardened self driving host for ETS2 and ATS.</Description>
+    <Version>3.4.37.1</Version>
+    <AssemblyName>ETS2LA</AssemblyName>
+    <RootNamespace>ETS2LA</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpenTelemetry"  />
+    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol"  />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting"  />
+    <PackageReference Include="Velopack"  />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ETS2LA.UI\ETS2LA.UI.csproj" />
+    <ProjectReference Include="..\ETS2LA.Overlay\ETS2LA.Overlay.csproj" />
+    <ProjectReference Include="..\ETS2LA.Backend\ETS2LA.Backend.csproj" />
+    <ProjectReference Include="..\ETS2LA.Telemetry\ETS2LA.Telemetry.csproj" />
+    <ProjectReference Include="..\ETS2LA.Tutorials\ETS2LA.Tutorials.csproj" />
+    <ProjectReference Include="..\ETS2LA.State\ETS2LA.State.csproj" />
+    <ProjectReference Include="..\ETS2LA.Settings\ETS2LA.Settings.csproj" />
+    <ProjectReference Include="..\ETS2LA.Networking\ETS2LA.Networking.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Label="ETS2LA.UI Requirements">
+    <PackageReference Include="Avalonia"  />
+    <PackageReference Include="Avalonia.Desktop"  />
+    <PackageReference Include="Avalonia.Themes.Fluent"  />
+    <PackageReference Include="AvaloniaUI.DiagnosticsSupport"  Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="Avalonia.ReactiveUI"  />
+    <PackageReference Include="Avalonia.Controls.DataGrid"  />
+    <PackageReference Include="Huskui.Avalonia"  />
+    <PackageReference Include="Huskui.Avalonia.Markdown"  />
+    <PackageReference Include="Optris.Icons.Avalonia"  />
+    <PackageReference Include="Optris.Icons.Avalonia.FontAwesome"  />
+    <PackageReference Include="Optris.Icons.Avalonia.MaterialDesign"  />
+  </ItemGroup>
+
+  <Target Name="CopyAssets" AfterTargets="Build">
+    <ItemGroup>
+      <AssetFiles Include="$(MSBuildThisFileDirectory)..\Assets\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(AssetFiles)" DestinationFiles="@(AssetFiles->'$(OutputPath)Assets\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
+
+  <Target Name="CopyLibdeflate" AfterTargets="Build">
+    <Copy SourceFiles="..\ETS2LA.Game\libs\libdeflate.dll" DestinationFolder="$(OutputPath)" />
+  </Target>
+
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <DefineConstants>$(DefineConstants);WINDOWS</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(OS)' == 'Unix'">
+    <DefineConstants>$(DefineConstants);LINUX</DefineConstants>
+  </PropertyGroup>
+</Project>

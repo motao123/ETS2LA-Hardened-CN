@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ETS2LA.Logging\ETS2LA.Logging.csproj" />
+    <ProjectReference Include="..\ETS2LA.Shared\ETS2LA.Shared.csproj" />
+    <ProjectReference Include="..\ETS2LA.Settings\ETS2LA.Settings.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="!$([MSBuild]::IsOSPlatform('Windows'))">
+    <Compile Remove="Windows/**/*.cs" />
+    <PackageReference Include="Hexa.NET.SDL3"  />
+    <PackageReference Include="SharpHook"  />
+  </ItemGroup>
+
+  <ItemGroup Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+    <Compile Remove="Linux/**/*.cs" />
+    <PackageReference Include="SharpDX"  />
+    <PackageReference Include="SharpDX.DirectInput"  />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <DefineConstants>$(DefineConstants);WINDOWS</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(OS)' == 'Unix'">
+    <DefineConstants>$(DefineConstants);LINUX</DefineConstants>
+  </PropertyGroup>
+</Project>

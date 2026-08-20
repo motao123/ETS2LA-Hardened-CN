@@ -1,78 +1,241 @@
 # ETS2LA Hardened CN
 
-这是基于 ETS2LA `3.4.37` 的安全加固与中文开发体验派生项目，保留原有 GPL-3.0 许可证和 `ETS2LA.*` 插件 API。项目用于连接 Euro Truck Simulator 2 / American Truck Simulator 的游戏遥测、地图数据、驾驶辅助插件和覆盖层。
+<div align="center">
 
-> 本项目不包含 ETS2/ATS 游戏资源、用户数据或来源不明的 DLL。没有安装游戏、SCS SDK 和驾驶插件时，仍可启动宿主 UI，但不会产生自动驾驶控制。
+## 🚛 把驾驶辅助做成一条可验证的工程链路
 
-## 主要改进
+**安全插件供应链 · 失效安全控制输出 · 可复现构建 · 中文开发文档**
 
-- 插件下载必须使用 HTTPS，并校验 SHA-256；ZIP 解压拒绝目录穿越、重解析点、超大归档和越界路径。
-- 插件安装使用 staging、备份和清单核验，更新失败自动回滚；依赖环会在安装前拒绝。
-- 控制输出使用线程安全快照、有限浮点值和正权重融合；无效输入回退到中性输出，并可取消、可等待地关闭。
-- 配置路径限制在配置根目录；可通过 `ETS2LA_CONFIG_DIR` 隔离实例。
-- Windows JWT 使用 DPAPI 保护，不再写入普通 JSON；非 Windows 仅在当前进程内保存令牌。
-- 遥测默认关闭；只有用户开启后才创建远程 OTLP exporter。
-- 依赖版本集中管理，使用 `global.json` 和 NuGet lock files 固定构建输入。
-- 提供 16 个自动化测试，覆盖控制融合、路径安全、ZIP 安全、插件依赖环、设置路径和凭据序列化。
+[快速开始](#快速开始) · [构建发布](#构建发布) · [安全模型](#安全模型) · [GitHub Pages 文档](#github-pages-文档)
 
-## 系统要求
+</div>
 
-- Windows x64：.NET 10 SDK 10.0.400（发布包为 self-contained，不需要另装运行时）。
-- Linux：.NET 10 SDK、对应的图形/输入依赖和 `linux-x64` 原生运行环境。
-- 实际游戏接入还需要合法安装 ETS2/ATS、启用 SCS SDK，并按插件目录安装带可信 SHA-256 的驾驶插件。
-- 构建依赖固定提交的 `TruckLib`，当前快照已包含其源码和许可证。
+---
 
-## 构建
+## 这是什么？
 
-在项目根目录执行：
+`ETS2LA Hardened CN` 是基于 ETS2LA `3.4.37` 的安全加固派生项目，为 **Euro Truck Simulator 2** 和 **American Truck Simulator** 提供桌面宿主、游戏遥测接入、地图解析、驾驶辅助插件、控制输出和覆盖层能力。
 
-```powershell
-# Windows：还原、构建并运行 P0 测试
-.\build.ps1 -Test
+它不是一个“下载后自动接管卡车”的神秘 DLL 包，而是一套可以被还原、编译、测试和审计的完整工程：
 
-# Windows：生成可直接启动的 Windows x64 自包含目录
-.\build.ps1 -Publish
+- 保留 `ETS2LA.*` 插件 API，方便现有插件生态继续接入；
+- 不包含 ETS2/ATS 游戏资源、用户数据或来源不明的二进制；
+- 没有游戏、SCS SDK 和驾驶插件时，仍可启动宿主 UI，但不会产生自动驾驶控制；
+- 所有高优先级安全改动都有纯逻辑测试，不依赖真实游戏进程才能执行。
+
+## 核心改进
+
+| 能力 | 说明 |
+| --- | --- |
+| 🔐 插件供应链 | HTTPS、SHA-256、ZIP 路径穿越防护、重解析点拒绝、staging 安装、失败回滚 |
+| 🎛️ 控制输出 | 线程安全快照、有限浮点校验、正权重融合、NaN 防护、中性值复位、可取消关闭 |
+| 🧩 依赖管理 | 固定 .NET SDK、集中包版本、NuGet lock files、TruckLib 源码随仓库交付 |
+| 🛡️ 配置与凭据 | 配置目录边界校验、独立实例目录、Windows DPAPI、JWT 不写入普通 JSON |
+| 📡 隐私默认值 | 遥测默认关闭；只有用户开启后才创建远程 OTLP exporter |
+| ✅ 质量门 | 16 个自动化测试、Release 构建、Windows x64 self-contained 发布、发布目录 smoke test |
+| 📚 文档站 | 无构建依赖的静态 GitHub Pages 文档，支持搜索、复制命令和响应式阅读 |
+
+## 快速开始
+
+### 1. 克隆仓库
+
+当前仓库已经包含构建所需的 TruckLib 源码，普通克隆即可：
+
+```bash
+git clone https://github.com/motao123/ETS2LA-Hardened-CN.git
+cd ETS2LA-Hardened-CN
 ```
 
-Linux：
+### 2. 安装构建环境
+
+安装 **.NET 10 SDK 10.0.400 或更高的 10.0.x SDK**：
+
+- Windows：https://dotnet.microsoft.com/download/dotnet/10.0
+- Linux：使用发行版包管理器或 Microsoft 官方安装方式
+
+检查：
+
+```bash
+dotnet --version
+```
+
+应输出 `10.0.x`。发布包是 self-contained，终端用户运行发布目录时不需要另装 .NET Runtime；从源码构建仍需要 SDK。
+
+### 3. 构建并测试
+
+Windows PowerShell：
+
+```powershell
+.\build.ps1 -Test
+```
+
+Linux shell：
 
 ```bash
 chmod +x build.sh
 ./build.sh --test
+```
+
+脚本会检查 TruckLib、`Assets` 和 `libdeflate`，按目标平台更新锁文件，然后执行 Release 构建和测试。第一次还原需要网络访问 NuGet。
+
+## 构建发布
+
+### Windows x64
+
+```powershell
+.\build.ps1 -Publish
+```
+
+产物：
+
+```text
+publish/win-x64/ETS2LA.exe
+```
+
+### Linux x64
+
+```bash
 ./build.sh --publish
 ```
 
-如果系统没有 `dotnet`，可以使用工作区上级目录的 `.tools/dotnet/dotnet.exe`；构建脚本会在 Windows 上自动查找该路径。脚本使用 `--locked-mode`，依赖锁文件发生变化时会明确失败，避免静默漂移。
+产物：
 
-## 运行
+```text
+publish/linux-x64/ETS2LA
+```
 
-构建后运行：
+发布脚本会自动执行 smoke test：
+
+```text
+Smoke test passed for ETS2LA Hardened CN 3.4.37.1
+```
+
+`publish/`、`bin/`、`obj/` 和 `Releases/` 已加入 `.gitignore`，不会被提交。
+
+## 运行与真实游戏接入
+
+直接启动 Windows 发布包：
 
 ```powershell
 .\publish\win-x64\ETS2LA.exe
 ```
 
-配置文件默认位于 `%AppData%\ETS2LA-Hardened-CN`。测试隔离实例时可设置：
+默认配置目录：
+
+```text
+%AppData%\ETS2LA-Hardened-CN
+```
+
+测试隔离实例：
 
 ```powershell
 $env:ETS2LA_CONFIG_DIR = "$pwd\runtime-config"
 .\publish\win-x64\ETS2LA.exe
 ```
 
-首次启动没有游戏时，遥测和共享内存连接会等待或记录可控警告；请不要在没有真实游戏和安全插件的情况下启用控制输出。
+要使用真实驾驶辅助，需要额外准备：
+
+1. 合法安装 ETS2 或 ATS；
+2. 启用并正确安装对应 SCS SDK；
+3. 安装经过审计、带 SHA-256 摘要的驾驶辅助插件；
+4. 在测试存档中验证控制行为，再进入日常使用环境。
+
+本仓库不分发游戏资源、用户存档、用户配置、JWT、第三方驾驶插件或来源不明的“优化 DLL”。
+
+## 安全模型
+
+插件 DLL 在宿主进程内运行，因此完整性校验是安装边界，不是进程沙箱。插件元数据必须提供 64 位十六进制 `Sha256`，没有摘要的旧包会被拒绝安装。
+
+安装流程：
+
+```text
+HTTPS 下载
+   ↓
+流式 SHA-256 校验
+   ↓
+安全 ZIP 解压（拒绝穿越、重解析点、超大归档）
+   ↓
+staging 目录确认 DLL
+   ↓
+旧版本备份 + 原子切换
+   ↓
+清单核验
+   ↓
+成功，或回滚到旧版本
+```
+
+完整说明见 [`SECURITY.md`](SECURITY.md)。第三方组件和许可证见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)。
+
+## 架构速览
+
+```text
+SCS 游戏共享内存
+        │
+        ▼
+ETS2LA.Game / Telemetry ──► ETS2LA.State
+        │                         │
+        │                         ▼
+        └──────────────────► 插件算法
+                                  │
+                                  ▼
+             GameOutput / ControlMixer
+                                  │
+                                  ▼
+                        SCS 控制共享内存
+```
+
+主要工程：
+
+- `ETS2LA`：宿主入口、生命周期、Velopack 和 OpenTelemetry；
+- `ETS2LA.UI`：Avalonia 桌面 UI；
+- `ETS2LA.Backend`：插件加载、生命周期和依赖；
+- `ETS2LA.Game`：地图、遥测、SDK 和控制输出；
+- `ETS2LA.Networking`：插件目录、完整性校验和事务安装；
+- `ETS2LA.Overlay` / `ETS2LA.ML`：覆盖层、AR 和视觉能力；
+- `TruckLib`：SCS 地图和游戏数据解析；
+- `tests/ETS2LA.Hardened.Tests`：安全和控制链纯逻辑测试。
 
 ## 测试
 
 ```powershell
-.\.tools\dotnet\dotnet.exe test tests\ETS2LA.Hardened.Tests\ETS2LA.Hardened.Tests.csproj -c Release --no-restore
+dotnet test tests\ETS2LA.Hardened.Tests\ETS2LA.Hardened.Tests.csproj -c Release --no-restore
 ```
 
-当前测试是纯逻辑测试，不声称覆盖真实游戏共享内存、图形驱动、第三方插件或在线 API。发布前仍应在隔离测试账号和测试游戏存档上做人工验证。
+或直接使用系统 SDK：
 
-## 插件安全要求
+```bash
+dotnet test tests/ETS2LA.Hardened.Tests/ETS2LA.Hardened.Tests.csproj -c Release
+```
 
-网络插件元数据必须包含 64 位十六进制 `Sha256`。没有摘要的旧插件会被拒绝安装；声明签名但没有配置可信签名者的包也会被拒绝。插件 DLL 在宿主进程内运行，因此插件本身应来自可审计、可复现的来源。
+当前测试覆盖：
 
-## 许可证与来源
+- 控制权重融合、NaN/Infinity、零权重、油门/刹车语义；
+- 插件 ID、路径边界、ZIP 目录穿越和安全解压；
+- 插件依赖循环；
+- 设置路径穿越；
+- JWT 不进入普通 JSON 序列化。
 
-本项目遵循 GPL-3.0。第三方依赖与 TruckLib 的许可证见 `THIRD_PARTY_NOTICES.md`。修改基于 ETS2LA 3.4.37，并保留原项目版权和免责声明。安全问题请参阅 `SECURITY.md`。
+这些测试不代替真实游戏、图形驱动、共享内存、在线 API 和第三方插件的集成测试。
+
+## GitHub Pages 文档
+
+文档站源码位于 `site/`，不需要 Node 或额外前端构建工具。GitHub Actions 会在 `main` 分支的站点文件变化后自动部署到 GitHub Pages。
+
+本地预览可以直接打开 `site/index.html`，或使用任意静态 HTTP 服务器：
+
+```bash
+python -m http.server 8080 --directory site
+```
+
+然后访问 <http://localhost:8080>。
+
+## 贡献与许可
+
+提交行为修改前，请先补充可重复测试；提交安全相关改动时，请同步更新 `SECURITY.md` 和测试用例。不要提交：
+
+- `bin/`、`obj/`、`publish/`、`Releases/`；
+- `runtime-config/`、`secrets.dat`、日志、临时文件；
+- 游戏资源、用户存档、JWT 或 API 凭据；
+- 无法验证来源和哈希的 DLL。
+
+本项目遵循 GPL-3.0，并保留上游版权、免责声明和第三方许可证信息。

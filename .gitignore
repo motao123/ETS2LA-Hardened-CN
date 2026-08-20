@@ -1,0 +1,27 @@
+# .NET and IDE build output
+**/bin/
+**/obj/
+**/TestResults/
+.vs/
+.idea/
+
+# Packaging and local publish output
+publish/
+Releases/
+
+# Runtime-local configuration, secrets and logs
+runtime-config/
+**/secrets.dat
+*.log
+*.tmp
+*.user
+*.suo
+
+# Local tools and editor state
+.tools/
+.vscode/*.code-workspace
+.DS_Store
+Thumbs.db
+
+# GitHub Pages local preview output
+site/.cache/

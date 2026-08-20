@@ -1,0 +1,5 @@
+items:
+  - name: Reading HashFS (.scs) archives
+    href: reader.md
+  - name: Writing HashFS (.scs) archives
+    href: writer.md

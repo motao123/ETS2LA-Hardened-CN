@@ -1,0 +1,342 @@
+{
+  "version": 2,
+  "dependencies": {
+    "net10.0": {
+      "Microsoft.Extensions.FileSystemGlobbing": {
+        "type": "Direct",
+        "requested": "[9.0.10, )",
+        "resolved": "9.0.10",
+        "contentHash": "KdZAM2YMYBipVp/4tSEWPLnrocd17SL4iaXdgXjR5/nheBXbfR5QfPWYoTyh6C6IW3uKR7TRMwQr2qCvtaCTiA=="
+      },
+      "Mono.Options": {
+        "type": "Direct",
+        "requested": "[6.12.0.148, )",
+        "resolved": "6.12.0.148",
+        "contentHash": "kf6bdXnP4IzqIp4bJ1YKPI3/PAcOV6qm4mznChJ3c92zHQUXTWJSp0+h+Cfcii0O6m/EgW7KA+tbCiB2al0DDA=="
+      },
+      "Newtonsoft.Json": {
+        "type": "Direct",
+        "requested": "[13.0.4, )",
+        "resolved": "13.0.4",
+        "contentHash": "pdgNNMai3zv51W5aq268sujXUyx7SNdE2bj1wZcWjAQrKMFZV260lbqYop1d2GM67JI1huLRwxo9ZqnfF/lC6A=="
+      },
+      "System.Drawing.Common": {
+        "type": "Direct",
+        "requested": "[7.0.0, )",
+        "resolved": "7.0.0",
+        "contentHash": "KIX+oBU38pxkKPxvLcLfIkOV5Ien8ReN78wro7OF5/erwcmortzeFx+iBswlh2Vz6gVne0khocQudGwaO1Ey6A==",
+        "dependencies": {
+          "Microsoft.Win32.SystemEvents": "7.0.0"
+        }
+      },
+      "Avalonia.BuildServices": {
+        "type": "Transitive",
+        "resolved": "11.3.2",
+        "contentHash": "qHDToxto1e3hci5YqbG9n0Ty8mlp3zBUN5wT66wKqaDVzXyQ0do3EnRILd4Ke9jpvsktaPpgE0YjEk7hornryQ=="
+      },
+      "Avalonia.Remote.Protocol": {
+        "type": "Transitive",
+        "resolved": "12.0.2",
+        "contentHash": "mlKTvn0cAEQVkRMJunLzDNugZRbtZIksT5yu+XgcAlOvqTHGyZY+mGP+4/+1IwakZx9nrz6SGwI5yrzNT5g0TQ=="
+      },
+      "FluentIcons.Avalonia": {
+        "type": "Transitive",
+        "resolved": "2.1.325",
+        "contentHash": "lNNWdu9yBoG8AnT50rrOCunntw6PccDex6JlR2P+YI5ptdmRe8L5x1kzel07L08E9IA208HwohpQ7ORniu8SMw==",
+        "dependencies": {
+          "Avalonia": "12.0.0",
+          "FluentIcons.Common": "[2.1.325]",
+          "FluentIcons.Resources.Avalonia": "[2.0.325]"
+        }
+      },
+      "FluentIcons.Common": {
+        "type": "Transitive",
+        "resolved": "2.1.325",
+        "contentHash": "aM9/X5pYZ+QTR+7E8M13nHQlLVQrUFav2WVB3Y1RnTu3/S4fN4ElvmdkUJ6/7krwtJE/2g8bbHZ1AscM2DBvxw=="
+      },
+      "FluentIcons.Resources.Avalonia": {
+        "type": "Transitive",
+        "resolved": "2.0.325",
+        "contentHash": "nXpgWLLwlzcoA1RgRcKOjUr/HywlPdiRU0HcWblj8DQsF8w+Mt0v+M6Q6yzq3eUC7o+qcaVjQphnDkFm24088A==",
+        "dependencies": {
+          "Avalonia": "11.0.0",
+          "FluentIcons.Common": "[2.1.325]"
+        }
+      },
+      "GisDeflate": {
+        "type": "Transitive",
+        "resolved": "1.0.2",
+        "contentHash": "BTaJnzsy4Blbw7uBtaiTrQ6gI31L8EMKXi6HRHc+PkkCF26Fz9QzoDm/GURZrxPuLZfJmRLOo1/V347OJYkifA=="
+      },
+      "JetBrains.Annotations": {
+        "type": "Transitive",
+        "resolved": "2025.2.4",
+        "contentHash": "TwbgxAkXxY+vNEhNVx/QXjJ4vqxmepOjsgRvvImQPbHkHMMb4W+ahL3laMsxXKtNT7iMy+E1B3xkqao2hf1n3A=="
+      },
+      "MicroCom.Runtime": {
+        "type": "Transitive",
+        "resolved": "0.11.4",
+        "contentHash": "yZ8+Lgwo+KtRI29TB2mIOEMzV+csMJ+pKZg4YHReAP3vRewWLKKeYfrBDo5FS69rWnEbCfU3sbM+ZEQr+GDLtg=="
+      },
+      "Microsoft.CodeAnalysis.Analyzers": {
+        "type": "Transitive",
+        "resolved": "5.3.0-2.25625.1",
+        "contentHash": "4Yhh2fnu3G+J0J1lDc8WZVgMjgbynSeTfkl5IFJMFrmiIO0sc7Tjx+f3sFVV8Sd35PrIUWfof0RWc3lAMl7Azg=="
+      },
+      "Microsoft.CodeAnalysis.Common": {
+        "type": "Transitive",
+        "resolved": "5.3.0",
+        "contentHash": "uC0qk3jzTQY7i90ehfnCqaOZpBUGJyPMiHJ3c0jOb8yaPBjWzIhVdNxPbeVzI74DB0C+YgBKPLqUkgFZzua5Mg==",
+        "dependencies": {
+          "Microsoft.CodeAnalysis.Analyzers": "5.3.0-2.25625.1"
+        }
+      },
+      "Microsoft.NETCore.Platforms": {
+        "type": "Transitive",
+        "resolved": "1.1.0",
+        "contentHash": "kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A=="
+      },
+      "Microsoft.Win32.SystemEvents": {
+        "type": "Transitive",
+        "resolved": "7.0.0",
+        "contentHash": "2nXPrhdAyAzir0gLl8Yy8S5Mnm/uBSQQA7jEsILOS1MTyS7DbmV1NgViMtvV1sfCD1ebITpNwb1NIinKeJgUVQ=="
+      },
+      "NETStandard.Library": {
+        "type": "Transitive",
+        "resolved": "1.6.1",
+        "contentHash": "WcSp3+vP+yHNgS8EV5J7pZ9IRpeDuARBPN28by8zqff1wJQXm26PVU8L3/fYLBJVU7BtDyqNVWq2KlCVvSSR4A==",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0"
+        }
+      },
+      "NuGet.Versioning": {
+        "type": "Transitive",
+        "resolved": "6.14.0",
+        "contentHash": "4v4blkhCv8mpKtfx+z0G/X0daVCzdIaHSC51GkUspugi5JIMn2Bo8xm5PdZYF0U68gOBfz/+aPWMnpRd85Jbow=="
+      },
+      "Sprache": {
+        "type": "Transitive",
+        "resolved": "2.3.1",
+        "contentHash": "Q+mXeiTxiUYG3lKYF6TS82/SyB4F2613Q1yXTMwg4jWGHEEVC3yrzHtNcI4B3qnDI0+eJsezGJ0V+cToUytHWw=="
+      },
+      "System.IO.Hashing": {
+        "type": "Transitive",
+        "resolved": "10.0.8",
+        "contentHash": "+dJsbPJ3FyUbTZNplFj0RCKePFizmv6ewDV46JE9q/IVH4c3xTCftHfHelLsAKf0jryIPqgMb5GpS0x7TAY3mg=="
+      },
+      "TruckLib.Core": {
+        "type": "Transitive",
+        "resolved": "0.3.0",
+        "contentHash": "f3ZniNl2jldv9BvPAnwyWB8Kmy+HTOqUe0jk4ch0pEbMkYE0IiXM5lcAFcwNYfLHDiIGV7jf+wnF6AXosebwXA=="
+      },
+      "TruckLib.Models": {
+        "type": "Transitive",
+        "resolved": "0.4.2",
+        "contentHash": "QHu3MT8gt6I3aXFqqh42+sVNthaqwu0UZQ4xA30Wz2H3z3Wcj7s6cDuIDqx48IJy93fqFlScjn7WbD6hAufUKA==",
+        "dependencies": {
+          "TruckLib.Core": "0.3.0"
+        }
+      },
+      "ets2la.audio": {
+        "type": "Project",
+        "dependencies": {
+          "ETS2LA.Logging": "[1.0.0, )",
+          "ETS2LA.Settings": "[1.0.0, )",
+          "ETS2LA.Shared": "[1.0.0, )",
+          "SoundFlow": "[1.4.0, )",
+          "SoundFlow.Codecs.FFMpeg": "[1.4.0, )"
+        }
+      },
+      "ets2la.backend": {
+        "type": "Project",
+        "dependencies": {
+          "ETS2LA.Audio": "[1.0.0, )",
+          "ETS2LA.Controls": "[1.0.0, )",
+          "ETS2LA.Logging": "[1.0.0, )",
+          "ETS2LA.Notifications": "[1.0.0, )",
+          "ETS2LA.Settings": "[1.0.0, )",
+          "ETS2LA.Shared": "[1.0.0, )",
+          "Velopack": "[0.0.1298, )"
+        }
+      },
+      "ets2la.controls": {
+        "type": "Project",
+        "dependencies": {
+          "ETS2LA.Logging": "[1.0.0, )",
+          "ETS2LA.Settings": "[1.0.0, )",
+          "ETS2LA.Shared": "[1.0.0, )",
+          "SharpDX": "[4.2.0, )",
+          "SharpDX.DirectInput": "[4.2.0, )"
+        }
+      },
+      "ets2la.logging": {
+        "type": "Project",
+        "dependencies": {
+          "Spectre.Console": "[0.54.0, )"
+        }
+      },
+      "ets2la.notifications": {
+        "type": "Project",
+        "dependencies": {
+          "ETS2LA.Logging": "[1.0.0, )"
+        }
+      },
+      "ets2la.settings": {
+        "type": "Project"
+      },
+      "ets2la.shared": {
+        "type": "Project",
+        "dependencies": {
+          "ETS2LA.Logging": "[1.0.0, )",
+          "Huskui.Avalonia": "[1.1.3, )"
+        }
+      },
+      "ets2la.telemetry": {
+        "type": "Project",
+        "dependencies": {
+          "ETS2LA.Logging": "[1.0.0, )",
+          "ETS2LA.Settings": "[1.0.0, )"
+        }
+      },
+      "trucklib": {
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.CodeAnalysis.Common": "[5.3.0, )",
+          "RBush": "[4.0.0, )",
+          "TruckLib.HashFs": "[0.2.6, )",
+          "TruckLib.Models": "[0.4.2, )",
+          "TruckLib.Sii": "[0.2.1, )"
+        }
+      },
+      "Avalonia": {
+        "type": "CentralTransitive",
+        "requested": "[12.0.2, )",
+        "resolved": "12.0.2",
+        "contentHash": "852xwfNNAUWE+aKWFackMALAKofcpKnM2g4PN8VKfxG1SO8Stlih7d6QFCbjQl46vuR9WBw/ZVGwn4Ovbj/oxQ==",
+        "dependencies": {
+          "Avalonia.BuildServices": "11.3.2",
+          "Avalonia.Remote.Protocol": "12.0.2",
+          "MicroCom.Runtime": "0.11.4"
+        }
+      },
+      "Huskui.Avalonia": {
+        "type": "CentralTransitive",
+        "requested": "[1.1.3, )",
+        "resolved": "1.1.3",
+        "contentHash": "WeeGwedRqUyOB7yJETU57js3Tiuo5LUt6ag3DB4Jpaqk3DASWqU7pNTVEYMr27XS3tTayu4gEraDqzpCA1H6wA==",
+        "dependencies": {
+          "Avalonia": "12.0.2",
+          "FluentIcons.Avalonia": "2.1.325",
+          "JetBrains.Annotations": "2025.2.4"
+        }
+      },
+      "RBush": {
+        "type": "CentralTransitive",
+        "requested": "[4.0.0, )",
+        "resolved": "4.0.0",
+        "contentHash": "j3GeRxxLUQdc+UrZnvythdQxi3bd8ayn87VDjfGXrvfodF550n9wR6SgQvpo+YiAv3GJezsu6lK0l47rRqnbdg=="
+      },
+      "SharpDX": {
+        "type": "CentralTransitive",
+        "requested": "[4.2.0, )",
+        "resolved": "4.2.0",
+        "contentHash": "3pv0LFMvfK/dv1qISJnn8xBeeT6R/FRvr0EV4KI2DGsL84Qlv6P7isWqxGyU0LCwlSVCJN3jgHJ4Bl0KI2PJww==",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1"
+        }
+      },
+      "SharpDX.DirectInput": {
+        "type": "CentralTransitive",
+        "requested": "[4.2.0, )",
+        "resolved": "4.2.0",
+        "contentHash": "is6Lm9zULyeTbUaLXktF+MwzmUYE8jofhA+6qgR1HBIyRJ/c2rZbeG1VvvGf4w6ktfq/q3AvUWTNzwgdU/+XOg==",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "SharpDX": "4.2.0"
+        }
+      },
+      "SoundFlow": {
+        "type": "CentralTransitive",
+        "requested": "[1.4.0, )",
+        "resolved": "1.4.0",
+        "contentHash": "PVc8NEpwmx16qJdOGRvc7Kpvs/3hNZBuldErmnMQSh9IClAA2UWrafcUIQUxki2GrWB2g71hPSDIUKEo3nRgeA=="
+      },
+      "SoundFlow.Codecs.FFMpeg": {
+        "type": "CentralTransitive",
+        "requested": "[1.4.0, )",
+        "resolved": "1.4.0",
+        "contentHash": "lp+y6joRjqqlR/UFaH4TptforIF2b18O/LXOvuLj/oX6RZy6U8IG8c3Nc1S2aOCX017YtI7yo7kLAZysPlc2VQ==",
+        "dependencies": {
+          "SoundFlow": "1.4.0"
+        }
+      },
+      "Spectre.Console": {
+        "type": "CentralTransitive",
+        "requested": "[0.54.0, )",
+        "resolved": "0.54.0",
+        "contentHash": "StDXCFayfy0yB1xzUHT2tgEpV1/HFTiS4JgsAQS49EYTfMixSwwucaQs/bIOCwXjWwIQTMuxjUIxcB5XsJkFJA=="
+      },
+      "TruckLib.HashFs": {
+        "type": "CentralTransitive",
+        "requested": "[0.1.18, )",
+        "resolved": "0.2.6",
+        "contentHash": "LH9pG7zDPV3rjQ8PSA9M5nXWeGaVvrVNwzKMsBg5i8t7WtGp7gNy4NdxiRCURk/+tfTCcscyLwACsJ6WLrcjLQ==",
+        "dependencies": {
+          "GisDeflate": "1.0.2",
+          "System.IO.Hashing": "10.0.8",
+          "TruckLib.Models": "0.4.2"
+        }
+      },
+      "TruckLib.Sii": {
+        "type": "CentralTransitive",
+        "requested": "[0.1.13, )",
+        "resolved": "0.2.1",
+        "contentHash": "VuRKbHjAz1OCpHiqhf++g7MzRc2C/L0sVn+yvH5nwL3frHIpn0arNJ7W+nUX/7qtwFH2H52oJXK/x5JjxMKmuA==",
+        "dependencies": {
+          "Sprache": "2.3.1",
+          "TruckLib.Core": "0.3.0"
+        }
+      },
+      "Velopack": {
+        "type": "CentralTransitive",
+        "requested": "[0.0.1298, )",
+        "resolved": "0.0.1298",
+        "contentHash": "PJ6Nm28qJ4ChsHYzgHUJ8g+DGyyHes2+bwxY709+znMhgi8fMp8M1FTF8x6pZMjnsPCWVwoMlxVEyq0NLeRZtA==",
+        "dependencies": {
+          "NuGet.Versioning": "6.14.0"
+        }
+      }
+    },
+    "net10.0/win-x64": {
+      "System.Drawing.Common": {
+        "type": "Direct",
+        "requested": "[7.0.0, )",
+        "resolved": "7.0.0",
+        "contentHash": "KIX+oBU38pxkKPxvLcLfIkOV5Ien8ReN78wro7OF5/erwcmortzeFx+iBswlh2Vz6gVne0khocQudGwaO1Ey6A==",
+        "dependencies": {
+          "Microsoft.Win32.SystemEvents": "7.0.0"
+        }
+      },
+      "Microsoft.Win32.SystemEvents": {
+        "type": "Transitive",
+        "resolved": "7.0.0",
+        "contentHash": "2nXPrhdAyAzir0gLl8Yy8S5Mnm/uBSQQA7jEsILOS1MTyS7DbmV1NgViMtvV1sfCD1ebITpNwb1NIinKeJgUVQ=="
+      },
+      "SoundFlow": {
+        "type": "CentralTransitive",
+        "requested": "[1.4.0, )",
+        "resolved": "1.4.0",
+        "contentHash": "PVc8NEpwmx16qJdOGRvc7Kpvs/3hNZBuldErmnMQSh9IClAA2UWrafcUIQUxki2GrWB2g71hPSDIUKEo3nRgeA=="
+      },
+      "SoundFlow.Codecs.FFMpeg": {
+        "type": "CentralTransitive",
+        "requested": "[1.4.0, )",
+        "resolved": "1.4.0",
+        "contentHash": "lp+y6joRjqqlR/UFaH4TptforIF2b18O/LXOvuLj/oX6RZy6U8IG8c3Nc1S2aOCX017YtI7yo7kLAZysPlc2VQ==",
+        "dependencies": {
+          "SoundFlow": "1.4.0"
+        }
+      }
+    }
+  }
+}

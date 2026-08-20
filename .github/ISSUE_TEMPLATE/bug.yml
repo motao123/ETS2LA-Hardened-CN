@@ -1,0 +1,38 @@
+name: Bug Report
+description: Report bugs for the developers to fix.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Fill out this form to send a bug report to the developers. This can help us fix issues with the app.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the bug in-depth, use any console logs or screenshots that you need. The more info, the easier it will be fore us to fix the issue.
+      placeholder: Description
+    validations:
+      required: true
+  - type: input
+    id: app_version
+    attributes:
+      label: App Version
+      description: What version of the app are you running? Use the hash to the right of the actual version number.
+      placeholder: xxxxxx
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      description: What operating system are you using? (ex. Windows 11, Ubuntu)
+    validations:
+      required: true
+  - type: input
+    id: mods
+    attributes:
+      label: Mods
+      description: What mods do you have installed?
+      placeholder: None

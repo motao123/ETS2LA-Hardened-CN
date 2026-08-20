@@ -1,0 +1,15 @@
+items:
+  - name: The Map class
+    href: map-class.md
+  - name: Adding and deleting map items
+    href: add-delete-items.md
+  - name: Moving map items
+    href: move-items.md
+  - name: Polyline items
+    href: polyline-items.md
+  - name: Prefabs
+    href: prefabs.md
+  - name: Compounds
+    href: compounds.md
+  - name: Selections
+    href: selection-class.md

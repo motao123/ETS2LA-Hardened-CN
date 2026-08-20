@@ -1,0 +1,40 @@
+name: Build and Test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  verify:
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            publish_script: .\build.ps1
+          - os: ubuntu-latest
+            publish_script: ./build.sh
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.400'
+
+      - name: Verify build and tests (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        env:
+          CI: true
+        run: .\build.ps1 -Test
+
+      - name: Verify build and tests (Linux)
+        if: runner.os == 'Linux'
+        env:
+          CI: true
+        run: ./build.sh --test
