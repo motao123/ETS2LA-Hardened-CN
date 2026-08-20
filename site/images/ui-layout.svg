@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="ETS2LA 主界面布局示意图">
+  <rect x="0" y="0" width="640" height="360" rx="12" fill="#1c1c1e"/>
+  <!-- title bar -->
+  <rect x="24" y="20" width="592" height="36" rx="8" fill="#26262a"/>
+  <circle cx="48" cy="38" r="5" fill="#00d4a4"/>
+  <circle cx="64" cy="38" r="5" fill="#3a3a3d"/>
+  <circle cx="80" cy="38" r="5" fill="#3a3a3d"/>
+  <text x="300" y="42" text-anchor="middle" fill="#e5e5e5" font-size="14" font-family="sans-serif">ETS2LA 安全加固版 · 标题栏</text>
+  <!-- sidebar -->
+  <rect x="24" y="72" width="170" height="268" rx="8" fill="#26262a"/>
+  <text x="40" y="98" fill="#8b8b8f" font-size="11" font-family="sans-serif">MAIN</text>
+  <text x="40" y="122" fill="#00d4a4" font-size="13" font-family="sans-serif">仪表盘</text>
+  <text x="40" y="146" fill="#e5e5e5" font-size="13" font-family="sans-serif">可视化</text>
+  <text x="40" y="176" fill="#8b8b8f" font-size="11" font-family="sans-serif">PLUGINS</text>
+  <text x="40" y="200" fill="#e5e5e5" font-size="13" font-family="sans-serif">管理器</text>
+  <text x="40" y="224" fill="#e5e5e5" font-size="13" font-family="sans-serif">插件目录</text>
+  <text x="40" y="248" fill="#e5e5e5" font-size="13" font-family="sans-serif">性能</text>
+  <text x="40" y="278" fill="#8b8b8f" font-size="11" font-family="sans-serif">HELP</text>
+  <text x="40" y="300" fill="#e5e5e5" font-size="13" font-family="sans-serif">Wiki · 路线图</text>
+  <text x="40" y="324" fill="#00d4a4" font-size="13" font-family="sans-serif">设置</text>
+  <!-- content -->
+  <rect x="206" y="72" width="410" height="268" rx="8" fill="#2e2e32"/>
+  <text x="228" y="104" fill="#ffffff" font-size="16" font-family="sans-serif">内容区（随左侧菜单切换）</text>
+  <text x="228" y="132" fill="#8b8b8f" font-size="12" font-family="sans-serif">· 仪表盘：版本、文档 / GitHub / 原作者入口</text>
+  <text x="228" y="156" fill="#8b8b8f" font-size="12" font-family="sans-serif">· 可视化：速度 / 转速 / 档位 / 燃油 / 坐标</text>
+  <text x="228" y="180" fill="#8b8b8f" font-size="12" font-family="sans-serif">· 性能：FPS / 帧耗时 / CPU / 内存</text>
+  <text x="228" y="204" fill="#8b8b8f" font-size="12" font-family="sans-serif">· 插件目录：安装 / 更新 / 卸载插件</text>
+  <text x="228" y="228" fill="#8b8b8f" font-size="12" font-family="sans-serif">· 路线图：已完成 / 规划中</text>
+  <text x="228" y="252" fill="#8b8b8f" font-size="12" font-family="sans-serif">· 设置：SDK / 辅助功能 / 控制 / 用户 / 更新</text>
+</svg>

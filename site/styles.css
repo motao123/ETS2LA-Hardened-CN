@@ -81,6 +81,7 @@ article { scroll-margin-top: 92px; margin-bottom: 88px; }
 .page-main .lead { margin-bottom: 32px; color: var(--steel); font-size: 17px; }
 .page-main section { margin-top: 8px; }
 .topnav a.active { color: var(--ink); font-weight: 600; }
+.diagram { display: block; width: 100%; max-width: 640px; margin: 18px 0 24px; border: 1px solid var(--hairline); border-radius: var(--radius-md); }
 .section-kicker { color: var(--steel); }
 .lead { color: var(--steel); font-size: 18px; }
 .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 32px; }

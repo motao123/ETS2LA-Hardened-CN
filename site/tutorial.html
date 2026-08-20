@@ -48,6 +48,7 @@
           <li><strong>完全退出游戏再重新启动</strong>（插件只在游戏启动那一刻加载，不重启不会生效）。</li>
           <li>重启后进入一个存档，打开「可视化」页面看到「已连接」即成功。</li>
         </ol>
+        <img class="diagram" src="images/connect-flow.svg" alt="连接游戏流程：游戏 → SCS SDK 插件 → 共享内存 → ETS2LA">
         <div class="callout"><strong>排查</strong><span>如果仍显示「无法连接到游戏」，确认三点：游戏运行中、SDK 已装到 <code>bin\win_x64\plugins</code>、游戏是在安装 SDK 之后启动的（先装后开）。</span></div>
       </section>
 
@@ -61,6 +62,7 @@
           <li><strong>性能</strong>：实时 FPS、单帧耗时、CPU 使用率、内存、游戏连接/暂停状态。</li>
           <li><strong>路线图</strong>：已完成与规划中的里程碑、GitHub 入口。</li>
         </ul>
+        <img class="diagram" src="images/ui-layout.svg" alt="主界面布局：左侧导航 + 内容区">
         <p>切换语言：进入「设置 → 用户 → 界面语言」，选「中文」或「English」，主界面、设置、插件页、覆盖层和教程会立即切换。</p>
       </section>
 
@@ -73,6 +75,7 @@
           <li>安装完成后按提示<strong>重启 ETS2LA</strong>。</li>
           <li>插件目录中的插件来自官方 API；本项目对下载做了 HTTPS + SHA-256 + 解压安全检查。</li>
         </ol>
+        <img class="diagram" src="images/plugin-flow.svg" alt="插件安装流程：下载 → 校验 → 解压 → staging → 原子切换">
       </section>
 
       <section id="t5">
