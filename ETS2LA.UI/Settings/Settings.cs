@@ -26,6 +26,11 @@ namespace ETS2LA.UI.Settings
         {
             _settingsHandler = new SettingsHandler();
             _settings = _settingsHandler.Load<UISettings>("UISettings.json");
+            if (string.IsNullOrWhiteSpace(_settings.Language))
+            {
+                _settings.Language = "ChineseSimplified";
+                _settingsHandler.Save<UISettings>("UISettings.json", _settings);
+            }
             _settingsHandler.RegisterListener<UISettings>("UISettings.json", OnSettingsChanged);
         }
 

@@ -63,6 +63,7 @@ public static class LocalizationManager
         get
         {
             var value = UISettingsHandler.Current.GetSettings().Language;
+            if (string.IsNullOrWhiteSpace(value)) return UiLanguage.ChineseSimplified;
             return Enum.TryParse<UiLanguage>(value, out var language) ? language : UiLanguage.ChineseSimplified;
         }
     }
