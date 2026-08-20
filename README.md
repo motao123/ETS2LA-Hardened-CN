@@ -39,9 +39,10 @@
 
 ## 下载
 
-最新版本从 [Releases](https://github.com/motao123/ETS2LA-Hardened-CN/releases) 下载：
+最新版本从 [Releases](https://github.com/motao123/ETS2LA-Hardened-CN/releases) 下载，有两种安装方式：
 
-- **Windows x64 便携版**：下载 `ETS2LA-Hardened-CN-windows-x64.zip`，解压后运行 `ETS2LA.exe`（self-contained，无需另装 .NET）。
+- **Windows 安装器（推荐，支持自动更新）**：下载 `ETS2LA-win-release-Setup.exe` 或 `ETS2LA-win-release.msi`，安装后可从应用内「设置 → 更新」检查并安装新版本。
+- **Windows x64 便携版**：下载 `ETS2LA-Hardened-CN-windows-x64.zip`，解压后运行 `ETS2LA.exe`（self-contained，无需另装 .NET）。便携版不支持应用内自动更新，需手动下载替换。
 - 每个 Release 附带 `SHA256SUMS-*.txt`，可校验下载包完整性。
 
 完整的「下载 → 连接游戏 → 装插件 → 开驾驶辅助 → 覆盖层交互」图文教程见文档站：

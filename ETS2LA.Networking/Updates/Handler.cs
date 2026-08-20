@@ -130,7 +130,7 @@ public class Updater
     {
         return new UpdateManager(source, new UpdateOptions
         {
-            
+            ExplicitChannel = (System.OperatingSystem.IsWindows() ? "win-release" : "linux-release")
         });
     }
 
