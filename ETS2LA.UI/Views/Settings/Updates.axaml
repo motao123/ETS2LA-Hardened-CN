@@ -17,6 +17,7 @@
                     </StackPanel>
                     <TextBlock Text="更新来源：" />
             <TextBlock Text="{Binding RepositoryUrl}" Classes="Description" TextWrapping="Wrap" />
+            <HyperlinkButton Content="{Binding ManualDownloadLabel}" NavigateUri="{Binding ReleasesUrl}" IsVisible="{Binding !CanAutoUpdate}" HorizontalAlignment="Left" />
             <Button Content="检查更新" Width="150" HorizontalAlignment="Left" Click="OnCheckForUpdatesClick" AutomationProperties.Name="检查更新"/>
                 </StackPanel>
 

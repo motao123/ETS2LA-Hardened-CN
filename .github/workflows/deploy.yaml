@@ -46,10 +46,10 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install .NET 10
+      - name: Setup .NET 10
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "10.0.x"
+          dotnet-version: "10.0.400"
 
       - name: Build
         run: |
@@ -77,41 +77,17 @@ jobs:
             --msiBanner .\Assets\Installer\welcome.bmp `
             --msiLogo .\Assets\Installer\banner.bmp `
             -f net10-x64-desktop `
-            --packTitle "ETS2LA" `
+            --packTitle "ETS2LA Hardened CN" `
             --releaseNotes .\ETS2LA\ReleaseNotes.md
           & $vpk upload github `
             --channel "win-release" `
             --merge `
             --repoUrl "https://github.com/${{ github.repository }}" `
             --publish `
-            --releaseName "ETS2LA C# v${{ needs.check_version.outputs.version }}" `
+            --releaseName "ETS2LA Hardened CN v${{ needs.check_version.outputs.version }}" `
             --tag "v${{ needs.check_version.outputs.version }}" `
             --token ${{ secrets.GITHUB_TOKEN }} `
             --targetCommitish ${{ github.sha }}
-
-          Remove-Item -Path .\Releases -Recurse -Force
-          Set-Content -Path .\publish\Assets\DistributionSource.txt -Value "CNB" -NoNewline
-          & $vpk pack `
-            --channel "win-release" `
-            --packId ETS2LA `
-            --packVersion ${{ needs.check_version.outputs.version }} `
-            --packDir .\publish `
-            --mainExe ETS2LA.exe `
-            --msi `
-            --instLocation PerUser `
-            -i .\ETS2LA.UI\Assets\logo.ico `
-            --instLicense .\LICENSE.txt `
-            --msiBanner .\Assets\Installer\welcome.bmp `
-            --msiLogo .\Assets\Installer\banner.bmp `
-            -f net10-x64-desktop `
-            --packTitle "ETS2LA" `
-            --releaseNotes .\ETS2LA\ReleaseNotes.md
-
-      - name: Upload Windows CNB Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ETS2LA-Windows-CNB
-          path: Releases/**
 
   pack-linux:
     name: Pack & Upload Velopack (Linux)
@@ -124,18 +100,18 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install .NET 10
+      - name: Setup .NET 10
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "10.0.x"
+          dotnet-version: "10.0.400"
 
       - name: Build
         run: |
+          chmod +x publish.sh
           ./publish.sh
 
       - name: Install vpk tool
-        run: |
-          dotnet tool install -g vpk
+        run: dotnet tool install -g vpk
 
       - name: Pack & Upload Velopack
         run: |
@@ -149,115 +125,14 @@ jobs:
             --packDir ./publish \
             --mainExe ETS2LA \
             --icon ./ETS2LA.UI/Assets/logo.ico \
-            --packTitle "ETS2LA" \
+            --packTitle "ETS2LA Hardened CN" \
             --releaseNotes ./ETS2LA/ReleaseNotes.md
           $VPK upload github \
             --channel "linux-release" \
             --merge \
             --repoUrl "https://github.com/${{ github.repository }}" \
             --publish \
-            --releaseName "ETS2LA C# v${{ needs.check_version.outputs.version }}" \
+            --releaseName "ETS2LA Hardened CN v${{ needs.check_version.outputs.version }}" \
             --tag "v${{ needs.check_version.outputs.version }}" \
             --token ${{ secrets.GITHUB_TOKEN }} \
             --targetCommitish ${{ github.sha }}
-
-          rm -rf ./Releases
-          printf "CNB" > ./publish/Assets/DistributionSource.txt
-          $VPK pack \
-            --channel "linux-release" \
-            --packId ETS2LA \
-            --packVersion ${{ needs.check_version.outputs.version }} \
-            --packDir ./publish \
-            --mainExe ETS2LA \
-            --icon ./ETS2LA.UI/Assets/logo.ico \
-            --packTitle "ETS2LA" \
-            --releaseNotes ./ETS2LA/ReleaseNotes.md
-
-      - name: Upload Linux CNB Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ETS2LA-Linux-CNB
-          path: Releases/**
-
-  release-cnb:
-    name: Upload CNB Release Assets
-    needs:
-      - check_version
-      - pack-windows
-      - pack-linux
-    if: needs.check_version.outputs.should_publish == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          fetch-depth: 0
-
-      - name: Download Artifacts
-        id: download-artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: artifacts
-
-      - name: Push CNB
-        id: push-cnb
-        run: |
-          git fetch origin "refs/tags/v${{ needs.check_version.outputs.version }}:refs/tags/v${{ needs.check_version.outputs.version }}"
-          git remote add cnb https://${{ secrets.CNB_USERNAME }}:${{ secrets.CNB_TOKEN }}@cnb.cool/ETS2LA-CN/Euro-Truck-Simulator-2-Lane-Assist.git
-          git fetch cnb rewrite || true
-          git push --force-with-lease cnb HEAD:refs/heads/rewrite
-          git push cnb "refs/tags/v${{ needs.check_version.outputs.version }}"
-
-      - name: Wait for CNB Release
-        id: wait-cnb-release
-        run: |
-          RELEASE_URL="https://cnb.cool/ETS2LA-CN/Euro-Truck-Simulator-2-Lane-Assist/-/releases/tag/v${{ needs.check_version.outputs.version }}"
-          for i in {1..20}; do
-            page="$(curl --silent --show-error --location --fail "$RELEASE_URL" || true)"
-
-            if echo "$page" | grep -q "Download source code"; then
-              echo "CNB release is ready: $RELEASE_URL"
-              exit 0
-            fi
-
-            echo "CNB release page is not ready yet, retrying in 15 seconds... ($i/20)"
-            sleep 15
-          done
-
-          echo "CNB release did not become available in time: $RELEASE_URL"
-          exit 1
-
-      - name: Upload CNB Assets
-        id: upload-cnb-assets
-        run: |
-          for i in {1..20}; do
-            stop_marker="cnb-attachments-output-$RANDOM-$RANDOM"
-            echo "::stop-commands::$stop_marker"
-
-            set +e
-            docker run --rm \
-              -e CNB_TOKEN="${{ secrets.CNB_TOKEN }}" \
-              -e CNB_API_ENDPOINT="https://api.cnb.cool" \
-              -e CNB_WEB_ENDPOINT="https://cnb.cool" \
-              -e CNB_REPO_SLUG="ETS2LA-CN/Euro-Truck-Simulator-2-Lane-Assist" \
-              -e PLUGIN_TAG="v${{ needs.check_version.outputs.version }}" \
-              -e PLUGIN_ATTACHMENTS="artifacts/**/*" \
-              -v ${{ github.workspace }}:/work \
-              -w /work \
-              cnbcool/attachments:latest
-            status=$?
-            set -e
-
-            echo "::$stop_marker::"
-
-            if [ "$status" -eq 0 ]; then
-              exit 0
-            fi
-
-            echo "CNB release is not ready yet, retrying in 15 seconds... ($i/20)"
-            sleep 15
-          done
-
-          echo "Failed to upload CNB assets after waiting for the CNB release."
-          exit 1

@@ -16,10 +16,13 @@ public partial class Updates : UserControl, INotifyPropertyChanged
     private Updater _updater;
 
     public string RepositoryUrl => "https://github.com/motao123/ETS2LA-Hardened-CN";
+    public string ReleasesUrl => "https://github.com/motao123/ETS2LA-Hardened-CN/releases";
     public string CurrentVersion { get; set; } = "Unknown";
     public bool IsUpdateAvailable => LatestUpdateInfo != null;
     public string LatestVersion => LatestUpdateInfo != null ? $"v{LatestUpdateInfo.TargetFullRelease.Version}" : "N/A";
     public string ReleaseNotes => GetReleaseNotes();
+    public bool CanAutoUpdate => _updater.CanAutoUpdate;
+    public string ManualDownloadLabel => LocalizationManager.Get("ManualDownload");
 
     public UpdateInfo? LatestUpdateInfo { get; set; }
     public new event PropertyChangedEventHandler? PropertyChanged;
@@ -58,6 +61,19 @@ public partial class Updates : UserControl, INotifyPropertyChanged
 
     public void OnCheckForUpdatesClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        if (!_updater.CanAutoUpdate)
+        {
+            NotificationHandler.Current.SendNotification(new Notification
+            {
+                Id = "UpdateNotification",
+                Title = LocalizationManager.Get("PortableUpdateTitle"),
+                Content = LocalizationManager.Get("PortableUpdateContent"),
+                Level = NotificationLevel.Information,
+                CloseAfter = 6
+            });
+            return;
+        }
+
         NotificationHandler.Current.SendNotification(new Notification
         {
             Id = "UpdateNotification",

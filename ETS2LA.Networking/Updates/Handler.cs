@@ -25,6 +25,8 @@ public class Updater
     private UpdaterSettings settings = new();
     private SettingsHandler settingsHandler;
     private UpdateInfo? latestUpdateInfo;
+
+    public bool CanAutoUpdate => UpdateManager != null && UpdateManager.IsInstalled;
     
     public List<UpdaterSource> AvailableSources => new()
     {

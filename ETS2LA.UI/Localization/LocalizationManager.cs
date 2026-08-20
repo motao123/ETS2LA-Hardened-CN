@@ -122,7 +122,10 @@ public static class LocalizationManager
             ["PerformancePlaceholderTitle"] = "性能",
             ["PerformancePlaceholderBody"] = "此页面尚未实现，你可以使用外部工具监控性能。",
             ["RoadmapPlaceholderTitle"] = "路线图",
-            ["RoadmapPlaceholderBody"] = "请前往 GitHub 仓库的 Projects 标签页查看公开路线图。"
+            ["RoadmapPlaceholderBody"] = "请前往 GitHub 仓库的 Projects 标签页查看公开路线图。",
+            ["PortableUpdateTitle"] = "便携版",
+            ["PortableUpdateContent"] = "便携版不支持应用内自动更新，请前往 GitHub Releases 手动下载最新版本。",
+            ["ManualDownload"] = "手动下载更新"
         },
         [UiLanguage.English] = new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -176,7 +179,10 @@ public static class LocalizationManager
             ["PerformancePlaceholderTitle"] = "Performance",
             ["PerformancePlaceholderBody"] = "This page hasn't been implemented yet; you can monitor performance using external tools.",
             ["RoadmapPlaceholderTitle"] = "Roadmap",
-            ["RoadmapPlaceholderBody"] = "Please take a look at our public roadmap on GitHub. Navigate to the repository and click on the Projects tab at the top."
+            ["RoadmapPlaceholderBody"] = "Please take a look at our public roadmap on GitHub. Navigate to the repository and click on the Projects tab at the top.",
+            ["PortableUpdateTitle"] = "Portable build",
+            ["PortableUpdateContent"] = "Portable builds do not support in-app auto-update. Please download the latest version from GitHub Releases manually.",
+            ["ManualDownload"] = "Download update manually"
         }
     };
 
