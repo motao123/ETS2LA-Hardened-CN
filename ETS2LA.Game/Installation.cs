@@ -181,8 +181,8 @@ public class Installation
                 NotificationHandler.Current.SendNotification(new Notification
                 {
                     Id = $"ETS2LA.Game.Error.{Guid.NewGuid()}",
-                    Title = "Error Loading File",
-                    Content = $"An error occurred while loading file '{file}': {ex.Message}\nParsing will continue, however information contained in this file won't be available to ETS2LA.",
+                    Title = "加载文件出错",
+                    Content = $"加载文件“{file}”时发生错误：{ex.Message}\n解析将继续，但 ETS2LA 将无法使用此文件中的信息。",
                     IsProgressIndeterminate = false,
                     Level = NotificationLevel.Danger,
                     CloseAfter = 10
@@ -204,8 +204,8 @@ public class Installation
             NotificationHandler.Current.SendNotification(new Notification
             {
                 Id = "ETS2LA.Game.Parsing",
-                Title = "Unpacking Mods",
-                Content = $"This might take a while... ({completed}/{modCount})",
+                Title = "正在解压模组",
+                Content = $"这可能需要一些时间……（{completed}/{modCount}）",
                 IsProgressIndeterminate = false,
                 Progress = completed / (float)modCount * 100f,
                 CloseAfter = 0
@@ -229,8 +229,8 @@ public class Installation
             NotificationHandler.Current.SendNotification(new Notification
             {
                 Id = "ETS2LA.Game.ErrorParsing",
-                Title = "Error Loading Map Data",
-                Content = $"An error occurred while loading map data: {ex.Message}",
+                Title = "加载地图数据出错",
+                Content = $"加载地图数据时发生错误：{ex.Message}",
                 IsProgressIndeterminate = false,
                 Level = NotificationLevel.Danger,
                 CloseAfter = 10
@@ -262,8 +262,8 @@ public class Installation
         NotificationHandler.Current.SendNotification(new Notification
         {
             Id = "ETS2LA.Game.Parsing",
-            Title = "Parsing Map Data",
-            Content = "Initializing...",
+            Title = "正在解析地图数据",
+            Content = "正在初始化……",
             IsProgressIndeterminate = true,
             CloseAfter = 0
         });
@@ -302,8 +302,8 @@ public class Installation
         NotificationHandler.Current.SendNotification(new Notification
         {
             Id = "ETS2LA.Game.Parsing.Complete",
-            Title = "Map Data Parsed",
-            Content = $"Found {prefabs} prefabs, {roads} roads and {nodes} nodes.",
+            Title = "地图数据解析完成",
+            Content = $"找到 {prefabs} 个预制件、{roads} 条道路和 {nodes} 个节点。",
             IsProgressIndeterminate = false,
             CloseAfter = 5
         });

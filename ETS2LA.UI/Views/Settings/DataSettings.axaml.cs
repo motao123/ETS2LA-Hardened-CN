@@ -65,6 +65,9 @@ public partial class DataSettingsPage : UserControl, INotifyPropertyChanged
         ramAmount = GC.GetGCMemoryInfo().TotalAvailableMemoryBytes / (1024f * 1024f * 1024f);
 
         AvaloniaXamlLoader.Load(this);
+
+        ETS2LA.UI.Localization.LocalizationManager.Localize(this);
+
         DataContext = this;
     }
 

@@ -7,9 +7,9 @@
              x:DataType="views:WikiView">
     <Border Padding="20">
         <StackPanel Spacing="8">
-            <HyperlinkButton Content="Frequently Asked Questions (Support)" NavigateUri="https://ets2la.com/help/faq/" />
-            <HyperlinkButton Content="Developer Documentation" NavigateUri="https://docs.ets2la.com" />
-            <HyperlinkButton Content="Blog" NavigateUri="https://docs.ets2la.com/blog" />
+            <HyperlinkButton Content="常见问题（支持）" NavigateUri="https://ets2la.com/help/faq/" />
+            <HyperlinkButton Content="开发者文档" NavigateUri="https://docs.ets2la.com" />
+            <HyperlinkButton Content="博客" NavigateUri="https://docs.ets2la.com/blog" />
         </StackPanel>
     </Border>
 </UserControl>

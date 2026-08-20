@@ -200,8 +200,8 @@ public class PluginHandler
         NotificationHandler.Current.SendNotification(new Notification
         {
             Id = "Backend.PluginHandler.Loading",
-            Title = $"Finished loading plugins",
-            Content = $"Loaded {LoadedPlugins.Count} plugins from the Plugins folder.",
+            Title = $"插件加载完成",
+            Content = $"已从 Plugins 文件夹加载 {LoadedPlugins.Count} 个插件。",
             CloseAfter = 3,
             Level = NotificationLevel.Success
         });
@@ -353,7 +353,7 @@ public class PluginHandler
                     {
                         Id = $"Backend.PluginHandler.MissingDependency.{plugin.Info.Id}",
                         Title = $"{plugin.Info.Name}",
-                        Content = $"Missing dependency: {dependencyId}",
+                        Content = $"缺少依赖项：{dependencyId}",
                         Level = NotificationLevel.Danger
                     });
                     Logger.Warn($"Cannot enable plugin {plugin.Info.Name} because dependency {dependencyId} was not found.");
@@ -368,7 +368,7 @@ public class PluginHandler
                     {
                         Id = $"Backend.PluginHandler.FailedDependency.{dependency.Info.Id}",
                         Title = $"{plugin.Info.Name}",
-                        Content = $"Failed to enable dependency: {dependency.Info.Name}",
+                        Content = $"依赖项启用失败：{dependency.Info.Name}",
                         Level = NotificationLevel.Danger
                     });
                     Logger.Warn($"Cannot enable plugin {plugin.Info.Name} because dependency {dependency.Info.Name} failed to enable.");
@@ -387,7 +387,7 @@ public class PluginHandler
             {
                 Id = $"Backend.PluginHandler.PluginEnabled.{plugin.Info.Id}",
                 Title = $"{plugin.Info.Name}",
-                Content = $"The plugin was enabled successfully.",
+                Content = $"插件已成功启用。",
                 Level = NotificationLevel.Success,
                 CloseAfter = 3
             });

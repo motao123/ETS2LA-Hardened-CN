@@ -1,6 +1,7 @@
 using Hexa.NET.ImGui;
 using ETS2LA.Controls;
 using ETS2LA.ML.Vision;
+using ETS2LA.Shared.Localization;
 using System.Numerics;
 
 namespace ETS2LA.Overlay.Window;
@@ -11,7 +12,7 @@ class VisionCamerasWindow : InternalWindow
     {
         Definition = new WindowDefinition
         {
-            Title = "Vision Cameras",
+            Title = "视觉摄像头",
             Flags = ImGuiWindowFlags.AlwaysAutoResize,
         };
 
@@ -27,7 +28,7 @@ class VisionCamerasWindow : InternalWindow
                     foreach (var camera in VisionHandler.Current.Cameras)
                     {
                         ImGui.TableNextColumn();
-                        ImGui.Text($"Camera {camera.Name} ({camera.Width}x{camera.Height})");
+                        ImGui.Text($"{AppLocalization.Translate("摄像头")} {camera.Name} ({camera.Width}x{camera.Height})");
                         var texRef = new ImTextureRef(
                             texId: new ImTextureID((nint)camera.TextureId)
                         );

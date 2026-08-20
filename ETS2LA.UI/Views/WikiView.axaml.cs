@@ -12,5 +12,7 @@ public partial class WikiView : UserControl
     public WikiView()
     {
         InitializeComponent();
+        ETS2LA.UI.Localization.LocalizationManager.Localize(this);
+
     }
 }

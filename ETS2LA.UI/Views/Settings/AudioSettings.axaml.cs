@@ -14,6 +14,8 @@ public partial class AudioSettings : UserControl
     public AudioSettings()
     {
         InitializeComponent();
+        ETS2LA.UI.Localization.LocalizationManager.Localize(this);
+
         _audioHandler = AudioHandler.Current;
         VolumeSlider.Value = _audioHandler.GetVolume() * 100.0;
     }

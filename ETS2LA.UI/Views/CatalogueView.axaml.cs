@@ -44,6 +44,8 @@ public partial class CatalogueView : UserControl, INotifyPropertyChanged
     {
         UpdatePluginList();
         InitializeComponent();
+        ETS2LA.UI.Localization.LocalizationManager.Localize(this);
+
         DataContext = this;
         
         SizeChanged += (_, _) => OnPropertyChanged(nameof(PluginColumns));

@@ -23,7 +23,7 @@ public class VisionCamerasARRenderer
         {
             Definition = new ARRendererDefinition
             {
-                Name = "Vision Cameras",
+                Name = "视觉摄像头",
                 Alpha = 1f,
             },
             Render3D = () =>

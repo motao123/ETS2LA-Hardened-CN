@@ -6,10 +6,10 @@
     <Grid ColumnDefinitions="300,*">
         <StackPanel Grid.Column="0" Spacing="12" Margin="20">
             <StackPanel Orientation="Horizontal" Spacing="6">
-                <TextBlock Text="Audio Volume" />
+                <TextBlock Text="音量" />
                 <TextBlock Text="{Binding ElementName=VolumeSlider, Path=Value, StringFormat='{}{0:0}%'}" />
             </StackPanel>
-            <Slider Name="VolumeSlider" Minimum="0" Maximum="100" ValueChanged="OnVolumeChanged" AutomationProperties.Name="Current volume"/>
+            <Slider Name="VolumeSlider" Minimum="0" Maximum="100" ValueChanged="OnVolumeChanged" AutomationProperties.Name="当前音量"/>
         </StackPanel>
     </Grid>
 </UserControl>

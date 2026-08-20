@@ -23,45 +23,45 @@
                         PointerPressed="OnTitlebarPressed">
                     <Grid ColumnDefinitions="Auto,*,Auto" VerticalAlignment="Center">
                         <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="4" VerticalAlignment="Center" Margin="0 0 0 0" HorizontalAlignment="Left">
-                            <Button Classes="titlebar" Click="TogglePane" Padding="6" Margin="0" ToolTip.Tip="Toggle Sidebar" AutomationProperties.Name="Toggle Sidebar">
+                            <Button Classes="titlebar" Click="TogglePane" Padding="6" Margin="0" ToolTip.Tip="切换侧栏" AutomationProperties.Name="切换侧栏">
                                 <i:Icon Value="fa-arrow-right-to-bracket" Name="ToggleSidebarIcon" />
                             </Button>
 
                             <husk:Divider Orientation="Vertical" Name="TitlebarDividerLeft" />
-                            <Button Classes="titlebar" Click="OnVisualizationClick" Padding="6" Margin="0" Name="VisualizationButtonTitlebar" ToolTip.Tip="Open Visualization" AutomationProperties.Name="Open Visualization">
+                            <Button Classes="titlebar" Click="OnVisualizationClick" Padding="6" Margin="0" Name="VisualizationButtonTitlebar" ToolTip.Tip="打开可视化" AutomationProperties.Name="打开可视化">
                                 <i:Icon Value="fa-tv"/>
                             </Button>
-                            <Button Classes="titlebar" Click="OnManagerClick" Padding="6" Margin="0" Name="ManagerButtonTitlebar" ToolTip.Tip="Open Plugin Manager" AutomationProperties.Name="Open Plugin Manager">
+                            <Button Classes="titlebar" Click="OnManagerClick" Padding="6" Margin="0" Name="ManagerButtonTitlebar" ToolTip.Tip="打开插件管理器" AutomationProperties.Name="打开插件管理器">
                                 <i:Icon Value="fa-bars-staggered"/>
                             </Button>
-                            <Button Classes="titlebar" Click="OnSettingsClick" Padding="6" Margin="0" Name="SettingsButtonTitlebar" ToolTip.Tip="Open Settings" AutomationProperties.Name="Open Settings">
+                            <Button Classes="titlebar" Click="OnSettingsClick" Padding="6" Margin="0" Name="SettingsButtonTitlebar" ToolTip.Tip="打开设置" AutomationProperties.Name="打开设置">
                                 <i:Icon Value="fa-cog"/>
                             </Button>
                             <husk:Divider Orientation="Vertical" Margin="0 0 6 0" Name="TitlebarDividerRight" />
 
                             <TextBlock Text="ETS2LA" FontSize="13" FontWeight="500" VerticalAlignment="Center" Margin="0 0 0 0" IsHitTestVisible="False"/>
-                            <TextBlock Name="VersionText" Text="Unknown Version" Classes="Description" FontSize="10" VerticalAlignment="Center" Margin="0 0 0 0" IsHitTestVisible="False" />
+                            <TextBlock Name="VersionText" Text="未知版本" Classes="Description" FontSize="10" VerticalAlignment="Center" Margin="0 0 0 0" IsHitTestVisible="False" />
                         </StackPanel>
 
                         <Border Grid.Column="1" Background="Transparent" />
                         <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="5" VerticalAlignment="Center" Margin="0 0 0 0" HorizontalAlignment="Right">
-                            <Button Classes="titlebar" Click="OnTransparencyClick" Padding="6" Margin="0" ToolTip.Tip="Toggle Transparency" AutomationProperties.Name="Toggle Window Transparency">
+                            <Button Classes="titlebar" Click="OnTransparencyClick" Padding="6" Margin="0" ToolTip.Tip="切换透明度" AutomationProperties.Name="切换窗口透明度">
                                 <i:Icon Value="fa-circle" Name="TransparencyIcon"/>
                             </Button>
-                            <Button Classes="titlebar" Click="OnStayOnTopClick" Padding="6" Margin="0" ToolTip.Tip="Stay on Top" AutomationProperties.Name="Toggle Window Stay on Top">
+                            <Button Classes="titlebar" Click="OnStayOnTopClick" Padding="6" Margin="0" ToolTip.Tip="置于顶层" AutomationProperties.Name="切换窗口置顶">
                                 <i:Icon Value="mdi-picture-in-picture-bottom-right-outline" FontSize="15" Name="StayOnTopIcon"/>
                             </Button>
                             
                             <husk:Divider Orientation="Vertical" Margin="0 0 0 0" />
 
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0 0 0 0">
-                                <Button Classes="titlebar" Click="OnMinimizeClick" Padding="6" Margin="0" ToolTip.Tip="Minimize" AutomationProperties.Name="Minimize Window">
+                                <Button Classes="titlebar" Click="OnMinimizeClick" Padding="6" Margin="0" ToolTip.Tip="最小化" AutomationProperties.Name="最小化窗口">
                                     <i:Icon Value="fa-square-minus" Foreground="{DynamicResource Warning10Color}" />
                                 </Button>
-                                <Button Classes="titlebar" Click="OnMaxRestoreClick" Padding="6" Margin="0" ToolTip.Tip="Maximize/Restore" AutomationProperties.Name="Maximize/Restore Window">
+                                <Button Classes="titlebar" Click="OnMaxRestoreClick" Padding="6" Margin="0" ToolTip.Tip="最大化/还原" AutomationProperties.Name="最大化/还原窗口">
                                     <i:Icon Value="fa-window-maximize" Name="MaximizeRestoreIcon" Foreground="{DynamicResource Success10Color}"/>
                                 </Button>
-                                <Button Classes="titlebar" Click="OnCloseClick" Padding="6" Margin="0" ToolTip.Tip="Close ETS2LA" AutomationProperties.Name="Close ETS2LA">
+                                <Button Classes="titlebar" Click="OnCloseClick" Padding="6" Margin="0" ToolTip.Tip="关闭 ETS2LA" AutomationProperties.Name="关闭 ETS2LA">
                                     <i:Icon Value="fa-rectangle-xmark" Foreground="{DynamicResource Danger10Color}" />
                                 </Button>
                             </StackPanel>
@@ -84,65 +84,65 @@
                                 <Grid RowDefinitions="Auto,*">
                                     <StackPanel Grid.Row="0" Spacing="14" Margin="6 0 6 0">
                                         <StackPanel Spacing="0">
-                                            <TextBlock x:Name="MainLabel" Text="Main" FontSize="12" Margin="15 0 0 8" Classes="Description" TextWrapping="NoWrap" />
-                                            <Button x:Name="DashboardButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnDashboardClick" AutomationProperties.Name="Open Dashboard">
+                                            <TextBlock x:Name="MainLabel" Text="主菜单" FontSize="12" Margin="15 0 0 8" Classes="Description" TextWrapping="NoWrap" />
+                                            <Button x:Name="DashboardButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnDashboardClick" AutomationProperties.Name="打开仪表盘">
                                                 <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                                                     <i:Icon Grid.Column="0" Value="fa-house" FontSize="14" />
-                                                    <TextBlock x:Name="DashboardLabel" Grid.Column="1" Text="Dashboard" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                                                    <TextBlock x:Name="DashboardLabel" Grid.Column="1" Text="仪表盘" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                                                 </Grid>
                                             </Button>
-                                            <Button x:Name="VisualizationButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnVisualizationClick" AutomationProperties.Name="Open Visualization">
+                                            <Button x:Name="VisualizationButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnVisualizationClick" AutomationProperties.Name="打开可视化">
                                                 <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                                                     <i:Icon Grid.Column="0" Value="fa-tv" FontSize="14" />
-                                                    <TextBlock x:Name="VisualizationLabel" Grid.Column="1" Text="Visualization" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                                                    <TextBlock x:Name="VisualizationLabel" Grid.Column="1" Text="可视化" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                                                 </Grid>
                                             </Button>
                                         </StackPanel>
 
                                         <StackPanel Spacing="0">
-                                            <TextBlock x:Name="PluginsLabel" Text="Plugins" FontSize="12" Margin="15 0 0 8" Classes="Description" TextWrapping="NoWrap" />
-                                            <Button x:Name="ManagerButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnManagerClick" AutomationProperties.Name="Open Plugin Manager">
+                                            <TextBlock x:Name="PluginsLabel" Text="插件" FontSize="12" Margin="15 0 0 8" Classes="Description" TextWrapping="NoWrap" />
+                                            <Button x:Name="ManagerButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnManagerClick" AutomationProperties.Name="打开插件管理器">
                                                 <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                                                     <i:Icon Grid.Column="0" Value="fa-bars-staggered" FontSize="14" />
-                                                    <TextBlock x:Name="ManagerLabel" Grid.Column="1" Text="Manager" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                                                    <TextBlock x:Name="ManagerLabel" Grid.Column="1" Text="管理器" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                                                 </Grid>
                                             </Button>
-                                            <Button x:Name="CatalogueButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnCatalogueClick" AutomationProperties.Name="Open Plugin Catalogue">
+                                            <Button x:Name="CatalogueButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnCatalogueClick" AutomationProperties.Name="打开插件目录">
                                                 <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                                                     <i:Icon Grid.Column="0" Value="fa-store" FontSize="14" />
-                                                    <TextBlock x:Name="CatalogueLabel" Grid.Column="1" Text="Catalogue" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                                                    <TextBlock x:Name="CatalogueLabel" Grid.Column="1" Text="目录" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                                                 </Grid>
                                             </Button>
-                                            <Button x:Name="PerformanceButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnPerformanceClick" AutomationProperties.Name="Open Performance Page">
+                                            <Button x:Name="PerformanceButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnPerformanceClick" AutomationProperties.Name="打开性能页面">
                                                 <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                                                     <i:Icon Grid.Column="0" Value="fa-chart-simple" FontSize="14" />
-                                                    <TextBlock x:Name="PerformanceLabel" Grid.Column="1" Text="Performance" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                                                    <TextBlock x:Name="PerformanceLabel" Grid.Column="1" Text="性能" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                                                 </Grid>
                                             </Button>
                                         </StackPanel>
 
                                         <StackPanel Spacing="0">
-                                            <TextBlock x:Name="HelpLabel" Text="Help" FontSize="12" Margin="15 0 0 8" Classes="Description" TextWrapping="NoWrap" />
-                                            <Button x:Name="WikiButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnWikiClick" AutomationProperties.Name="Open Wiki (InOperable)">
+                                            <TextBlock x:Name="HelpLabel" Text="帮助" FontSize="12" Margin="15 0 0 8" Classes="Description" TextWrapping="NoWrap" />
+                                            <Button x:Name="WikiButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnWikiClick" AutomationProperties.Name="打开知识库（暂不可用）">
                                                 <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                                                     <i:Icon Grid.Column="0" Value="fa-circle-question" FontSize="14" />
-                                                    <TextBlock x:Name="WikiLabel" Grid.Column="1" Text="Wiki" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                                                    <TextBlock x:Name="WikiLabel" Grid.Column="1" Text="知识库" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                                                 </Grid>
                                             </Button>
-                                            <Button x:Name="RoadmapButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnRoadmapClick" AutomationProperties.Name="Open Roadmap (InOperable)">
+                                            <Button x:Name="RoadmapButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnRoadmapClick" AutomationProperties.Name="打开路线图（暂不可用）">
                                                 <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                                                     <i:Icon Grid.Column="0" Value="fa-bars-progress" FontSize="14" />
-                                                    <TextBlock x:Name="RoadmapLabel" Grid.Column="1" Text="Roadmap" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                                                    <TextBlock x:Name="RoadmapLabel" Grid.Column="1" Text="路线图" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                                                 </Grid>
                                             </Button>
                                         </StackPanel>
                                     </StackPanel>
 
                                     <StackPanel Grid.Row="1" Spacing="12" Margin="6 0 6 0" VerticalAlignment="Bottom">
-                                        <Button x:Name="SettingsButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnSettingsClick" AutomationProperties.Name="Open Settings">
+                                        <Button x:Name="SettingsButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnSettingsClick" AutomationProperties.Name="打开设置">
                                             <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                                                 <i:Icon Grid.Column="0" Value="fa-cog" FontSize="14" />
-                                                <TextBlock x:Name="SettingsLabel" Grid.Column="1" Text="Settings" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                                                <TextBlock x:Name="SettingsLabel" Grid.Column="1" Text="设置" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                                             </Grid>
                                         </Button>
                                     </StackPanel>

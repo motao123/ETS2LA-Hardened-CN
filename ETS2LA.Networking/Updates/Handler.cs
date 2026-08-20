@@ -12,6 +12,7 @@ namespace ETS2LA.Networking.Updates;
 // https://docs.velopack.io/integrating/overview#configuring-updates
 public class Updater
 {
+    private const string RepositoryUrl = "https://github.com/motao123/ETS2LA-Hardened-CN";
     private const string FallbackSource = "GitHub";
     // This is used to determine the default source for updates. It's set at build time 
     // and bundled with the application. If it's missing we fallback to the FallbackSource.
@@ -28,12 +29,8 @@ public class Updater
     public List<UpdaterSource> AvailableSources => new()
     {
         new UpdaterSource(
-            new GithubSource("https://github.com/ETS2LA/Euro-Truck-Simulator-2-Lane-Assist", null, false),
+            new GithubSource(RepositoryUrl, null, false),
             "GitHub"
-        ),
-        new UpdaterSource(
-            new SimpleWebSource("https://cnb.cool/ETS2LA-CN/Euro-Truck-Simulator-2-Lane-Assist/-/releases/latest/download/"),
-            "CNB"
         )
     };
 
@@ -46,12 +43,6 @@ public class Updater
 
     public UpdateInfo? CheckForUpdates()
     {
-        if (latestUpdateInfo != null)
-        {
-            Logger.Info("Update check skipped, using already cached result.");
-            return latestUpdateInfo;
-        }
-
         try
         {
             var updateInfo = UpdateManager.CheckForUpdates();
@@ -62,7 +53,15 @@ public class Updater
         }
         catch (Exception ex)
         {
-            Logger.Error($"Error while checking for updates: {ex.Message}");
+            if (ex.Message.Contains("not installed", StringComparison.OrdinalIgnoreCase) ||
+                ex.Message.Contains("not be performed", StringComparison.OrdinalIgnoreCase))
+            {
+                Logger.Info("Auto-update requires an installed application; skipping update check for this portable build.");
+            }
+            else
+            {
+                Logger.Error($"Error while checking for updates: {ex.Message}");
+            }
             return null;
         }
     }

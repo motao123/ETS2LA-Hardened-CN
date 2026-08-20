@@ -15,18 +15,18 @@
     <Grid ColumnDefinitions="200, Auto, *" ColumnSpacing="0">
         <StackPanel Orientation="Vertical" Spacing="8" VerticalAlignment="Top" Margin="24">
             <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Top">
-                <Button Click="OnOpenFolderButtonClick" ToolTip.Tip="Open plugins folder" AutomationProperties.Name="Open Plugins Folder, button, icon-only">
+                <Button Click="OnOpenFolderButtonClick" ToolTip.Tip="打开插件文件夹" AutomationProperties.Name="打开插件文件夹，仅图标按钮">
                     <i:Icon Value="fa-folder-open" FontSize="12" />
                 </Button>
                 <Separator Height="20" Width="1" />
-                <Button Click="OnUnloadButtonClick" IsEnabled="{Binding HasPlugins}" ToolTip.Tip="Unload plugins" AutomationProperties.Name="Unload Plugins, button, icon-only">
+                <Button Click="OnUnloadButtonClick" IsEnabled="{Binding HasPlugins}" ToolTip.Tip="卸载插件" AutomationProperties.Name="卸载插件，仅图标按钮">
                     <i:Icon Value="fa-eject" FontSize="12" />
                 </Button>
-                <Button Click="OnReloadButtonClick" IsEnabled="{Binding !HasPlugins}" ToolTip.Tip="Reload plugins" AutomationProperties.Name="Reload Plugins, button, icon-only">
+                <Button Click="OnReloadButtonClick" IsEnabled="{Binding !HasPlugins}" ToolTip.Tip="重新加载插件" AutomationProperties.Name="重新加载插件，仅图标按钮">
                     <i:Icon Value="fa-sync" FontSize="12" />
                 </Button>
             </StackPanel>
-            <TextBox PlaceholderText="Search plugins..." Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox PlaceholderText="搜索插件..." Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
         <husk:Divider Grid.Column="1" Orientation="Vertical" VerticalAlignment="Stretch" />
@@ -69,11 +69,11 @@
                                             <Grid ColumnDefinitions="Auto, *" ColumnSpacing="8">
                                                 <TextBlock Text="{Binding Name}" FontSize="14" />
                                                 <husk:Tag Grid.Column="1" IsVisible="{Binding IsEnabled}" Classes="Primary" HorizontalAlignment="Right">
-                                                    <TextBlock Text="Enabled" FontSize="12" FontWeight="SemiBold" />
+                                                    <TextBlock Text="已启用" FontSize="12" FontWeight="SemiBold" />
                                                 </husk:Tag>
                                             </Grid>
                                             <StackPanel Orientation="Horizontal" Spacing="2" VerticalAlignment="Center">
-                                                <TextBlock Text="By" FontSize="12" />    
+                                                <TextBlock Text="作者：" FontSize="12" />
                                                 <HyperlinkButton Content="{Binding Author}" NavigateUri="{Binding AuthorLink}" FontSize="11" />
                                             </StackPanel>
                                         </StackPanel>
@@ -81,11 +81,11 @@
                                     </StackPanel>
                                     <husk:Divider Grid.Column="2" Orientation="Vertical" VerticalAlignment="Stretch" Margin="10,0" />
                                     <StackPanel Grid.Column="3" Spacing="2">
-                                        <StackPanel Orientation="Horizontal" Spacing="4" ToolTip.Tip="Plugin Version">
+                                        <StackPanel Orientation="Horizontal" Spacing="4" ToolTip.Tip="插件版本">
                                             <i:Icon Value="fa-info-circle" FontSize="12" />
                                             <TextBlock Text="{Binding Version}" FontSize="12" HorizontalAlignment="Right" />
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal" Spacing="4" ToolTip.Tip="Supported ETS2LA Version(s)">
+                                        <StackPanel Orientation="Horizontal" Spacing="4" ToolTip.Tip="支持的 ETS2LA 版本">
                                             <i:Icon Value="fa-cubes" FontSize="12" />
                                             <TextBlock Text="{Binding SupportedVersion}" FontSize="12" HorizontalAlignment="Right" />
                                         </StackPanel>
@@ -100,9 +100,9 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
                 <StackPanel Margin="10" IsVisible="{Binding !HasPlugins}">
-                    <TextBlock Text="No plugins found, please make sure there are .DLLs in the plugins folder, or install via the Catalogue." Classes="Description" />
+                    <TextBlock Text="未找到插件，请确认插件文件夹中存在 .DLL 文件，或通过目录安装。" Classes="Description" />
                     <WrapPanel Grid.Row="1" Margin="0,12,0,0">
-                        <Button Click="OpenCataloguePage" Content="Go to Catalogue" Classes="Secondary" AutomationProperties.Name="Open Plugin Catalogue, button"/>
+                        <Button Click="OpenCataloguePage" Content="前往目录" Classes="Secondary" AutomationProperties.Name="打开插件目录按钮"/>
                     </WrapPanel>
                 </StackPanel>
             </StackPanel>

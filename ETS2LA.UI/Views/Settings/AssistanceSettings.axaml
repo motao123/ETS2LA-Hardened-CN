@@ -13,27 +13,27 @@
                 <StackPanel Spacing="3">
                     <StackPanel Orientation="Horizontal" Spacing="6">
                         <husk:Tag IsVisible="{Binding SeparateCruiseAndSteering}" Classes="Primary" Width="35">
-                            <TextBlock Text="ON " Classes="Highlight" HorizontalAlignment="Center" />
+                            <TextBlock Text="开" Classes="Highlight" HorizontalAlignment="Center" />
                         </husk:Tag>
                         <husk:Tag IsVisible="{Binding !SeparateCruiseAndSteering}" Classes="Secondary" Width="35">
-                            <TextBlock Text="OFF" Classes="Description" HorizontalAlignment="Center" />
+                            <TextBlock Text="关" Classes="Description" HorizontalAlignment="Center" />
                         </husk:Tag>
-                        <TextBlock Text="Separate Cruise and Steering" />
+                        <TextBlock Text="分离巡航与转向" />
                     </StackPanel>
-                    <TextBlock Text="Whether to separate cruise control and steering. If separated, a single tap will signal Cruise, while a double tap will enable both." FontSize="12" Classes="Description" />
+                    <TextBlock Text="是否分离巡航控制和转向。分离后，单击将触发巡航，双击将同时启用两者。" FontSize="12" Classes="Description" />
                 </StackPanel>
             </StackPanel>
             -->
 
             <StackPanel Spacing="10">
                 <StackPanel Spacing="3">
-                    <TextBlock Text="SET Behaviour" />
-                    <TextBlock Text="When pressing the SET button, what should ETS2LA set as the current cruise control speed?" FontSize="12" Classes="Description" />
+                    <TextBlock Text="SET 行为" />
+                    <TextBlock Text="按下 SET 按钮时，ETS2LA 应将当前巡航控制速度设置为什么？" FontSize="12" Classes="Description" />
                 </StackPanel>
                 <TabStrip ItemsSource="{Binding SetSpeedBehaviourOptions}" 
                         SelectedIndex="{Binding SelectedSetSpeedBehaviourOption}" 
                         SelectionChanged="OnSetSpeedBehaviourChanged"
-                        AutomationProperties.Name="SET Keybind Behaviour">
+                        AutomationProperties.Name="SET 按键行为">
 
                     <TabStrip.Styles>
                         <Style Selector="TabStripItem" x:DataType="views:TabStripItemHandler">
@@ -54,30 +54,30 @@
             <StackPanel Spacing="10">
                 <Grid ColumnDefinitions="*, Auto">
                     <TextBlock Text="{Binding SnapTo10UnitsDisplay}" VerticalAlignment="Center" />
-                    <ToggleSwitch Grid.Column="1" IsChecked="{Binding SnapTo10Units}" Classes="primary-toggle" AutomationProperties.Name="Snap ACC to 10 units" />
+                    <ToggleSwitch Grid.Column="1" IsChecked="{Binding SnapTo10Units}" Classes="primary-toggle" AutomationProperties.Name="将 ACC 吸附到 10 个单位" />
                 </Grid>
-                <TextBlock Text="When changing the speed, snap to the nearest 10 units. i.e. 37 -> 39 -> 40 -> 42..." FontSize="12" Classes="Description" />
+                <TextBlock Text="更改速度时吸附到最接近的 10 个单位，例如 37 -> 39 -> 40 -> 42……" FontSize="12" Classes="Description" />
             </StackPanel>
 
             <StackPanel Spacing="12">
                 <StackPanel Orientation="Horizontal" Spacing="6">
-                    <TextBlock Text="Speed Control Step Size" />
+                    <TextBlock Text="速度控制步长" />
                     <TextBlock Text="{Binding SpeedControlDisplay}" />
                 </StackPanel>
-                <Slider Name="SpeedControlStepSizeSlider" Minimum="1" Maximum="5" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding SpeedControlStepSize}" AutomationProperties.Name="ACC speed control step size" />
+                <Slider Name="SpeedControlStepSizeSlider" Minimum="1" Maximum="5" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding SpeedControlStepSize}" AutomationProperties.Name="ACC 速度控制步长" />
             </StackPanel>
 
             <Separator />
 
             <StackPanel Spacing="10">
                 <StackPanel Spacing="3">
-                    <TextBlock Text="Steering Response" />
-                    <TextBlock Text="Adjust how ETS2LA will respond to necessary steering changes. This for example controls how quickly ETS2LA will lane-change." FontSize="12" Classes="Description" />
+                    <TextBlock Text="转向响应" />
+                    <TextBlock Text="调整 ETS2LA 对必要转向变化的响应方式，例如控制变道速度。" FontSize="12" Classes="Description" />
                 </StackPanel>
                 <TabStrip ItemsSource="{Binding SteeringSensitivityOptions}" 
                         SelectedIndex="{Binding SelectedSteeringSensitivityOption}" 
                         SelectionChanged="OnSteeringSensitivityChanged"
-                        AutomationProperties.Name="Steering response">
+                        AutomationProperties.Name="转向响应">
 
                     <TabStrip.Styles>
                         <Style Selector="TabStripItem" x:DataType="views:TabStripItemHandler">
@@ -97,13 +97,13 @@
             
             <StackPanel Spacing="10">
                 <StackPanel Spacing="3">
-                    <TextBlock Text="Acceleration Response" />
-                    <TextBlock Text="Adjust how quickly ETS2LA will respond to desired changes in acceleration. Emergency braking is not affected." FontSize="12" Classes="Description" />
+                    <TextBlock Text="加速响应" />
+                    <TextBlock Text="调整 ETS2LA 对期望加速度变化的响应速度。紧急制动不受影响。" FontSize="12" Classes="Description" />
                 </StackPanel>
                 <TabStrip ItemsSource="{Binding AccelerationOptions}" 
                         SelectedIndex="{Binding SelectedAccelerationOption}"
                         SelectionChanged="OnAccelerationOptionChanged"
-                        AutomationProperties.Name="Acceleration response">
+                        AutomationProperties.Name="加速响应">
 
                     <TabStrip.Styles>
                         <Style Selector="TabStripItem" x:DataType="views:TabStripItemHandler">
@@ -123,13 +123,13 @@
 
             <StackPanel Spacing="10">
                 <StackPanel Spacing="3">
-                    <TextBlock Text="Following Distance" />
-                    <TextBlock Text="Adjust the distance ETS2LA will try to maintain from the vehicle in front of you when using adaptive cruise control." FontSize="12" Classes="Description" />
+                    <TextBlock Text="跟车距离" />
+                    <TextBlock Text="使用自适应巡航控制时，调整 ETS2LA 尝试与前车保持的距离。" FontSize="12" Classes="Description" />
                 </StackPanel>
                 <TabStrip ItemsSource="{Binding FollowingDistanceOptions}" 
                         SelectedIndex="{Binding SelectedFollowingDistanceOption}" 
                         SelectionChanged="OnFollowingDistanceChanged"
-                        AutomationProperties.Name="Following distance">
+                        AutomationProperties.Name="跟车距离">
 
                     <TabStrip.Styles>
                         <Style Selector="TabStripItem" x:DataType="views:TabStripItemHandler">
@@ -149,39 +149,39 @@
 
             <StackPanel Spacing="10">
                 <Grid ColumnDefinitions="*, Auto">
-                    <TextBlock Text="Ignore Traffic Rules" VerticalAlignment="Center" />
-                    <ToggleSwitch Grid.Column="1" IsChecked="{Binding IgnoreTrafficRules}" Classes="primary-toggle" AutomationProperties.Name="Ignore Traffic Rules" />
+                    <TextBlock Text="忽略交通规则" VerticalAlignment="Center" />
+                    <ToggleSwitch Grid.Column="1" IsChecked="{Binding IgnoreTrafficRules}" Classes="primary-toggle" AutomationProperties.Name="忽略交通规则" />
                 </Grid>
-                <TextBlock Text="We will ignore traffic rules and speed limits. Expect damage to your vehicle and others. Why would you enable this?" FontSize="12" Classes="Description" />
+                <TextBlock Text="我们将忽略交通规则和限速。请做好车辆及他人车辆受损的准备。为什么要启用此选项？" FontSize="12" Classes="Description" />
             </StackPanel>
 
             <StackPanel Spacing="12">
                 <StackPanel Orientation="Horizontal" Spacing="6">
-                    <TextBlock Text="Maximum Speed" />
+                    <TextBlock Text="最高速度" />
                     <TextBlock Text="{Binding MaximumSpeedDisplay}" />
                 </StackPanel>
-                <Slider Name="MaximumSpeedSlider" Minimum="0" Maximum="120" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding MaximumSpeed}" AutomationProperties.Name="Maximum speed limit" />
+                <Slider Name="MaximumSpeedSlider" Minimum="0" Maximum="120" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding MaximumSpeed}" AutomationProperties.Name="最高速度限制" />
             </StackPanel>
 
             <Separator />
 
             <StackPanel Spacing="10">
                 <Grid ColumnDefinitions="*, Auto">
-                    <TextBlock Text="Pause When Unstable" VerticalAlignment="Center" />
-                    <ToggleSwitch Grid.Column="1" IsChecked="{Binding PauseWhenUnstable}" Classes="primary-toggle" AutomationProperties.Name="Pause When Unstable" />
+                    <TextBlock Text="不稳定时暂停" VerticalAlignment="Center" />
+                    <ToggleSwitch Grid.Column="1" IsChecked="{Binding PauseWhenUnstable}" Classes="primary-toggle" AutomationProperties.Name="不稳定时暂停" />
                 </Grid>
-                <TextBlock Text="We will pause the game when we detect instability or the steering is unresponsive / disables itself." FontSize="12" Classes="Description" />
+                <TextBlock Text="检测到不稳定，或转向无响应/自行禁用时，我们将暂停游戏。" FontSize="12" Classes="Description" />
             </StackPanel>
 
             <StackPanel Spacing="10">
                 <StackPanel Spacing="3">
-                    <TextBlock Text="Speed Limit Warning" />
-                    <TextBlock Text="How should ETS2LA warn you about speed limits?" FontSize="12" Classes="Description" />
+                    <TextBlock Text="限速警告" />
+                    <TextBlock Text="ETS2LA 应如何提醒限速？" FontSize="12" Classes="Description" />
                 </StackPanel>
                 <TabStrip ItemsSource="{Binding SpeedLimitWarningOptions}" 
                         SelectedIndex="{Binding SelectedSpeedLimitWarningOption}"
                         SelectionChanged="OnSpeedLimitWarningChanged"
-                        AutomationProperties.Name="Speedlimit warning style">
+                        AutomationProperties.Name="限速警告样式">
 
                     <TabStrip.Styles>
                         <Style Selector="TabStripItem" x:DataType="views:TabStripItemHandler">
@@ -201,13 +201,13 @@
 
             <StackPanel Spacing="10">
                 <StackPanel Spacing="3">
-                    <TextBlock Text="Collision Avoidance" />
-                    <TextBlock Text="At what time should ETS2LA intervene to avoid a collision?" FontSize="12" Classes="Description" />
+                    <TextBlock Text="碰撞规避" />
+                    <TextBlock Text="ETS2LA 应在何时介入以避免碰撞？" FontSize="12" Classes="Description" />
                 </StackPanel>
                 <TabStrip ItemsSource="{Binding CollisionAvoidanceOptions}" 
                         SelectedIndex="{Binding SelectedCollisionAvoidanceOption}" 
                         SelectionChanged="OnCollisionAvoidanceChanged"
-                        AutomationProperties.Name="Collision avoidance distance">
+                        AutomationProperties.Name="碰撞规避距离">
 
                     <TabStrip.Styles>
                         <Style Selector="TabStripItem" x:DataType="views:TabStripItemHandler">

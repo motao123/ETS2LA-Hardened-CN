@@ -5,6 +5,7 @@ using ETS2LA.Backend.Events;
 using ETS2LA.Logging;
 using ETS2LA.Notifications;
 using ETS2LA.Audio;
+using ETS2LA.Shared.Localization;
 
 namespace ETS2LA.Tutorials;
 
@@ -116,7 +117,7 @@ public class TutorialExecutor
                 }, () =>
                 {
                     ImGui.Text(showMessageWaitNext.Message);
-                    ImGui.Button("Next");
+                    ImGui.Button(AppLocalization.Translate("下一步"));
                     if (ImGui.IsItemClicked())
                     {
                         actionLocked = false;

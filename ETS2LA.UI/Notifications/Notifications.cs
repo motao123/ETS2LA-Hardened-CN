@@ -1,6 +1,7 @@
 using ETS2LA.Shared;
 using ETS2LA.Logging;
 using ETS2LA.Notifications;
+using ETS2LA.UI.Localization;
 
 using Avalonia.Threading;
 using Huskui.Avalonia.Controls;
@@ -34,8 +35,8 @@ public class UINotificationHandler
             SendNotification(new UINotification
             {
                 Id = notification.Id,
-                Title = notification.Title,
-                Content = notification.Content,
+                Title = LocalizationManager.TranslateLiteral(notification.Title),
+                Content = LocalizationManager.TranslateLiteral(notification.Content),
                 Level = NotifToGrowlLevel(notification.Level),
                 Progress = notification.Progress,
                 IsProgressIndeterminate = notification.IsProgressIndeterminate,
@@ -50,8 +51,8 @@ public class UINotificationHandler
             UpdateNotification(new UINotification
             {
                 Id = notification.Id,
-                Title = notification.Title,
-                Content = notification.Content,
+                Title = LocalizationManager.TranslateLiteral(notification.Title),
+                Content = LocalizationManager.TranslateLiteral(notification.Content),
                 Level = NotifToGrowlLevel(notification.Level),
                 Progress = notification.Progress,
                 IsProgressIndeterminate = notification.IsProgressIndeterminate,

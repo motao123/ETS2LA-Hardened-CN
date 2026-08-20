@@ -5,6 +5,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using System.Numerics;
 using ETS2LA.Backend.Events;
+using ETS2LA.Shared.Localization;
 
 namespace ETS2LA.Tutorials.DefaultTutorials;
 
@@ -14,16 +15,16 @@ public class OnboardingPart2
 
     public Tutorial Create()
     {
-        return new Tutorial("OnboardingPart2", "Onboarding from when the catalogue plugins were installed.", "ETS2LA", new List<TutorialSection>
+        return new Tutorial("OnboardingPart2", AppLocalization.Translate("从插件目录安装完成后的入门教程。"), "ETS2LA", new List<TutorialSection>
         {
             new TutorialSection
             {
-                Title = "Introduction to the User Interface",
+                Title = AppLocalization.Translate("用户界面简介"),
                 Actions = new List<TutorialAction>
                 {
                     new ShowMessageAction
                     {
-                        Message = "Great!\nLet's go to the settings next.",
+                        Message = AppLocalization.Translate("很好！\n接下来我们去设置。"),
                         ScreenPositionCallback = () =>
                         {
                             var position = ETS2LAWindowLocation();
@@ -37,7 +38,7 @@ public class OnboardingPart2
                     },
                     new ShowMessageAction
                     {
-                        Message = "Let's check the controls.",
+                        Message = AppLocalization.Translate("我们来看看控制设置。"),
                         ScreenPositionCallback = () =>
                         {
                             var position = ETS2LAWindowLocation();
@@ -58,7 +59,7 @@ public class OnboardingPart2
                     },
                     new ShowMessageAction
                     {
-                        Message = "You can see all of ETS2LA's controls here. We've also opened the 'State Info' window so you can see your current settings.\nTry and press on 'SET' to toggle the ACC.",
+                        Message = AppLocalization.Translate("你可以在这里查看 ETS2LA 的所有控制。我们还打开了“状态信息”窗口，方便你查看当前设置。\n请按下“SET”切换自适应巡航控制。"),
                         ScreenPositionCallback = () =>
                         {
                             var position = ETS2LAWindowLocation();
@@ -72,7 +73,7 @@ public class OnboardingPart2
                     },
                     new ShowMessageAction
                     {
-                        Message = "You can see all of ETS2LA's controls here. We've also opened the 'State Info' window so you can see your current settings.\nYou can also use 'ASSIST' to toggle between steering modes.",
+                        Message = AppLocalization.Translate("你可以在这里查看 ETS2LA 的所有控制。我们还打开了“状态信息”窗口，方便你查看当前设置。\n你也可以使用“ASSIST”在不同转向模式之间切换。"),
                         ScreenPositionCallback = () =>
                         {
                             var position = ETS2LAWindowLocation();
@@ -86,7 +87,7 @@ public class OnboardingPart2
                     },
                     new ShowMessageAction
                     {
-                        Message = "Great!\nLet's go to the plugin manager page.",
+                        Message = AppLocalization.Translate("很好！\n接下来我们去插件管理器页面。"),
                         ScreenPositionCallback = () =>
                         {
                             var position = ETS2LAWindowLocation();
@@ -100,7 +101,7 @@ public class OnboardingPart2
                     },
                     new ShowMessageAction
                     {
-                        Message = "Here you see all of your installed plugins. To start off with, enable the 'Lane Assist' and 'Adaptive Cruise Control' plugins.",
+                        Message = AppLocalization.Translate("这里显示了你已安装的所有插件。首先启用“车道辅助”和“自适应巡航控制”插件。"),
                         ScreenPositionCallback = () =>
                         {
                             var position = ETS2LAWindowLocation();
@@ -114,7 +115,7 @@ public class OnboardingPart2
                     },
                     new ShowMessageWaitNextAction
                     {
-                        Message = "That's it for our onboarding. If you're left with questions check our Youtube channel and the Discord for more details.\nYou can find all links in the dashboard page.",
+                        Message = AppLocalization.Translate("入门教程到此结束。如有疑问，请查看我们的 YouTube 频道和 Discord 获取更多信息。\n仪表盘页面中可以找到所有链接。"),
                         ScreenPositionCallback = () =>
                         {
                             var position = ETS2LAWindowLocation();
@@ -124,8 +125,8 @@ public class OnboardingPart2
                     },
                     new SendNotificationAction
                     {
-                        Title = "Tutorial Finished",
-                        Message = "Welcome to ETS2LA!",
+                        Title = AppLocalization.Translate("教程完成"),
+                        Message = AppLocalization.Translate("欢迎使用 ETS2LA！"),
                         Level = Notifications.NotificationLevel.Success,
                         CloseAfter = 5f
                     },
@@ -148,20 +149,20 @@ public class OnboardingPart2
         ImGui.SetCursorPosY(ImGui.GetCursorPosY() + 100);
 
         ImGui.PushFont(OverlayHandler.Current.Fonts[FontStyle.Bold], 20);
-        AlignForWidth(ImGui.CalcTextSize("Welcome to ETS2LA!").X);
-        ImGui.Text("Welcome to ETS2LA!");
+        AlignForWidth(ImGui.CalcTextSize(AppLocalization.Translate("欢迎使用 ETS2LA！")).X);
+        ImGui.Text(AppLocalization.Translate("欢迎使用 ETS2LA！"));
         ImGui.Spacing();
         ImGui.PopFont();
 
-        AlignForWidth(ImGui.CalcTextSize("Let's start off by familiarizing you to our User Interface.").X);
-        ImGui.Text("Let's start off by familiarizing you to our User Interface.");
-        AlignForWidth(ImGui.CalcTextSize("The window you're seeing right now is an overlay.").X);
-        ImGui.Text("The window you're seeing right now is an overlay.");
+        AlignForWidth(ImGui.CalcTextSize(AppLocalization.Translate("让我们先熟悉一下用户界面。")).X);
+        ImGui.Text(AppLocalization.Translate("让我们先熟悉一下用户界面。"));
+        AlignForWidth(ImGui.CalcTextSize(AppLocalization.Translate("你现在看到的窗口是覆盖层。")).X);
+        ImGui.Text(AppLocalization.Translate("你现在看到的窗口是覆盖层。"));
         ImGui.Spacing();
         ImGui.Spacing();
 
-        AlignForWidth(ImGui.CalcTextSize("You can continue by holding down the overlay interaction key.").X);
-        ImGui.Text("You can continue by holding down the overlay interaction key.");
+        AlignForWidth(ImGui.CalcTextSize(AppLocalization.Translate("按住覆盖层交互键即可继续。")).X);
+        ImGui.Text(AppLocalization.Translate("按住覆盖层交互键即可继续。"));
 
         # if LINUX
         AlignForWidth(ImGui.CalcTextSize("Note: You're on Linux, make sure you are allowing X11 global hotkeys on keys you need.").X);
@@ -197,23 +198,23 @@ public class OnboardingPart2
         if (!hasMoved)
         {
             ImGui.PushFont(OverlayHandler.Current.Fonts[FontStyle.Bold], 20);
-            AlignForWidth(ImGui.CalcTextSize("Great!").X);
-            ImGui.Text("Great!");
+            AlignForWidth(ImGui.CalcTextSize(AppLocalization.Translate("很好！")).X);
+            ImGui.Text(AppLocalization.Translate("很好！"));
             ImGui.Spacing();
             ImGui.PopFont();
 
-            AlignForWidth(ImGui.CalcTextSize("This overlay is used for many features in ETS2LA.").X);
-            ImGui.Text("This overlay is used for many features in ETS2LA.");
-            AlignForWidth(ImGui.CalcTextSize("If you don't like the keybind you can always change it in the settings later.").X);
-            ImGui.Text("If you don't like the keybind you can always change it in the settings later.");
+            AlignForWidth(ImGui.CalcTextSize(AppLocalization.Translate("这个覆盖层用于 ETS2LA 的许多功能。")).X);
+            ImGui.Text(AppLocalization.Translate("这个覆盖层用于 ETS2LA 的许多功能。"));
+            AlignForWidth(ImGui.CalcTextSize(AppLocalization.Translate("如果你不喜欢当前按键绑定，之后可以在设置中修改。")).X);
+            ImGui.Text(AppLocalization.Translate("如果你不喜欢当前按键绑定，之后可以在设置中修改。"));
             ImGui.Spacing();
             ImGui.Spacing();
 
-            AlignForWidth(ImGui.CalcTextSize("Now that we're in overlay mode, you can interact with windows.").X);
-            ImGui.Text("Now that we're in overlay mode, you can interact with windows.");
+            AlignForWidth(ImGui.CalcTextSize(AppLocalization.Translate("现在已进入覆盖层模式，你可以与窗口交互。")).X);
+            ImGui.Text(AppLocalization.Translate("现在已进入覆盖层模式，你可以与窗口交互。"));
 
-            AlignForWidth(ImGui.CalcTextSize("Try to move this window around by dragging it!").X);
-            ImGui.TextColored(new Vector4(0.5f, 1f, 0.5f, 1f), "Try to move this window around by dragging it!");
+            AlignForWidth(ImGui.CalcTextSize(AppLocalization.Translate("试着拖动这个窗口来移动它！")).X);
+            ImGui.TextColored(new Vector4(0.5f, 1f, 0.5f, 1f), AppLocalization.Translate("试着拖动这个窗口来移动它！"));
             ImGui.Spacing();
             ImGui.Spacing();
         }
@@ -221,17 +222,17 @@ public class OnboardingPart2
         if (hasMoved)
         {
             ImGui.PushFont(OverlayHandler.Current.Fonts[FontStyle.Bold], 20);
-            AlignForWidth(ImGui.CalcTextSize("Fantastic!").X);
-            ImGui.Text("Fantastic!");
+            AlignForWidth(ImGui.CalcTextSize(AppLocalization.Translate("太棒了！")).X);
+            ImGui.Text(AppLocalization.Translate("太棒了！"));
             ImGui.Spacing();
             ImGui.PopFont();
             
-            AlignForWidth(ImGui.CalcTextSize("Remember, if you need to interact with overlay windows, enter interaction mode first!").X);
-            ImGui.Text("Remember, if you need to interact with overlay windows, enter interaction mode first!");
+            AlignForWidth(ImGui.CalcTextSize(AppLocalization.Translate("记住，如需与覆盖层窗口交互，请先进入交互模式！")).X);
+            ImGui.Text(AppLocalization.Translate("记住，如需与覆盖层窗口交互，请先进入交互模式！"));
             ImGui.Spacing();
 
-            AlignForWidth(ImGui.CalcTextSize("Exit overlay interaction mode to continue.").X);
-            ImGui.TextColored(new Vector4(0.5f, 1f, 0.5f, 1f), "Exit overlay interaction mode to continue.");
+            AlignForWidth(ImGui.CalcTextSize(AppLocalization.Translate("退出覆盖层交互模式即可继续。")).X);
+            ImGui.TextColored(new Vector4(0.5f, 1f, 0.5f, 1f), AppLocalization.Translate("退出覆盖层交互模式即可继续。"));
         }
     }
 

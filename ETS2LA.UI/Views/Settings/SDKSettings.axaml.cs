@@ -10,6 +10,7 @@ using Avalonia.Platform.Storage;
 using ETS2LA.Game;
 using ETS2LA.Notifications;
 using ETS2LA.Logging;
+using ETS2LA.UI.Localization;
 
 namespace ETS2LA.UI.Views.Settings;
 
@@ -20,6 +21,8 @@ public partial class SDKSettings : UserControl
     public SDKSettings()
     {
         InitializeComponent();
+        ETS2LA.UI.Localization.LocalizationManager.Localize(this);
+
         DataContext = this;
         UpdateGamesList();
     }
@@ -63,7 +66,7 @@ public partial class SDKSettings : UserControl
 
         var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
         {
-            Title = "Select the game's install folder",
+            Title = LocalizationManager.Get("SelectGameFolder"),
             AllowMultiple = false
         });
 
@@ -77,8 +80,8 @@ public partial class SDKSettings : UserControl
             NotificationHandler.Current.SendNotification(new Notification
             {
                 Id = "ETS2LA.UI.SDKSettings.AddGameFailed",
-                Title = "Could not add game",
-                Content = "No ETS2 or ATS executable was found in the selected folder. Please select the game's install folder, for example '.../steamapps/common/Euro Truck Simulator 2'.",
+                Title = LocalizationManager.Get("CouldNotAddGame"),
+                Content = LocalizationManager.Get("NoGameExecutableFound"),
                 Level = NotificationLevel.Danger
             });
             return;
@@ -134,8 +137,8 @@ public class GameItem : INotifyPropertyChanged
                 NotificationHandler.Current.SendNotification(new Notification
                 {
                     Id = "ETS2LA.UI.SDKSettings.Uninstall",
-                    Title = $"Uninstalled SDK for {Name}",
-                    Content = $"Successfully uninstalled SDK for {Name} at {Path}.",
+                    Title = LocalizationManager.Format("SDKUninstalledTitle", Name),
+                    Content = LocalizationManager.Format("SDKUninstalledContent", Name, Path),
                     Level = NotificationLevel.Success
                 });
             }
@@ -145,8 +148,8 @@ public class GameItem : INotifyPropertyChanged
                 NotificationHandler.Current.SendNotification(new Notification
                 {
                     Id = "ETS2LA.UI.SDKSettings.UninstallFailed",
-                    Title = $"Failed to uninstall SDK for {Name}",
-                    Content = $"An error occurred while uninstalling SDK for {Name} at {Path}. Please check the logs for more details.",
+                    Title = LocalizationManager.Format("SDKUninstallFailedTitle", Name),
+                    Content = LocalizationManager.Format("SDKUninstallFailedContent", Name, Path),
                     Level = NotificationLevel.Danger
                 });
             }
@@ -159,8 +162,8 @@ public class GameItem : INotifyPropertyChanged
                 NotificationHandler.Current.SendNotification(new Notification
                 {
                     Id = "ETS2LA.UI.SDKSettings.Install",
-                    Title = $"Installed SDK for {Name}",
-                    Content = $"Successfully installed SDK for {Name} at {Path}.",
+                    Title = LocalizationManager.Format("SDKInstalledTitle", Name),
+                    Content = LocalizationManager.Format("SDKInstalledContent", Name, Path),
                     Level = NotificationLevel.Success
                 });
             }
@@ -170,8 +173,8 @@ public class GameItem : INotifyPropertyChanged
                 NotificationHandler.Current.SendNotification(new Notification
                 {
                     Id = "ETS2LA.UI.SDKSettings.InstallFailed",
-                    Title = $"Failed to install SDK for {Name}",
-                    Content = $"An error occurred while installing SDK for {Name} at {Path}. Please check the logs for more details.",
+                    Title = LocalizationManager.Format("SDKInstallFailedTitle", Name),
+                    Content = LocalizationManager.Format("SDKInstallFailedContent", Name, Path),
                     Level = NotificationLevel.Danger
                 });
             }
@@ -187,6 +190,7 @@ public class GameItem : INotifyPropertyChanged
 
     private string GetAutomationName()
     {
-        return $"{Name} {Version}, SDK is {(IsSDKInstalled ? "Installed" : "Not Installed")} at {Path}, button";
+        var status = LocalizationManager.TranslateLiteral(IsSDKInstalled ? "已安装" : "未安装");
+        return $"{Name} {Version}, SDK: {status} at {Path}, button";
     }
 }

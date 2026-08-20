@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:views="clr-namespace:ETS2LA.UI.Views"
+             x:Class="ETS2LA.UI.Views.PerformanceView">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="20">
+        <StackPanel Spacing="14">
+            <TextBlock Text="性能监控" FontSize="20" FontWeight="SemiBold" />
+
+            <Border Padding="16" CornerRadius="8" Background="{DynamicResource Gray3Color}">
+                <StackPanel Spacing="10">
+                    <Grid ColumnDefinitions="260,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="8" ColumnSpacing="12">
+                        <TextBlock Text="渲染帧率 (FPS)" VerticalAlignment="Center" />
+                        <TextBlock x:Name="FpsValue" Grid.Column="1" FontWeight="SemiBold" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="1" Text="单帧耗时 (ms)" VerticalAlignment="Center" />
+                        <TextBlock x:Name="FrameTimeValue" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="2" Text="剩余渲染时间 (ms)" VerticalAlignment="Center" />
+                        <TextBlock x:Name="RemainingValue" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="3" Text="CPU 使用率" VerticalAlignment="Center" />
+                        <TextBlock x:Name="CpuValue" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="4" Text="进程内存 (MB)" VerticalAlignment="Center" />
+                        <TextBlock x:Name="WorkingSetValue" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="5" Text="托管堆内存 (MB)" VerticalAlignment="Center" />
+                        <TextBlock x:Name="GcMemoryValue" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="6" Text="游戏连接状态" VerticalAlignment="Center" />
+                        <TextBlock x:Name="GameStatusValue" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="7" Text="游戏暂停状态" VerticalAlignment="Center" />
+                        <TextBlock x:Name="PausedValue" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Text="说明：帧率来自游戏内覆盖层渲染循环；CPU 使用率按上一采样周期的进程时间计算。" Classes="Description" FontSize="12" TextWrapping="Wrap" />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

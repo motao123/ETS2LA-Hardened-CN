@@ -13,9 +13,9 @@
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel>
-            <TextBlock Text="Click a card to change bindings. Right click on 'Normal Axis' to change it's type." Classes="Description" Margin="14 7 14 7" />
-            <TextBlock x:Name="X11Description" Text="ETS2LA uses X11 inputs. Check your system settings for which keys ETS2LA can access (Legacy X11 App Support)." Classes="Description" Margin="14 7 14 7" IsVisible="False" />
-            <ItemsControl x:Name="ControlsList" ItemsSource="{Binding Controls}" ItemsPanel="{StaticResource WrapPanelTemplate}" AutomationProperties.Name="List of ETS2LA Controls">
+            <TextBlock Text="点击卡片修改绑定。右键点击“普通轴”可修改其类型。" Classes="Description" Margin="14 7 14 7" />
+            <TextBlock x:Name="X11Description" Text="ETS2LA 使用 X11 输入。请在系统设置中查看 ETS2LA 可访问的按键（Legacy X11 App Support）。" Classes="Description" Margin="14 7 14 7" IsVisible="False" />
+            <ItemsControl x:Name="ControlsList" ItemsSource="{Binding Controls}" ItemsPanel="{StaticResource WrapPanelTemplate}" AutomationProperties.Name="ETS2LA 控制列表">
 
                 <ItemsControl.Styles>
                     <Style Selector="ContentPresenter" x:DataType="views:ControlItem">
@@ -59,11 +59,11 @@
                                                 <husk:Tag.ContextMenu>
                                                     <!-- TODO: Someone who knows more about Avalonia can fix this... -->
                                                     <ContextMenu>
-                                                        <MenuItem Header="Normal" Click="OnAxisTypeNormalClick" Tag="{Binding}" />
-                                                        <MenuItem Header="Centered" Click="OnAxisTypeCenteredClick" Tag="{Binding}" />
-                                                        <MenuItem Header="Inverted" Click="OnAxisTypeInvertedClick" Tag="{Binding}" />
-                                                        <MenuItem Header="Split Negative" Click="OnAxisTypeSplitNegativeClick" Tag="{Binding}" />
-                                                        <MenuItem Header="Split Positive" Click="OnAxisTypeSplitPositiveClick" Tag="{Binding}" />
+                                                        <MenuItem Header="普通" Click="OnAxisTypeNormalClick" Tag="{Binding}" />
+                                                        <MenuItem Header="居中" Click="OnAxisTypeCenteredClick" Tag="{Binding}" />
+                                                        <MenuItem Header="反向" Click="OnAxisTypeInvertedClick" Tag="{Binding}" />
+                                                        <MenuItem Header="拆分负向" Click="OnAxisTypeSplitNegativeClick" Tag="{Binding}" />
+                                                        <MenuItem Header="拆分正向" Click="OnAxisTypeSplitPositiveClick" Tag="{Binding}" />
                                                     </ContextMenu>
                                                 </husk:Tag.ContextMenu>
                                             </husk:Tag>

@@ -9,85 +9,85 @@
     <Grid ColumnDefinitions="200,*" ColumnSpacing="12" MaxHeight="{Binding Extent.Height, RelativeSource={RelativeSource AncestorType=ScrollViewer}}">
         <StackPanel Margin="5 0 0 0" Spacing="4">
             <StackPanel Spacing="0">
-                <TextBlock Text="Driving" Margin="14 16 0 6" FontSize="12" Classes="Description" />
+                <TextBlock x:Name="DrivingHeader" Text="驾驶" Margin="14 16 0 6" FontSize="12" Classes="Description" />
 
-                <Button x:Name="AssistanceButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnAssistanceSettingsClick" AutomationProperties.Name="Open Assistance Settings">
+                <Button x:Name="AssistanceButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnAssistanceSettingsClick" AutomationProperties.Name="打开辅助设置">
                     <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                         <i:Icon Grid.Column="0" Value="fa-toggle-on" FontSize="14" />
-                        <TextBlock Grid.Column="1" Text="Assistance" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                        <TextBlock x:Name="AssistanceLabel" Grid.Column="1" Text="辅助" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                     </Grid>
                 </Button>
 
-                <Button x:Name="DataButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnDataSettingsClick" AutomationProperties.Name="Open Data Settings">
+                <Button x:Name="DataButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnDataSettingsClick" AutomationProperties.Name="打开数据设置">
                     <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                         <i:Icon Grid.Column="0" Value="fa-database" FontSize="14" />
-                        <TextBlock Grid.Column="1" Text="Data" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                        <TextBlock x:Name="DataLabel" Grid.Column="1" Text="数据" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                     </Grid>
                 </Button>
             </StackPanel>
 
             <StackPanel Spacing="0">
-                <TextBlock Text="General" Margin="14 12 0 6" FontSize="12" Classes="Description" />
+                <TextBlock x:Name="GeneralHeader" Text="常规" Margin="14 12 0 6" FontSize="12" Classes="Description" />
 
-                <Button x:Name="DisplayButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnDisplaySettingsClick" AutomationProperties.Name="Open Display Settings">
+                <Button x:Name="DisplayButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnDisplaySettingsClick" AutomationProperties.Name="打开显示设置">
                     <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                         <i:Icon Grid.Column="0" Value="fa-display" FontSize="14" />
-                        <TextBlock Grid.Column="1" Text="Display" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                        <TextBlock x:Name="DisplayLabel" Grid.Column="1" Text="显示" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                     </Grid>
                 </Button>
 
-                <Button x:Name="AudioButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnAudioSettingsClick" AutomationProperties.Name="Open Audio Settings">
+                <Button x:Name="AudioButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnAudioSettingsClick" AutomationProperties.Name="打开音频设置">
                     <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                         <i:Icon Grid.Column="0" Value="fa-volume-high" FontSize="14" />
-                        <TextBlock Grid.Column="1" Text="Audio" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                        <TextBlock x:Name="AudioLabel" Grid.Column="1" Text="音频" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                     </Grid>
                 </Button>
 
-                <Button x:Name="ThemeButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnThemeSettingsClick" AutomationProperties.Name="Open Theme Settings">
+                <Button x:Name="ThemeButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnThemeSettingsClick" AutomationProperties.Name="打开主题设置">
                     <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                         <i:Icon Grid.Column="0" Value="fa-palette" FontSize="14" />
-                        <TextBlock Grid.Column="1" Text="Theme" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                        <TextBlock x:Name="ThemeLabel" Grid.Column="1" Text="主题" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                     </Grid>
                 </Button>
             </StackPanel>
 
             <StackPanel Spacing="0">
-                <TextBlock Text="Additional" Margin="14 12 0 6" FontSize="12" Classes="Description" />
-                <Button x:Name="ControlsButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnControlsSettingsClick" AutomationProperties.Name="Open Controls Settings">
+                <TextBlock x:Name="AdditionalHeader" Text="其他" Margin="14 12 0 6" FontSize="12" Classes="Description" />
+                <Button x:Name="ControlsButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnControlsSettingsClick" AutomationProperties.Name="打开控制设置">
                     <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                         <i:Icon Grid.Column="0" Value="fa-keyboard" FontSize="14" />
-                        <TextBlock Grid.Column="1" Text="Controls" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                        <TextBlock x:Name="ControlsLabel" Grid.Column="1" Text="控制" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                     </Grid>
                 </Button>
 
-                <Button x:Name="SDKButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnSDKSettingsClick" AutomationProperties.Name="Open SDK Settings">
+                <Button x:Name="SDKButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnSDKSettingsClick" AutomationProperties.Name="打开 SDK 设置">
                     <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                         <i:Icon Grid.Column="0" Value="fa-cube" FontSize="14" />
-                        <TextBlock Grid.Column="1" Text="SDK" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                        <TextBlock x:Name="SDKLabel" Grid.Column="1" Text="开发包" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                     </Grid>
                 </Button>
 
-                <Button x:Name="ExperimentsButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnExperimentsSettingsClick" AutomationProperties.Name="Open Experiments Settings">
+                <Button x:Name="ExperimentsButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnExperimentsSettingsClick" AutomationProperties.Name="打开实验功能设置">
                     <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                         <i:Icon Grid.Column="0" Value="fa-flask" FontSize="14" />
-                        <TextBlock Grid.Column="1" Text="Experiments" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                        <TextBlock x:Name="ExperimentsLabel" Grid.Column="1" Text="实验功能" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                     </Grid>
                 </Button>
             </StackPanel>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Spacing="6" Margin="6 0 12 12" VerticalAlignment="Bottom">
-            <Button x:Name="UserButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnUserSettingsClick" AutomationProperties.Name="Open User Settings">
+            <Button x:Name="UserButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnUserSettingsClick" AutomationProperties.Name="打开用户设置">
                 <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                     <i:Icon Grid.Column="0" Value="fa-user" FontSize="14" />
-                    <TextBlock Grid.Column="1" Text="User" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                    <TextBlock x:Name="UserLabel" Grid.Column="1" Text="用户" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                 </Grid>
             </Button>
 
-            <Button x:Name="UpdateButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnUpdatesClick" AutomationProperties.Name="Open Updates">
+            <Button x:Name="UpdateButton" Classes="sidebar" Theme="{StaticResource OutlineButtonTheme}" Click="OnUpdatesClick" AutomationProperties.Name="打开更新">
                 <Grid ColumnDefinitions="14,*,Auto" VerticalAlignment="Center" ColumnSpacing="8">
                     <i:Icon Grid.Column="0" Value="fa-download" FontSize="14" />
-                    <TextBlock Grid.Column="1" Text="Updates" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
+                    <TextBlock x:Name="UpdatesLabel" Grid.Column="1" Text="更新" FontSize="14" Margin="0 0 0 0" FontWeight="500" TextWrapping="NoWrap" />
                 </Grid>
             </Button>
         </StackPanel>

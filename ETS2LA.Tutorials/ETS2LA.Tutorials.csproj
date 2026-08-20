@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ETS2LA.Logging\ETS2LA.Logging.csproj" />
+    <ProjectReference Include="..\ETS2LA.Shared\ETS2LA.Shared.csproj" />
     <ProjectReference Include="..\ETS2LA.Controls\ETS2LA.Controls.csproj" />
     <ProjectReference Include="..\ETS2LA.Notifications\ETS2LA.Notifications.csproj" />
     <ProjectReference Include="..\ETS2LA.Overlay\ETS2LA.Overlay.csproj" />

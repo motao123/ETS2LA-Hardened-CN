@@ -11,21 +11,23 @@
             <StackPanel Orientation="Horizontal" Spacing="24">
                 <StackPanel VerticalAlignment="Center" Spacing="10">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="You're currently on " />
+                        <TextBlock Text="当前版本：" />
                         <TextBlock Classes="Highlight" Text="{Binding CurrentVersion}"/>
                         <TextBlock Text="." />
                     </StackPanel>
-                    <Button Content="Check for Updates" Width="150" HorizontalAlignment="Left" Click="OnCheckForUpdatesClick" AutomationProperties.Name="Check for Updates"/>
+                    <TextBlock Text="更新来源：" />
+            <TextBlock Text="{Binding RepositoryUrl}" Classes="Description" TextWrapping="Wrap" />
+            <Button Content="检查更新" Width="150" HorizontalAlignment="Left" Click="OnCheckForUpdatesClick" AutomationProperties.Name="检查更新"/>
                 </StackPanel>
 
                 <TextBlock VerticalAlignment="Center" Text="→" FontSize="20" Classes="Description" IsVisible="{Binding IsUpdateAvailable}"/>
 
                 <StackPanel VerticalAlignment="Center" IsVisible="{Binding IsUpdateAvailable}" Spacing="10">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Latest Version: " />
+                        <TextBlock Text="最新版本：" />
                         <TextBlock Classes="Highlight" Text="{Binding LatestVersion}"/>
                     </StackPanel>
-                    <Button Content="Install and Restart" Width="150" HorizontalAlignment="Left" Click="OnInstallAndRestartClick" AutomationProperties.Name="Install Update and Restart"/>
+                    <Button Content="安装并重启" Width="150" HorizontalAlignment="Left" Click="OnInstallAndRestartClick" AutomationProperties.Name="安装更新并重启"/>
                 </StackPanel>
             </StackPanel>
 

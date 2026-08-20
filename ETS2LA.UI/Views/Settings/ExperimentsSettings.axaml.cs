@@ -31,6 +31,8 @@ public partial class ExperimentsSettings : UserControl, INotifyPropertyChanged
     {
         InitializeComponent();
 
+        ETS2LA.UI.Localization.LocalizationManager.Localize(this);
+
         AvaloniaXamlLoader.Load(this);
         DataContext = this;
     }

@@ -1,0 +1,66 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:views="clr-namespace:ETS2LA.UI.Views"
+             x:Class="ETS2LA.UI.Views.VisualizationView">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="20">
+        <StackPanel Spacing="14">
+            <TextBlock Text="游戏数据可视化" FontSize="20" FontWeight="SemiBold" />
+
+            <Border Padding="16" CornerRadius="8" Background="{DynamicResource Gray3Color}">
+                <StackPanel Spacing="10">
+                    <Grid ColumnDefinitions="260,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="8" ColumnSpacing="12">
+                        <TextBlock Text="连接状态" VerticalAlignment="Center" />
+                        <TextBlock x:Name="StatusValue" Grid.Column="1" FontWeight="SemiBold" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="1" Text="速度 (km/h)" VerticalAlignment="Center" />
+                        <TextBlock x:Name="SpeedValue" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="2" Text="发动机转速 (RPM)" VerticalAlignment="Center" />
+                        <TextBlock x:Name="RpmValue" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="3" Text="档位" VerticalAlignment="Center" />
+                        <TextBlock x:Name="GearValue" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="4" Text="巡航控制速度" VerticalAlignment="Center" />
+                        <TextBlock x:Name="CruiseValue" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="5" Text="油门 / 刹车 / 转向" VerticalAlignment="Center" />
+                        <TextBlock x:Name="ControlValue" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="6" Text="燃油" VerticalAlignment="Center" />
+                        <TextBlock x:Name="FuelValue" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="7" Text="转向灯" VerticalAlignment="Center" />
+                        <TextBlock x:Name="BlinkerValue" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="8" Text="停车制动 / 发动机" VerticalAlignment="Center" />
+                        <TextBlock x:Name="VehicleValue" Grid.Row="8" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="9" Text="卡车" VerticalAlignment="Center" />
+                        <TextBlock x:Name="TruckValue" Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="10" Text="货物" VerticalAlignment="Center" />
+                        <TextBlock x:Name="CargoValue" Grid.Row="10" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="11" Text="出发城市" VerticalAlignment="Center" />
+                        <TextBlock x:Name="SourceValue" Grid.Row="11" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="12" Text="目的地城市" VerticalAlignment="Center" />
+                        <TextBlock x:Name="DestValue" Grid.Row="12" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="13" Text="坐标 X" VerticalAlignment="Center" />
+                        <TextBlock x:Name="CoordXValue" Grid.Row="13" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="14" Text="坐标 Y" VerticalAlignment="Center" />
+                        <TextBlock x:Name="CoordYValue" Grid.Row="14" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="15" Text="坐标 Z" VerticalAlignment="Center" />
+                        <TextBlock x:Name="CoordZValue" Grid.Row="15" Grid.Column="1" VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Text="说明：本页实时读取游戏遥测数据，进入驾驶状态后数值会持续刷新。" Classes="Description" FontSize="12" TextWrapping="Wrap" />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

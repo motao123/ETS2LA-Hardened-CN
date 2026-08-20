@@ -40,6 +40,9 @@ public partial class MainWindow : AppWindow
     private readonly ManagerView managerView;
     private readonly CatalogueView catalogueView;
     private readonly SettingsView settingsView;
+    private readonly PerformanceView performanceView = new();
+    private readonly VisualizationView visualizationView = new();
+    private readonly RoadmapView roadmapView = new();
     public static event EventHandler? WindowOpened;
 
     public MainWindow()
@@ -48,6 +51,7 @@ public partial class MainWindow : AppWindow
         CanResize = true;
         ExtendClientAreaToDecorationsHint = true;
         InitializeComponent();
+        LocalizationManager.Localize(this);
 
         // Linux distros don't add their own window borders. To match windows' appearance
         // we need to add those ourselves.
@@ -101,6 +105,7 @@ public partial class MainWindow : AppWindow
         WikiLabel.Text = LocalizationManager.Get("Wiki");
         RoadmapLabel.Text = LocalizationManager.Get("Roadmap");
         SettingsLabel.Text = LocalizationManager.Get("Settings");
+        LocalizationManager.Localize(this);
     }
 
     private void OnLanguageChanged(object? sender, EventArgs e)
@@ -131,8 +136,8 @@ public partial class MainWindow : AppWindow
         NotificationHandler.Current.SendNotification(new Notification
         {
             Id = "MainWindow.StayOnTopChanged",
-            Title = "Stay On Top",
-            Content = Topmost ? "Enabled" : "Disabled",
+            Title = LocalizationManager.Get("StayOnTop"),
+            Content = Topmost ? LocalizationManager.Get("Enabled") : LocalizationManager.Get("Disabled"),
             CloseAfter = 2.0f,
             Level = Topmost ? NotificationLevel.Success : NotificationLevel.Danger
         });
@@ -148,8 +153,8 @@ public partial class MainWindow : AppWindow
         NotificationHandler.Current.SendNotification(new Notification
         {
             Id = "MainWindow.TransparencyChanged",
-            Title = "Transparency",
-            Content = this.Opacity < 1.0 ? "Enabled" : "Disabled",
+            Title = LocalizationManager.Get("Transparency"),
+            Content = this.Opacity < 1.0 ? LocalizationManager.Get("Enabled") : LocalizationManager.Get("Disabled"),
             CloseAfter = 2.0f,
             Level = this.Opacity < 1.0 ? NotificationLevel.Success : NotificationLevel.Danger
         });
@@ -172,7 +177,7 @@ public partial class MainWindow : AppWindow
         {
             Id = "MainWindow.Shutdown",
             Title = "ETS2LA",
-            Content = "Shutting down application & backend...",
+            Content = LocalizationManager.Get("ShuttingDown"),
             CloseAfter = 20.0f
         });
         pluginService.Shutdown();
@@ -237,11 +242,11 @@ public partial class MainWindow : AppWindow
         {
             PageKind.Dashboard => dashboardView,
             PageKind.Manager => managerView,
-            PageKind.Visualization => CreatePlaceholder("Sorry", "This page is being remade and isn't available in this version. It will return in a future update."),
+            PageKind.Visualization => visualizationView,
             PageKind.Catalogue => catalogueView,
-            PageKind.Performance => CreatePlaceholder("Performance", "This page hasn't been implemented yet, you can monitor performance using external tools."),
+            PageKind.Performance => performanceView,
             PageKind.Wiki => wikiView,
-            PageKind.Roadmap => CreatePlaceholder("Roadmap", "Please take a look at our public roadmap on GitHub. Navigate to the repository and click on the Projects tab at the top."),
+            PageKind.Roadmap => roadmapView,
             PageKind.Settings => settingsView,
             _ => dashboardView
         };

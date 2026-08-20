@@ -11,12 +11,16 @@ public partial class UserSettingsView : UserControl, INotifyPropertyChanged
 {
     public bool NeedsRestart { get; private set; }
     public bool LanguageNeedsRestart { get; private set; }
+    public string LanguageLabel => LocalizationManager.Get("Language");
+    public string LanguageRestartLabel => LocalizationManager.Get("LanguageRestart");
 
     public ObservableCollection<LanguageOption> LanguageOptions { get; } = new()
     {
-        new() { Value = UiLanguage.ChineseSimplified, DisplayName = "简体中文" },
+        new() { Value = UiLanguage.ChineseSimplified, DisplayName = "中文" },
         new() { Value = UiLanguage.English, DisplayName = "English" }
     };
+
+    public string LanguageOptionsText => string.Join(" / ", LanguageOptions.Select(option => option.DisplayName));
 
     public LanguageOption SelectedLanguage
     {
@@ -49,6 +53,14 @@ public partial class UserSettingsView : UserControl, INotifyPropertyChanged
     {
         InitializeComponent();
         DataContext = this;
+        LocalizationManager.LanguageChanged += (_, _) =>
+        {
+            OnPropertyChanged(nameof(LanguageLabel));
+            OnPropertyChanged(nameof(LanguageRestartLabel));
+            OnPropertyChanged(nameof(SelectedLanguage));
+            LocalizationManager.Localize(this);
+        };
+        LocalizationManager.Localize(this);
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

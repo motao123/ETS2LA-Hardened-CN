@@ -23,6 +23,7 @@ using ETS2LA.Overlay.AR;
 using ETS2LA.ML;
 using ETS2LA.ML.Vision;
 using ETS2LA.Game.Telemetry;
+using ETS2LA.Shared.Localization;
 
 namespace ETS2LA.Overlay;
 
@@ -53,8 +54,8 @@ public class OverlayHandler
     public ControlDefinition Interact = new ControlDefinition
     {   
         Id = "ETS2LA.Overlay.Interact",
-        Name = "Overlay Interaction",
-        Description = "When this key is held, the overlay will receive mouse input and allow you to interact with it. NOTE: Interaction with items below the overlay is not possible during this time.",
+        Name = "叠加层交互",
+        Description = "按住此按键时，叠加层将接收鼠标输入并允许与其交互。注意：此时无法与叠加层下方的项目交互。",
         DefaultKeybind = "RightAlt",
         Type = ControlType.Boolean
     };
@@ -277,9 +278,9 @@ public class OverlayHandler
     {
         if (isInteracting)
         {
-            ImGui.Begin("Interaction Mode", ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoBackground);
+            ImGui.Begin(AppLocalization.Translate("交互模式"), ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoBackground);
             ImGui.SetWindowPos(new Vector2(OverlayWidth / 2 - 60, 10), ImGuiCond.Always);
-            ImGui.TextColored(new Vector4(0.5f, 0.5f, 0.5f, 1f), "Interaction Mode");
+            ImGui.TextColored(new Vector4(0.5f, 0.5f, 0.5f, 1f), AppLocalization.Translate("交互模式"));
 
             ImGui.Spacing();
             try
@@ -290,11 +291,11 @@ public class OverlayHandler
 
                     ImGui.TextColored(color, isOpen ? "[X]" : "[   ]");
                     ImGui.SameLine();
-                    ImGui.TextColored(color, window.Definition.Title);
+                    ImGui.TextColored(color, AppLocalization.Translate(window.Definition.Title));
         
                     if (ImGui.IsItemHovered())
                     {
-                        ImGui.SetTooltip("Click to " + (isOpen ? "hide" : "show") + " this window");
+                        ImGui.SetTooltip(AppLocalization.Translate("点击") + (isOpen ? AppLocalization.Translate("隐藏") : AppLocalization.Translate("显示")) + AppLocalization.Translate("此窗口"));
                     }
                     if (ImGui.IsItemClicked())
                     {
@@ -309,7 +310,7 @@ public class OverlayHandler
         }
 
         ImGui.SetNextWindowPos(new Vector2(OverlayWidth - 10, 10), ImGuiCond.Always, new Vector2(1f, 0f));
-        ImGui.Begin("Performance Overlay", ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoBackground);
+        ImGui.Begin(AppLocalization.Translate("性能叠加层"), ImGuiWindowFlags.NoDecoration | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoBackground);
 
         var fps = (AverageFrameTime > 0) ? (int)(1 / (AverageFrameTime / 1000f)) : 0;
         int freePercentage;
@@ -322,7 +323,7 @@ public class OverlayHandler
         ImGui.TextColored(new Vector4(1f,1f,1f,0.5f), $"{freePercentage}%%");
         if (ImGui.IsItemHovered())
         {
-            ImGui.SetTooltip("Overlay free CPU time percentage");
+            ImGui.SetTooltip(AppLocalization.Translate("叠加层空闲 CPU 时间百分比"));
         }
 
         ImGui.End();
@@ -357,7 +358,7 @@ public class OverlayHandler
                 }
 
                 ImGui.SetNextWindowBgAlpha(window.Definition.Alpha.GetValueOrDefault(0.9f));
-                ImGui.Begin(window.Definition.Title, window.Definition.Flags.GetValueOrDefault(ImGuiWindowFlags.None));
+                ImGui.Begin(AppLocalization.Translate(window.Definition.Title), window.Definition.Flags.GetValueOrDefault(ImGuiWindowFlags.None));
                 
                 // Plugin developer has set X and Y values, these are applied
                 // once each startup. Use ImGuiWindowFlags to disallow resizing.
@@ -428,7 +429,7 @@ public class OverlayHandler
         if (ImGui.BeginPopupContextWindow((byte*)0, ImGuiPopupFlags.MouseButtonRight))
         {
             window.RenderContextMenu();
-            if (ImGui.MenuItem("Close"))
+            if (ImGui.MenuItem("关闭"))
             {
                 window.IsWindowOpen = false;
             }
@@ -475,20 +476,51 @@ public class OverlayHandler
             new Tuple<FontStyle, string>(FontStyle.Bold, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Fonts", "Geist-Bold.ttf")),
         };
 
-        // Set fonts
         unsafe
         {
-            for (int i = 0; i < fonts.Count; i++)
+            string[] cjkFontCandidates =
             {
-                string fontPath = fonts[i].Item2;
-                if (!File.Exists(fontPath))
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Fonts", "NotoSansSC-VF.ttf"),
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "NotoSansSC-VF.ttf"),
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "simhei.ttf"),
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "simsun.ttc")
+            };
+            string? cjkFontPath = cjkFontCandidates.FirstOrDefault(File.Exists);
+            ImFont* cjkFont = null;
+            if (cjkFontPath is not null)
+            {
+                uint[] cjkRanges =
                 {
-                    Logger.Error($"Font file not found at {fontPath}");
-                    continue;
+                    0x0020, 0x00FF, 0x2000, 0x206F, 0x3000, 0x303F,
+                    0x3040, 0x30FF, 0x3400, 0x4DBF, 0x4E00, 0x9FFF,
+                    0xFF00, 0xFFEF, 0
+                };
+                fixed (uint* ranges = cjkRanges)
+                    cjkFont = io.Fonts.AddFontFromFileTTF(cjkFontPath, DefaultFontSize, ranges);
+            }
+
+            if (cjkFont is not null)
+            {
+                // ImGui does not automatically fall back to a separately loaded font.
+                // Use the CJK font for every style so Chinese text never becomes '?'.
+                var cjkFontPtr = new ImFontPtr(cjkFont);
+                foreach (FontStyle fontStyle in Enum.GetValues<FontStyle>())
+                    Fonts[fontStyle] = cjkFontPtr;
+                Logger.Info($"Loaded CJK overlay font: {cjkFontPath}");
+            }
+            else
+            {
+                foreach (var font in fonts)
+                {
+                    if (!File.Exists(font.Item2))
+                    {
+                        Logger.Error($"Font file not found at {font.Item2}");
+                        continue;
+                    }
+                    ImFont* nativeFont = io.Fonts.AddFontFromFileTTF(font.Item2, DefaultFontSize);
+                    Fonts[font.Item1] = new ImFontPtr(nativeFont);
                 }
-                ImFont* font = io.Fonts.AddFontFromFileTTF(fontPath, DefaultFontSize);
-                ImFontPtr fontPtr = new ImFontPtr(font);
-                Fonts[fonts[i].Item1] = fontPtr;
+                Logger.Warn("No CJK font found; Chinese overlay text may render as question marks.");
             }
         }
 

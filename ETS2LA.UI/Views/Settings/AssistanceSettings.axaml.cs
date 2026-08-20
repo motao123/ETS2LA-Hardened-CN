@@ -138,6 +138,8 @@ public partial class AssistanceSettingsPage : UserControl, INotifyPropertyChange
         LoadSpeedLimitWarningOptions();
         LoadCollisionAvoidanceOptions();
         AvaloniaXamlLoader.Load(this);
+        ETS2LA.UI.Localization.LocalizationManager.Localize(this);
+
         DataContext = this;
     }
 

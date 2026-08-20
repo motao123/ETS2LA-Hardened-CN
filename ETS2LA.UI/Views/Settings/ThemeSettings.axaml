@@ -6,40 +6,40 @@
              x:DataType="views:ThemeSettings">
     <Grid ColumnDefinitions="300,*">
         <StackPanel Grid.Column="0" Spacing="12" Margin="20">
-            <TextBlock Text="Color Theme" />
-            <ComboBox Name="ThemeCombobox" SelectedIndex="0" SelectionChanged="OnThemeChanged" AutomationProperties.Name="Window Theme">
-                <ComboBoxItem Content="System" />
-                <ComboBoxItem Content="Light" />
-                <ComboBoxItem Content="Dark" />
+            <TextBlock Text="颜色主题" />
+            <ComboBox Name="ThemeCombobox" SelectedIndex="0" SelectionChanged="OnThemeChanged" AutomationProperties.Name="窗口主题">
+                <ComboBoxItem Content="系统" />
+                <ComboBoxItem Content="浅色" />
+                <ComboBoxItem Content="深色" />
             </ComboBox>
-            <TextBlock Text="Accent Color" />
-            <ComboBox Name="AccentColorCombobox" SelectedIndex="20" SelectionChanged="OnAccentColorChanged" AutomationProperties.Name="Window Accent Color">
-                <ComboBoxItem Content="System" />
-                <ComboBoxItem Content="Neutral" />
-                <ComboBoxItem Content="Tomato" />
-                <ComboBoxItem Content="Red" />
-                <ComboBoxItem Content="Ruby" />
-                <ComboBoxItem Content="Crimson" />
-                <ComboBoxItem Content="Pink" />
-                <ComboBoxItem Content="Plum" />
-                <ComboBoxItem Content="Purple" />
-                <ComboBoxItem Content="Violet" />
-                <ComboBoxItem Content="Iris" />
-                <ComboBoxItem Content="Indigo" />
-                <ComboBoxItem Content="Blue" />
-                <ComboBoxItem Content="Cyan" />
-                <ComboBoxItem Content="Teal" />
-                <ComboBoxItem Content="Jade" />
-                <ComboBoxItem Content="Green" />
-                <ComboBoxItem Content="Grass" />
-                <ComboBoxItem Content="Bronze" />
-                <ComboBoxItem Content="Gold" />
-                <ComboBoxItem Content="Orange" />
-                <ComboBoxItem Content="Amber" />
-                <ComboBoxItem Content="Yellow" />
-                <ComboBoxItem Content="Lime" />
-                <ComboBoxItem Content="Mint" />
-                <ComboBoxItem Content="Sky" />
+            <TextBlock Text="强调色" />
+            <ComboBox Name="AccentColorCombobox" SelectedIndex="20" SelectionChanged="OnAccentColorChanged" AutomationProperties.Name="窗口强调色">
+                <ComboBoxItem Content="系统" />
+                <ComboBoxItem Content="中性" />
+                <ComboBoxItem Content="番茄红" />
+                <ComboBoxItem Content="红色" />
+                <ComboBoxItem Content="红宝石红" />
+                <ComboBoxItem Content="深红" />
+                <ComboBoxItem Content="粉色" />
+                <ComboBoxItem Content="梅红" />
+                <ComboBoxItem Content="紫色" />
+                <ComboBoxItem Content="紫罗兰" />
+                <ComboBoxItem Content="鸢尾紫" />
+                <ComboBoxItem Content="靛蓝" />
+                <ComboBoxItem Content="蓝色" />
+                <ComboBoxItem Content="青色" />
+                <ComboBoxItem Content="蓝绿色" />
+                <ComboBoxItem Content="翡翠绿" />
+                <ComboBoxItem Content="绿色" />
+                <ComboBoxItem Content="草绿色" />
+                <ComboBoxItem Content="青铜色" />
+                <ComboBoxItem Content="金色" />
+                <ComboBoxItem Content="橙色" />
+                <ComboBoxItem Content="琥珀色" />
+                <ComboBoxItem Content="黄色" />
+                <ComboBoxItem Content="青柠色" />
+                <ComboBoxItem Content="薄荷色" />
+                <ComboBoxItem Content="天蓝色" />
             </ComboBox>
         </StackPanel>
     </Grid>

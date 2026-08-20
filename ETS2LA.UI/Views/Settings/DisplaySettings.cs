@@ -135,6 +135,8 @@ public partial class DisplaySettings : UserControl, INotifyPropertyChanged
     public DisplaySettings()
     {
         InitializeComponent();
+        ETS2LA.UI.Localization.LocalizationManager.Localize(this);
+
         LoadDisplayUnitOptions();
 
         AvaloniaXamlLoader.Load(this);

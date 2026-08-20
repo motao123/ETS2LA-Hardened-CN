@@ -50,10 +50,12 @@ public class PpdFileHandler
             foreach (var unit in sii.Units)
             {
                 var token = unit.Name.Split('.').Last();
-                var path = unit.Attributes["prefab_desc"].Trim('"');
+                if (!unit.Attributes.TryGetValue("prefab_desc", out var path) || string.IsNullOrWhiteSpace(path))
+                    continue;
+                var cleaned = path.Trim('"');
                 if (!_prefabPathCache.ContainsKey(token))
                 {
-                    _prefabPathCache[token] = path;
+                    _prefabPathCache[token] = cleaned;
                 }
             }
         }

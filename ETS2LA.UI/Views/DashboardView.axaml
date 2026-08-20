@@ -14,26 +14,26 @@
                     <StackPanel Spacing="14">
                         <Grid ColumnDefinitions="*,Auto">
                             <TextBlock FontSize="18" FontFamily="{StaticResource Geist}">
-                                Welcome back, <Span Classes="Highlight">Anonymous</Span>!
+                                <Run Text="{Binding WelcomeText}" />
                             </TextBlock>
                         </Grid>
 
                         <WrapPanel ItemSpacing="16">
                             <StackPanel Spacing="4">
                                 <husk:Tag>
-                                    <TextBlock Text="Current Release" FontSize="12" />
+                                    <TextBlock Text="{Binding CurrentReleaseLabel}" FontSize="12" />
                                 </husk:Tag>
                                 <TextBlock Text="{Binding CurrentRelease}" FontSize="13" Margin="6 0 0 0"/>
                             </StackPanel>
                             <StackPanel Spacing="4">
                                 <husk:Tag>
-                                    <TextBlock Text="Users Online" FontSize="12" />
+                                    <TextBlock Text="{Binding UsersOnlineLabel}" FontSize="12" />
                                 </husk:Tag>
                                 <TextBlock Text="-" FontSize="13" Margin="6 0 0 0"/>
                             </StackPanel>
                             <StackPanel Spacing="4">
                                 <husk:Tag>
-                                    <TextBlock Text="Users Over 24h" FontSize="12" />
+                                    <TextBlock Text="{Binding UsersOver24hLabel}" FontSize="12" />
                                 </husk:Tag>
                                 <TextBlock Text="-" FontSize="13" Margin="6 0 0 0"/>
                             </StackPanel>
@@ -47,13 +47,12 @@
                 <husk:Card Padding="16">
                     <Grid RowDefinitions="Auto,*" RowSpacing="16">
                         <StackPanel Grid.Row="0" Spacing="4" VerticalAlignment="Top">
-                            <TextBlock Text="Support &amp; Updates" FontSize="16" Foreground="{DynamicResource TextPrimaryBrush}"/>
-                            <TextBlock HorizontalAlignment="Stretch" Text="Follow development and get support. Keep in mind that this version of ETS2LA is still in development. If you find bugs, please report them!" Classes="Description" FontSize="13"/>
+                            <TextBlock Text="{Binding SupportUpdatesLabel}" FontSize="16" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                            <TextBlock HorizontalAlignment="Stretch" Text="{Binding SupportUpdatesDescription}" Classes="Description" FontSize="13"/>
                         </StackPanel>
                         <WrapPanel Grid.Row="1" ItemSpacing="8" VerticalAlignment="Bottom">
-                            <Button Content="Documentation" Click="OpenDocumentation" AutomationProperties.Name="Open the ETS2LA Documentation in Browser, button"/>
-                            <Button Content="GitHub" Click="OpenGitHub" AutomationProperties.Name="Open the ETS2LA GitHub in Browser, button"/>
-                            <Button Content="Discord" Click="OpenDiscord" AutomationProperties.Name="Open the ETS2LA Discord in Browser, button"/>
+                            <Button Content="{Binding DocumentationLabel}" Click="OpenDocumentation"/>
+                            <Button Content="{Binding GitHubLabel}" Click="OpenGitHub"/>
                         </WrapPanel>
                     </Grid>
                 </husk:Card>
@@ -63,13 +62,11 @@
                 MaxWidth="{Binding Extent.Width, RelativeSource={RelativeSource AncestorType=ScrollViewer}}">
                 <husk:Card Padding="16">
                     <Grid RowDefinitions="Auto,*" RowSpacing="16">
-                        <StackPanel Grid.Row="0" Spacing="4" VerticalAlignment="Top">
-                            <TextBlock Text="Sponsor Us" FontSize="16" Foreground="{DynamicResource TextPrimaryBrush}"/>
-                            <TextBlock HorizontalAlignment="Stretch" Text="Your supports helps me continue developing ETS2LA! The more donations we get the more time I can dedicate to improving the project. Thank you!" Classes="Description" FontSize="13"/>
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="{Binding OriginalProjectLabel}" FontSize="16" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                            <TextBlock Text="{Binding OriginalProjectDescription}" Classes="Description" FontSize="13" TextWrapping="Wrap"/>
+                            <Button Content="{Binding OriginalProjectLinkLabel}" Click="OpenOriginalProject"/>
                         </StackPanel>
-                        <WrapPanel Grid.Row="1" ItemSpacing="8" VerticalAlignment="Bottom">
-                            <Button Content="Donate to Development" Click="OpenDonate" Classes="Primary" AutomationProperties.Name="Open Tumppi066's Donation Page in Browser, button"/>
-                        </WrapPanel>
                     </Grid>
                 </husk:Card>
             </UniformGrid>

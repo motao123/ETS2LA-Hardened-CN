@@ -15,18 +15,18 @@
     <Grid ColumnDefinitions="200, Auto, *" ColumnSpacing="0">
         <StackPanel Orientation="Vertical" Spacing="8" VerticalAlignment="Top" Margin="24">
             <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Top">
-                <Button Click="RefreshCatalogueClick" ToolTip.Tip="Refresh Catalogue" AutomationProperties.Name="Refresh Catalogue, icon-only">
+                <Button Click="RefreshCatalogueClick" ToolTip.Tip="刷新目录" AutomationProperties.Name="刷新目录, icon-only">
                     <i:Icon Value="fa-sync" FontSize="12" />
                 </Button>
             </StackPanel>
-            <TextBox PlaceholderText="Search plugins..." Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox PlaceholderText="搜索插件..." Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" />
             <Border IsVisible="{Binding NeedsRestart}" HorizontalAlignment="Stretch" Background="{DynamicResource Warning4Color}" Padding="8" CornerRadius="4">
-                <TextBlock Text="Restart required!" FontSize="12" Classes="Warning" HorizontalAlignment="Center" />
+                <TextBlock Text="需要重启！" FontSize="12" Classes="Warning" HorizontalAlignment="Center" />
             </Border>
-            <Button Click="OnRestartClick" IsVisible="{Binding NeedsRestart}" HorizontalAlignment="Stretch" ToolTip.Tip="Restart ETS2LA to apply plugin changes" AutomationProperties.Name="Restart ETS2LA">
+            <Button Click="OnRestartClick" IsVisible="{Binding NeedsRestart}" HorizontalAlignment="Stretch" ToolTip.Tip="重启 ETS2LA 以应用插件更改" AutomationProperties.Name="重启 ETS2LA">
                 <StackPanel Orientation="Horizontal" Spacing="4" HorizontalAlignment="Center">
                     <i:Icon Value="fa-redo-alt" FontSize="12" />
-                    <TextBlock Text="Restart ETS2LA" FontSize="12" />
+                    <TextBlock Text="重启 ETS2LA" FontSize="12" />
                 </StackPanel>
             </Button>
         </StackPanel>
@@ -57,7 +57,7 @@
                                 <Grid ColumnDefinitions="Auto, *, Auto, Auto">
                                     <Border Margin="0 0 12 0" VerticalAlignment="Top">
                                         <CheckBox IsChecked="{Binding IsInstalled}" 
-                                                  ToolTip.Tip="Toggle plugin installation"
+                                                  ToolTip.Tip="切换插件安装状态"
                                                   HorizontalAlignment="Right"
                                                   VerticalAlignment="Top"
                                                   IsHitTestVisible="False"
@@ -69,21 +69,21 @@
                                                 <TextBlock Text="{Binding Name}" FontSize="14" />
                                                 <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4" HorizontalAlignment="Right">
                                                     <husk:Tag IsVisible="{Binding IsInstalled}" Classes="Primary" HorizontalAlignment="Right">
-                                                        <TextBlock Text="Installed" FontSize="12" FontWeight="SemiBold" />
+                                                        <TextBlock Text="已安装" FontSize="12" FontWeight="SemiBold" />
                                                     </husk:Tag>
                                                     <husk:Tag IsVisible="{Binding NeedsUpdate}" Classes="Primary" HorizontalAlignment="Right">
-                                                        <TextBlock Text="Update Available" FontSize="12" FontWeight="SemiBold" />
+                                                        <TextBlock Text="有可用更新" FontSize="12" FontWeight="SemiBold" />
                                                     </husk:Tag>
                                                     <husk:Tag IsVisible="{Binding IsPlugin}" Classes="Secondary" HorizontalAlignment="Right">
-                                                        <TextBlock Text="Plugin" FontSize="12" FontWeight="SemiBold" />
+                                                        <TextBlock Text="插件" FontSize="12" FontWeight="SemiBold" />
                                                     </husk:Tag>
                                                     <husk:Tag IsVisible="{Binding IsLibrary}" Classes="Secondary" HorizontalAlignment="Right">
-                                                        <TextBlock Text="Library" FontSize="12" FontWeight="SemiBold" />
+                                                        <TextBlock Text="库" FontSize="12" FontWeight="SemiBold" />
                                                     </husk:Tag>
                                                 </StackPanel>
                                             </Grid>
                                             <StackPanel Orientation="Horizontal" Spacing="2" VerticalAlignment="Center">
-                                                <TextBlock Text="By" FontSize="12" />    
+                                                <TextBlock Text="作者：" FontSize="12" />
                                                 <HyperlinkButton Content="{Binding Author}" FontSize="11" />
                                             </StackPanel>
                                         </StackPanel>
@@ -91,11 +91,11 @@
                                     </StackPanel>
                                     <husk:Divider Grid.Column="2" Orientation="Vertical" VerticalAlignment="Stretch" Margin="10,0" />
                                     <StackPanel Grid.Column="3" Spacing="2">
-                                        <StackPanel Orientation="Horizontal" Spacing="4" ToolTip.Tip="Plugin Version">
+                                        <StackPanel Orientation="Horizontal" Spacing="4" ToolTip.Tip="插件版本">
                                             <i:Icon Value="fa-info-circle" FontSize="12" />
                                             <TextBlock Text="{Binding Version}" FontSize="12" HorizontalAlignment="Right" />
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal" Spacing="4" ToolTip.Tip="Supported ETS2LA Version(s)">
+                                        <StackPanel Orientation="Horizontal" Spacing="4" ToolTip.Tip="支持的 ETS2LA 版本">
                                             <i:Icon Value="fa-cubes" FontSize="12" />
                                             <TextBlock Text="{Binding SupportedVersion}" FontSize="12" HorizontalAlignment="Right" />
                                         </StackPanel>
@@ -110,7 +110,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
                 <StackPanel Margin="10" IsVisible="{Binding !HasPlugins}">
-                    <TextBlock Text="No plugins found in the catalogue, please refresh using the button. You may still install some manually." Classes="Description" />
+                    <TextBlock Text="目录中未找到插件，请使用按钮刷新。你仍然可以手动安装插件。" Classes="Description" />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

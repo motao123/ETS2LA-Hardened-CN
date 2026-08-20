@@ -5,6 +5,7 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using ETS2LA.Backend.Events;
 using ETS2LA.UI.Views.Settings;
+using ETS2LA.UI.Localization;
 
 namespace ETS2LA.UI.Views;
 
@@ -30,6 +31,9 @@ public partial class SettingsView : UserControl
     public SettingsView()
     {
         InitializeComponent();
+        LocalizationManager.LanguageChanged += (_, _) => ApplyLanguage();
+        LocalizationManager.Localize(this);
+        ApplyLanguage();
 
 #pragma warning disable CS8601 // Possible null reference assignment.
         _navButtons.AddRange(
@@ -50,6 +54,29 @@ public partial class SettingsView : UserControl
         ]);
 #pragma warning restore CS8601 // Possible null reference assignment.
 
+    }
+
+    private void ApplyLanguage()
+    {
+        SetText("DrivingHeader", "驾驶");
+        SetText("AssistanceLabel", "辅助");
+        SetText("DataLabel", "数据");
+        SetText("GeneralHeader", "常规");
+        SetText("DisplayLabel", "显示");
+        SetText("AudioLabel", "音频");
+        SetText("ThemeLabel", "主题");
+        SetText("AdditionalHeader", "其他");
+        SetText("ControlsLabel", "控制");
+        SetText("SDKLabel", "开发包");
+        SetText("ExperimentsLabel", "实验功能");
+        SetText("UserLabel", "用户");
+        SetText("UpdatesLabel", "更新");
+    }
+
+    private void SetText(string name, string text)
+    {
+        if (this.FindControl<TextBlock>(name) is TextBlock block)
+            block.Text = LocalizationManager.TranslateLiteral(text);
     }
 
     private void SetSelected(string active)

@@ -17,6 +17,8 @@ public partial class ThemeSettings : UserControl
     public ThemeSettings()
     {
         InitializeComponent();
+        ETS2LA.UI.Localization.LocalizationManager.Localize(this);
+
         UpdateIndex();
         
         loaded = true;

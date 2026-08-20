@@ -8,7 +8,7 @@ class DemoWindow : InternalWindow
     {
         Definition = new WindowDefinition
         {
-            Title = "Demo Window",
+            Title = "演示窗口",
             NoWindow = true
         };
 

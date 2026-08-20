@@ -7,11 +7,11 @@
         <StackPanel Grid.Column="0" Spacing="12" Margin="20">
             <StackPanel Spacing="10">
                 <Grid ColumnDefinitions="*, Auto">
-                    <TextBlock Text="Render Vision Cameras" VerticalAlignment="Center" />
-                    <ToggleSwitch Grid.Column="1" IsChecked="{Binding RenderVisionCameras}" Classes="primary-toggle" AutomationProperties.Name="Render Vision Cameras" />
+                    <TextBlock Text="渲染视觉摄像头" VerticalAlignment="Center" />
+                    <ToggleSwitch Grid.Column="1" IsChecked="{Binding RenderVisionCameras}" Classes="primary-toggle" AutomationProperties.Name="渲染视觉摄像头" />
                 </Grid>
-                <TextBlock Text="Render experimental vision cameras. These can be used by vision based machine learning models for end-to-end self driving. Note that these models don't yet exist, however for development purposes we are leaving the cameras accessible." FontSize="12" Classes="Description" />
-                <TextBlock Text="You need to restart ETS2LA for this option to apply." FontSize="12" Classes="Warning" IsVisible="{Binding RenderVisionCamerasRequiresRestart}" />
+                <TextBlock Text="渲染实验性视觉摄像头。这些摄像头可供基于视觉的机器学习模型用于端到端自动驾驶。请注意，这些模型目前尚不存在，但出于开发目的，我们保留了摄像头访问能力。" FontSize="12" Classes="Description" />
+                <TextBlock Text="需要重启 ETS2LA 才能应用此选项。" FontSize="12" Classes="Warning" IsVisible="{Binding RenderVisionCamerasRequiresRestart}" />
             </StackPanel>
         </StackPanel>
     </Grid>

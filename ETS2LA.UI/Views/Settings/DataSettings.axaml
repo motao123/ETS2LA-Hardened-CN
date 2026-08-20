@@ -10,23 +10,23 @@
 
             <StackPanel Spacing="10">
                 <Grid ColumnDefinitions="*, Auto">
-                    <TextBlock Text="Force Base Map Name" VerticalAlignment="Center" />
-                    <ToggleSwitch Grid.Column="1" IsChecked="{Binding ForceBaseMapName}" Classes="primary-toggle" AutomationProperties.Name="Force Base Map Name, so far only necessary for RusMap, requires restart" />
+                    <TextBlock Text="强制基础地图名称" VerticalAlignment="Center" />
+                    <ToggleSwitch Grid.Column="1" IsChecked="{Binding ForceBaseMapName}" Classes="primary-toggle" AutomationProperties.Name="强制基础地图名称，目前仅 RusMap 需要，需重启" />
                 </Grid>
-                <TextBlock Text="Some mods implement additional maps like japan.mbd or russia.mbd. If you find your mods are not loading properly, try enabling this option. This is required for RusMap." FontSize="12" Classes="Description" />
+                <TextBlock Text="一些模组会实现 japan.mbd 或 russia.mbd 等额外地图。如果模组未正确加载，请尝试启用此选项。RusMap 需要此选项。" FontSize="12" Classes="Description" />
                 <StackPanel IsVisible="{Binding BaseMapNameNeedsRestart}">
-                    <TextBlock Text="Warning: You need to restart ETS2LA to apply this change." FontSize="12" Classes="Warning" />
+                    <TextBlock Text="警告：需要重启 ETS2LA 才能应用此更改。" FontSize="12" Classes="Warning" />
                 </StackPanel>
             </StackPanel>
 
             <StackPanel Spacing="10">
                 <Grid ColumnDefinitions="*, Auto">
-                    <TextBlock Text="Force Map Load" VerticalAlignment="Center" />
-                    <ToggleSwitch Grid.Column="1" IsChecked="{Binding ForceMapLoad}" Classes="primary-toggle" AutomationProperties.Name="Force Map Load on game startup, requires restart" />
+                    <TextBlock Text="强制加载地图" VerticalAlignment="Center" />
+                    <ToggleSwitch Grid.Column="1" IsChecked="{Binding ForceMapLoad}" Classes="primary-toggle" AutomationProperties.Name="游戏启动时强制加载地图，需重启" />
                 </Grid>
-                <TextBlock Text="Force ETS2LA to load the map on game startup. This can resolve issues where your game.log.txt file is not where ETS2LA expects it." FontSize="12" Classes="Description" />
+                <TextBlock Text="强制 ETS2LA 在游戏启动时加载地图。这可以解决 game.log.txt 文件不在 ETS2LA 预期位置的问题。" FontSize="12" Classes="Description" />
                 <StackPanel IsVisible="{Binding ForceMapLoadNeedsRestart}">
-                    <TextBlock Text="Warning: You need to restart ETS2LA to apply this change." FontSize="12" Classes="Warning" />
+                    <TextBlock Text="警告：需要重启 ETS2LA 才能应用此更改。" FontSize="12" Classes="Warning" />
                 </StackPanel>
             </StackPanel>
 
@@ -34,13 +34,13 @@
 
             <StackPanel Spacing="10">
                 <StackPanel Spacing="3">
-                    <TextBlock Text="Data Fidelity" />
-                    <TextBlock Text="Adjust the level of detail of the game data we use. Higher values use more RAM, but include more information. All levels drive the same." FontSize="12" Classes="Description" />
+                    <TextBlock Text="数据精度" />
+                    <TextBlock Text="调整所使用游戏数据的详细程度。数值越高，内存占用越大，但包含的信息也越多。所有级别的驾驶效果相同。" FontSize="12" Classes="Description" />
                 </StackPanel>
                 <TabStrip ItemsSource="{Binding DataFidelityOptions}" 
                         SelectedIndex="{Binding SelectedDataFidelityOption}" 
                         SelectionChanged="OnDataFidelityChanged"
-                        AutomationProperties.Name="Data Fidelity selection, high values use more RAM">
+                        AutomationProperties.Name="数据完整度选择，较高等级使用更多内存">
 
                     <TabStrip.Styles>
                         <Style Selector="TabStripItem" x:DataType="views:TabStripItemHandler">
@@ -57,39 +57,39 @@
                     </TabStrip.ItemTemplate>
                 </TabStrip>
                 <StackPanel Spacing="3" IsVisible="{Binding ShowRamWarning}">
-                    <TextBlock Text="You cannot use some data fidelity options due to insufficient RAM. High requires 16GB, Extreme requires 20GB." FontSize="12" Classes="Warning" />
+                    <TextBlock Text="由于内存不足，部分数据精度选项不可用。高需要 16GB，极高需要 20GB。" FontSize="12" Classes="Warning" />
                 </StackPanel>
 
                 <StackPanel Spacing="3" IsVisible="{Binding ShowLowInfo}">
-                    <TextBlock Text="This setting only loads roads and intersections visible on the in game map. It discards all other information." FontSize="12" />
+                    <TextBlock Text="此设置仅加载游戏内地图中可见的道路和路口，并丢弃其他所有信息。" FontSize="12" />
                 </StackPanel>
 
                 <StackPanel Spacing="3" IsVisible="{Binding ShowMediumInfo}">
-                    <TextBlock Text="This setting drops redundant information while maintaining most detail objects (such as signs). Doesn't include any roads / intersections not shown in the in game map." FontSize="12" />
+                    <TextBlock Text="此设置会删除冗余信息，同时保留大多数细节对象（例如路牌）。不包含游戏内地图未显示的道路或路口。" FontSize="12" />
                 </StackPanel>
 
                 <StackPanel Spacing="3" IsVisible="{Binding ShowHighInfo}">
-                    <TextBlock Text="This setting drops redundant information while maintaining most detail objects (such as signs). Includes all hidden and AI only roads." FontSize="12" />
+                    <TextBlock Text="此设置会删除冗余信息，同时保留大多数细节对象（例如路牌）。包含所有隐藏道路和仅供 AI 使用的道路。" FontSize="12" />
                 </StackPanel>
 
                 <StackPanel Spacing="3" IsVisible="{Binding ShowExtremeInfo}">
-                    <TextBlock Text="This setting includes all available data, most of which is redundant." FontSize="12" />
+                    <TextBlock Text="此设置包含所有可用数据，其中大部分是冗余信息。" FontSize="12" />
                 </StackPanel>
 
                 <StackPanel Spacing="3" IsVisible="{Binding ShowExtremeWarning}">
-                    <TextBlock Text="Warning: Extreme uses significant amounts of RAM, expect over 10GB of usage." FontSize="12" Classes="Warning" />
+                    <TextBlock Text="警告：极高会占用大量内存，预计使用超过 10GB。" FontSize="12" Classes="Warning" />
                 </StackPanel>
             </StackPanel>
 
             <StackPanel Spacing="10">
                 <StackPanel Spacing="3">
-                    <TextBlock Text="Curve Quality" />
-                    <TextBlock Text="Adjust the quality of the curves used for path planning and visualization. By default this matches the game." FontSize="12" Classes="Description" />
+                    <TextBlock Text="曲线质量" />
+                    <TextBlock Text="调整路径规划和可视化所用曲线的质量。默认设置与游戏一致。" FontSize="12" Classes="Description" />
                 </StackPanel>
                 <TabStrip ItemsSource="{Binding CurveQualityOptions}" 
                         SelectedIndex="{Binding SelectedCurveQualityOption}" 
                         SelectionChanged="OnCurveQualityChanged"
-                        AutomationProperties.Name="Curve quality">
+                        AutomationProperties.Name="曲线质量">
 
                     <TabStrip.Styles>
                         <Style Selector="TabStripItem" x:DataType="views:TabStripItemHandler">

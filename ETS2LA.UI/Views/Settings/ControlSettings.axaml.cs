@@ -10,6 +10,7 @@ using ETS2LA.Controls;
 using ETS2LA.Logging;
 using ETS2LA.Shared;
 using ETS2LA.Notifications;
+using ETS2LA.UI.Localization;
 using Huskui.Avalonia.Models;
 
 namespace ETS2LA.UI.Views.Settings;
@@ -22,6 +23,8 @@ public partial class ControlSettings : UserControl
     public ControlSettings()
     {
         InitializeComponent();
+        ETS2LA.UI.Localization.LocalizationManager.Localize(this);
+
         DataContext = this;
         UpdateControlsList();
         _cHandler.ControlAdded += OnControlAdded;
@@ -171,8 +174,8 @@ public class ControlItem : INotifyPropertyChanged
         NotificationHandler.Current.SendNotification(new Notification
         {
             Id = "ControlSettings.Binding",
-            Title = "Control Binding",
-            Content = $"Press a key, button or move an axis to bind '{Name}'",
+            Title = LocalizationManager.Get("BindingControl"),
+            Content = LocalizationManager.Format("BindingPrompt", Name),
             IsProgressIndeterminate = true,
             CloseAfter = 0.0f
         });
@@ -192,8 +195,8 @@ public class ControlItem : INotifyPropertyChanged
             NotificationHandler.Current.SendNotification(new Notification
             {
                 Id = "ControlSettings.SuccessfullyBound",
-                Title = "Control Bound",
-                Content = $"Successfully bound '{Name}' to {DeviceName} - {DeviceButton}",
+                Title = LocalizationManager.Get("BindingSucceeded"),
+                Content = LocalizationManager.Format("BindingSucceededContent", Name, DeviceName, DeviceButton),
                 Level = NotificationLevel.Success,
                 CloseAfter = 5.0f
             });
@@ -203,8 +206,8 @@ public class ControlItem : INotifyPropertyChanged
             NotificationHandler.Current.SendNotification(new Notification
             {
                 Id = "ControlSettings.BindingFailed",
-                Title = "Binding Cancelled",
-                Content = $"Binding for '{Name}' was cancelled or timed out.",
+                Title = LocalizationManager.Get("BindingCancelled"),
+                Content = LocalizationManager.Format("BindingCancelledContent", Name),
                 Level = NotificationLevel.Warning,
                 CloseAfter = 5.0f
             });
@@ -235,12 +238,12 @@ public class ControlItem : INotifyPropertyChanged
     {
         if (string.IsNullOrEmpty(_instance.DeviceId))
         {
-            return "Unbound";
+            return LocalizationManager.TranslateLiteral("未绑定");
         }
 
         if (_instance.DeviceId.ToLower().StartsWith("keyboard"))
         {
-            return "Keyboard";
+            return LocalizationManager.TranslateLiteral("键盘");
         }
 
         var joystick = _cHandler.GetInputDeviceInfoById(_instance.DeviceId);
@@ -266,7 +269,7 @@ public class ControlItem : INotifyPropertyChanged
     private string GetDeviceButton()
     {
         if (!_instance.IsBound())
-            return "Unbound";
+            return LocalizationManager.TranslateLiteral("未绑定");
         
         string controlIdStr = _instance.ControlId.ToString() ?? "Unbound";
         string type = GetControlType();
@@ -305,18 +308,18 @@ public class ControlItem : INotifyPropertyChanged
     private string GetControlType()
     {
         if (!_instance.IsBound())
-            return "Unbound";
+            return LocalizationManager.TranslateLiteral("未绑定");
         
         bool isKeyboard = _instance.DeviceId.ToString().ToLower().StartsWith("keyboard");
         bool isButton = _instance.ControlId.ToString()?.StartsWith("Button ") ?? false;
         bool isHat = _instance.ControlId.ToString()?.StartsWith("Hat ") ?? false;
 
         if (isKeyboard)
-            return "Key";
+            return LocalizationManager.TranslateLiteral("按键");
         if (isButton)
-            return "Button";
+            return LocalizationManager.TranslateLiteral("按钮");
         if (isHat)
-            return "Hat " + _instance.ControlId.ToString()?.Split(" ")?.ElementAtOrDefault(1);
+            return LocalizationManager.TranslateLiteral("帽檐 ") + _instance.ControlId.ToString()?.Split(" ")?.ElementAtOrDefault(1);
 
         return _instance.AxisBehavior.ToString() + " Axis";
     }

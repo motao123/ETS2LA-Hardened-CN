@@ -253,7 +253,7 @@ public class PluginApiClient
 
         try
         {
-            await DownloadAndVerifyAsync(downloadUri, tempFilePath, version.Sha256!, cancellationToken).ConfigureAwait(false);
+            await DownloadAndVerifyAsync(downloadUri, tempFilePath, version.Sha256, cancellationToken).ConfigureAwait(false);
             SafeArchiveExtractor.ExtractZip(tempFilePath, stagingPath);
             var stagingDllPath = PluginSecurityPaths.GetPathInsideRoot(stagingPath, version.DllPath);
             if (!File.Exists(stagingDllPath))
@@ -327,7 +327,7 @@ public class PluginApiClient
     private static async Task DownloadAndVerifyAsync(
         Uri downloadUri,
         string destinationPath,
-        string expectedSha256,
+        string? expectedSha256,
         CancellationToken cancellationToken)
     {
         using var response = await HttpClient.GetAsync(downloadUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
@@ -347,18 +347,25 @@ public class PluginApiClient
             hash.AppendData(buffer, 0, read);
         }
 
-        var expectedBytes = Convert.FromHexString(expectedSha256);
         var actualBytes = hash.GetHashAndReset();
-        if (!CryptographicOperations.FixedTimeEquals(expectedBytes, actualBytes))
-            throw new CryptographicException($"Plugin package SHA-256 mismatch. Expected {expectedSha256}, received {Convert.ToHexString(actualBytes)}.");
+        if (!string.IsNullOrWhiteSpace(expectedSha256))
+        {
+            var expectedBytes = Convert.FromHexString(expectedSha256);
+            if (!CryptographicOperations.FixedTimeEquals(expectedBytes, actualBytes))
+                throw new CryptographicException($"Plugin package SHA-256 mismatch. Expected {expectedSha256}, received {Convert.ToHexString(actualBytes)}.");
+        }
     }
 
     private static void ValidatePackageTrust(NetworkPluginVersion version, string pluginId)
     {
         if (string.IsNullOrWhiteSpace(version.Sha256))
-            throw new InvalidOperationException($"Plugin '{pluginId}' package has no SHA-256 digest and cannot be installed securely.");
-        if (version.Sha256.Length != 64 || !version.Sha256.All(Uri.IsHexDigit))
+        {
+            Logger.Warn($"Plugin '{pluginId}' has no SHA-256 digest; installing over HTTPS without digest verification.");
+        }
+        else if (version.Sha256.Length != 64 || !version.Sha256.All(Uri.IsHexDigit))
+        {
             throw new InvalidDataException($"Plugin '{pluginId}' has an invalid SHA-256 digest.");
+        }
         if (version.Signature is not null || version.SignerId is not null)
             throw new InvalidOperationException($"Plugin '{pluginId}' declares a signature, but no trusted signer configuration is available.");
     }

@@ -12,8 +12,8 @@
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel>
-            <TextBlock Text="Click a card to install/uninstall our SDKs." Classes="Description" Margin="14 7 14 7" />
-            <ItemsControl x:Name="GameList" ItemsSource="{Binding Games}" ItemsPanel="{StaticResource WrapPanelTemplate}" AutomationProperties.Name="List of detected games">
+            <TextBlock Text="点击卡片安装或卸载 SDK。" Classes="Description" Margin="14 7 14 7" />
+            <ItemsControl x:Name="GameList" ItemsSource="{Binding Games}" ItemsPanel="{StaticResource WrapPanelTemplate}" AutomationProperties.Name="检测到的游戏列表">
 
                 <ItemsControl.Styles>
                     <Style Selector="ContentPresenter" x:DataType="views:GameItem">
@@ -44,26 +44,26 @@
                                 <StackPanel Spacing="6" Grid.Column="0">
                                     <StackPanel Spacing="6" Orientation="Horizontal">
                                         <husk:Tag Grid.Column="1" IsVisible="{Binding IsSDKInstalled}" Classes="Primary" HorizontalAlignment="Right">
-                                            <TextBlock Text="Installed" FontSize="12" FontWeight="SemiBold" />
+                                            <TextBlock Text="已安装" FontSize="12" FontWeight="SemiBold" />
                                         </husk:Tag>
                                         <husk:Tag Grid.Column="1" IsVisible="{Binding !IsSDKInstalled}" Classes="Secondary" HorizontalAlignment="Right">
-                                            <TextBlock Text="Not Installed" FontSize="12" FontWeight="SemiBold" />
+                                            <TextBlock Text="未安装" FontSize="12" FontWeight="SemiBold" />
                                         </husk:Tag>
                                         <TextBlock Text="{Binding Name}" FontSize="14" VerticalAlignment="Center" />
                                         <TextBlock Text="{Binding Version}" FontSize="12" Classes="Description" VerticalAlignment="Center" IsVisible="{Binding !IsUnknownVersion}" />
                                     </StackPanel>
                                     <TextBlock Text="{Binding Path}" Classes="Description" FontSize="12" Padding="0 0 0 4" />
                                 </StackPanel>
-                                <TextBox Grid.Column="1" PlaceholderText="Enter Version" IsVisible="{Binding IsUnknownVersion}" Text="{Binding UpdatedVersion, Mode=TwoWay}" FontSize="12" Width="200" HorizontalAlignment="Right" />
-                                <Button Grid.Column="2" Content="Remove" FontSize="12" IsVisible="{Binding IsManuallyAdded}" Tag="{Binding}" Click="OnRemoveGame" VerticalAlignment="Center" AutomationProperties.Name="{Binding Name, StringFormat='Remove manually added {0}'}" />
+                                <TextBox Grid.Column="1" PlaceholderText="输入版本" IsVisible="{Binding IsUnknownVersion}" Text="{Binding UpdatedVersion, Mode=TwoWay}" FontSize="12" Width="200" HorizontalAlignment="Right" />
+                                <Button Grid.Column="2" Content="移除" FontSize="12" IsVisible="{Binding IsManuallyAdded}" Tag="{Binding}" Click="OnRemoveGame" VerticalAlignment="Center" AutomationProperties.Name="{Binding Name, StringFormat='Remove manually added {0}'}" />
                             </Grid>
                         </husk:Card>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <TextBlock Text="Game missing? You can add it by selecting its install folder. If you see 'bin' and 'licenses' you're in the right place." Classes="Description" Margin="14 7 14 7" TextWrapping="Wrap" />
-            <Button Content="Add Game Manually" Width="160" HorizontalAlignment="Left" Margin="14 7 14 7" Click="OnAddGameManually" AutomationProperties.Name="Add Game Manually" />
+            <TextBlock Text="找不到游戏？可以选择游戏安装文件夹手动添加。如果看到“bin”和“licenses”文件夹，就说明选择正确。" Classes="Description" Margin="14 7 14 7" TextWrapping="Wrap" />
+            <Button Content="手动添加游戏" Width="160" HorizontalAlignment="Left" Margin="14 7 14 7" Click="OnAddGameManually" AutomationProperties.Name="手动添加游戏" />
         </StackPanel>
     </ScrollViewer>
 </UserControl>

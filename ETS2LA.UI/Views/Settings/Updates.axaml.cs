@@ -4,6 +4,7 @@ using Huskui.Avalonia.Models;
 using ETS2LA.Shared;
 using ETS2LA.Networking.Updates;
 using ETS2LA.Notifications;
+using ETS2LA.UI.Localization;
 
 using Velopack;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ public partial class Updates : UserControl, INotifyPropertyChanged
 {
     private Updater _updater;
 
+    public string RepositoryUrl => "https://github.com/motao123/ETS2LA-Hardened-CN";
     public string CurrentVersion { get; set; } = "Unknown";
     public bool IsUpdateAvailable => LatestUpdateInfo != null;
     public string LatestVersion => LatestUpdateInfo != null ? $"v{LatestUpdateInfo.TargetFullRelease.Version}" : "N/A";
@@ -27,6 +29,8 @@ public partial class Updates : UserControl, INotifyPropertyChanged
         _updater = Updater.Current;
         CurrentVersion = $"v{_updater.UpdateManager.CurrentVersion}";
         InitializeComponent();
+        ETS2LA.UI.Localization.LocalizationManager.Localize(this);
+
         DataContext = this;
         MainWindow.WindowOpened += (s, e) => OnCheckForUpdatesClick(this, new Avalonia.Interactivity.RoutedEventArgs());
     }
@@ -35,12 +39,12 @@ public partial class Updates : UserControl, INotifyPropertyChanged
     {
         if(LatestUpdateInfo == null)
         {
-            return "No release notes available.";
+            return "没有可用的发行说明。";
         }
 
         if (string.IsNullOrEmpty(LatestUpdateInfo.TargetFullRelease.NotesMarkdown))
         {
-            return "No release notes available.";
+            return "没有可用的发行说明。";
         }
 
         string notes = LatestUpdateInfo.TargetFullRelease.NotesMarkdown;
@@ -57,8 +61,8 @@ public partial class Updates : UserControl, INotifyPropertyChanged
         NotificationHandler.Current.SendNotification(new Notification
         {
             Id = "UpdateNotification",
-            Title = "Checking for Updates",
-            Content = "Please wait while we check for updates...",
+            Title = LocalizationManager.Get("CheckingUpdates"),
+            Content = LocalizationManager.Get("CheckingUpdatesContent"),
             Level = NotificationLevel.Information,
             CloseAfter = 0,
             IsProgressIndeterminate = true
@@ -70,8 +74,8 @@ public partial class Updates : UserControl, INotifyPropertyChanged
                 NotificationHandler.Current.SendNotification(new Notification
                 {
                     Id = "UpdateNotification",
-                    Title = "Update Available",
-                    Content = $"A new version is available: {LatestUpdateInfo.TargetFullRelease.Version}",
+                    Title = LocalizationManager.Get("UpdateAvailable"),
+                    Content = LocalizationManager.Format("UpdateAvailableContent", LatestUpdateInfo.TargetFullRelease.Version),
                     Level = NotificationLevel.Success,
                     CloseAfter = 5,
                     IsProgressIndeterminate = false
@@ -86,8 +90,8 @@ public partial class Updates : UserControl, INotifyPropertyChanged
                 NotificationHandler.Current.SendNotification(new Notification
                 {
                     Id = "UpdateNotification",
-                    Title = "No Update Available",
-                    Content = "You are using the latest version.",
+                    Title = LocalizationManager.Get("NoUpdates"),
+                    Content = LocalizationManager.Get("NoUpdatesContent"),
                     Level = NotificationLevel.Information,
                     CloseAfter = 5,
                     IsProgressIndeterminate = false
@@ -101,8 +105,8 @@ public partial class Updates : UserControl, INotifyPropertyChanged
         NotificationHandler.Current.SendNotification(new Notification
         {
             Id = "UpdateDownloadProgress",
-            Title = "Downloading Update",
-            Content = $"Download progress: {progress}%",
+            Title = LocalizationManager.Get("DownloadingUpdate"),
+            Content = LocalizationManager.Format("DownloadProgress", progress),
             Level = NotificationLevel.Information,
             Progress = progress,
             CloseAfter = 0
@@ -118,8 +122,8 @@ public partial class Updates : UserControl, INotifyPropertyChanged
                 NotificationHandler.Current.SendNotification(new Notification
                 {
                     Id = "UpdateDownloadProgress",
-                    Title = "Downloading Update",
-                    Content = $"Starting download...",
+                    Title = LocalizationManager.Get("DownloadingUpdate"),
+                    Content = LocalizationManager.Get("StartingDownload"),
                     Level = NotificationLevel.Information,
                     Progress = 0,
                     CloseAfter = 0
