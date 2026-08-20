@@ -72,6 +72,15 @@ h3 { margin: 24px 0 10px; font-size: 20px; }
 .search-box input { width: 100%; border: 0; outline: 0; background: transparent; font-size: 14px; }
 .version-chip, .type-badge { display: inline-flex; align-items: center; padding: 4px 8px; color: var(--steel); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-sm); font: 13px "Geist Mono", Consolas, monospace; }
 article { scroll-margin-top: 92px; margin-bottom: 88px; }
+
+/* 独立教程页容器 */
+.page-main { max-width: 860px; margin: 0 auto; padding: 64px 24px 96px; }
+.page-main article { margin-bottom: 0; }
+.page-main h1 { margin: 8px 0 20px; font-size: clamp(34px, 4.5vw, 48px); letter-spacing: -1.5px; }
+.page-main h2 { margin: 40px 0 14px; font-size: 26px; letter-spacing: -.4px; }
+.page-main .lead { margin-bottom: 32px; color: var(--steel); font-size: 17px; }
+.page-main section { margin-top: 8px; }
+.topnav a.active { color: var(--ink); font-weight: 600; }
 .section-kicker { color: var(--steel); }
 .lead { color: var(--steel); font-size: 18px; }
 .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 32px; }
