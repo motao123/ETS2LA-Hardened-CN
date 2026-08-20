@@ -59,8 +59,9 @@ public partial class MainWindow : AppWindow
                                          // so we need to add our own drag corner.
         # endif
 
-        Title = UiText.Get("AppTitle");
-        VersionText.Text = $"v{System.Reflection.Assembly.GetEntryAssembly()?.GetName().Version?.ToString(3) ?? UiText.Get("UnknownVersion")}";
+        ApplyLanguage();
+        LocalizationManager.LanguageChanged += OnLanguageChanged;
+        VersionText.Text = $"v{System.Reflection.Assembly.GetEntryAssembly()?.GetName().Version?.ToString(3) ?? LocalizationManager.Get("UnknownVersion")}";
         UINotificationHandler.Current.SetWindow(this);
 
         pluginService = new PluginManagerService();
@@ -84,6 +85,28 @@ public partial class MainWindow : AppWindow
 
         Opened += (s, e) => Events.Current.Publish("ETS2LA.UI.WindowOpened", e);
         Opened += (s, e) => WindowOpened?.Invoke(this, e);
+    }
+
+    private void ApplyLanguage()
+    {
+        Title = LocalizationManager.Get("AppTitle");
+        MainLabel.Text = LocalizationManager.Get("Main");
+        DashboardLabel.Text = LocalizationManager.Get("Dashboard");
+        VisualizationLabel.Text = LocalizationManager.Get("Visualization");
+        PluginsLabel.Text = LocalizationManager.Get("Plugins");
+        ManagerLabel.Text = LocalizationManager.Get("Manager");
+        CatalogueLabel.Text = LocalizationManager.Get("Catalogue");
+        PerformanceLabel.Text = LocalizationManager.Get("Performance");
+        HelpLabel.Text = LocalizationManager.Get("Help");
+        WikiLabel.Text = LocalizationManager.Get("Wiki");
+        RoadmapLabel.Text = LocalizationManager.Get("Roadmap");
+        SettingsLabel.Text = LocalizationManager.Get("Settings");
+    }
+
+    private void OnLanguageChanged(object? sender, EventArgs e)
+    {
+        ApplyLanguage();
+        VersionText.Text = $"v{System.Reflection.Assembly.GetEntryAssembly()?.GetName().Version?.ToString(3) ?? LocalizationManager.Get("UnknownVersion")}";
     }
 
     private void OnTitlebarPressed(object? sender, PointerPressedEventArgs e)

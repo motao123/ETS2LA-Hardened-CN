@@ -21,7 +21,7 @@ runtime-config/
 .tools/
 .vscode/*.code-workspace
 .DS_Store
-Thumbs.db
+imgui.ini
 
 # GitHub Pages local preview output
 site/.cache/

@@ -5,13 +5,18 @@
              x:DataType="views:UserSettingsView">
     <Grid ColumnDefinitions="450,*">
         <StackPanel Grid.Column="0" Spacing="20" Margin="20">
-        
             <StackPanel Spacing="10">
                 <Grid ColumnDefinitions="*, Auto">
                     <TextBlock Text="Enable Anonymous Telemetry" VerticalAlignment="Center" />
                     <ToggleSwitch Grid.Column="1" IsChecked="{Binding IsTelemetryEnabled}" Classes="primary-toggle" AutomationProperties.Name="Enable Anonymous Telemetry, needs restart" />
                 </Grid>
                 <TextBlock Text="Anonymous telemetry helps us improve ETS2LA by giving us insights into users' system specs, crashes, and other usage data. Your data cannot be identified with any personal information." FontSize="12" Classes="Description" />
+            </StackPanel>
+
+            <StackPanel Spacing="10">
+                <TextBlock Text="Interface language" />
+                <ComboBox ItemsSource="{Binding LanguageOptions}" SelectedItem="{Binding SelectedLanguage}" HorizontalAlignment="Left" MinWidth="180" />
+                <TextBlock Text="Restart the application to apply the language change." FontSize="12" Classes="Description" IsVisible="{Binding LanguageNeedsRestart}" />
             </StackPanel>
 
             <StackPanel Spacing="12" IsVisible="{Binding NeedsRestart}">
@@ -21,7 +26,6 @@
             <StackPanel Spacing="12">
                 <HyperlinkButton Content="View Public Telemetry Data" NavigateUri="https://telemetry.ets2la.com/public-dashboards/17f53fce4749475c8efcab181b1306f3" FontSize="12" AutomationProperties.Name="View Public Telemetry" />
             </StackPanel>
-
         </StackPanel>
     </Grid>
 </UserControl>

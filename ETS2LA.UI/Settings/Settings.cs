@@ -11,6 +11,7 @@ namespace ETS2LA.UI.Settings
         public int WindowY = 200;
         public string Theme = "System";
         public string AccentColor = "Orange";
+        public string Language = "ChineseSimplified";
     }
 
     public class UISettingsHandler
