@@ -8,7 +8,7 @@
 
             <Border Padding="16" CornerRadius="8" Background="{DynamicResource Gray3Color}">
                 <StackPanel Spacing="10">
-                    <Grid ColumnDefinitions="260,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="8" ColumnSpacing="12">
+                    <Grid ColumnDefinitions="260,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="8" ColumnSpacing="12">
                         <TextBlock Text="连接状态" VerticalAlignment="Center" />
                         <TextBlock x:Name="StatusValue" Grid.Column="1" FontWeight="SemiBold" VerticalAlignment="Center" />
 
@@ -56,6 +56,27 @@
 
                         <TextBlock Grid.Row="15" Text="坐标 Z" VerticalAlignment="Center" />
                         <TextBlock x:Name="CoordZValue" Grid.Row="15" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="16" Text="转向辅助等级" VerticalAlignment="Center" />
+                        <TextBlock x:Name="SteerAssistValue" Grid.Row="16" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="17" Text="纵向辅助等级" VerticalAlignment="Center" />
+                        <TextBlock x:Name="LongAssistValue" Grid.Row="17" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="18" Text="转向辅助暂停" VerticalAlignment="Center" />
+                        <TextBlock x:Name="SteerPausedValue" Grid.Row="18" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="19" Text="纵向辅助暂停" VerticalAlignment="Center" />
+                        <TextBlock x:Name="LongPausedValue" Grid.Row="19" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="20" Text="辅助目标速度 (km/h)" VerticalAlignment="Center" />
+                        <TextBlock x:Name="DesiredSpeedValue" Grid.Row="20" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="21" Text="巡航控制" VerticalAlignment="Center" />
+                        <TextBlock x:Name="CruiseActiveValue" Grid.Row="21" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="22" Text="已加载插件" VerticalAlignment="Center" />
+                        <TextBlock x:Name="PluginsValue" Grid.Row="22" Grid.Column="1" VerticalAlignment="Center" TextWrapping="Wrap" />
                     </Grid>
                 </StackPanel>
             </Border>

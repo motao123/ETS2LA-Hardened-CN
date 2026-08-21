@@ -131,6 +131,22 @@ public static class AppLocalization
         ["• 游戏地图可视化渲染"] = "• Game map visualization rendering",
         ["• GitHub 自动更新与安装包发布"] = "• GitHub auto-update and installer publishing",
         ["• 更多驾驶辅助功能与插件生态"] = "• More driving assistance features and plugin ecosystem",
+        ["无"] = "None",
+        ["车道保持"] = "Lane keep",
+        ["完整"] = "Full",
+        ["紧急制动"] = "Emergency braking",
+        ["自适应巡航"] = "Adaptive cruise",
+        ["是"] = "Yes",
+        ["否"] = "No",
+        ["已激活"] = "Active",
+        ["未激活"] = "Inactive",
+        ["转向辅助等级"] = "Steering assist level",
+        ["纵向辅助等级"] = "Longitudinal assist level",
+        ["转向辅助暂停"] = "Steering assist paused",
+        ["纵向辅助暂停"] = "Longitudinal assist paused",
+        ["辅助目标速度 (km/h)"] = "Assist target speed (km/h)",
+        ["巡航控制"] = "Cruise control",
+        ["已加载插件"] = "Loaded plugins",
     };
 
     public static bool IsEnglish { get; private set; }

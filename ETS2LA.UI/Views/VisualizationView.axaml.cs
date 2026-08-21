@@ -1,7 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using ETS2LA.Backend;
 using ETS2LA.Game.Telemetry;
+using ETS2LA.State;
 using ETS2LA.UI.Localization;
 
 namespace ETS2LA.UI.Views;
@@ -24,6 +26,9 @@ public partial class VisualizationView : UserControl
 
     private void Refresh()
     {
+        RefreshAssistState();
+        RefreshPlugins();
+
         var data = GameTelemetry.Current.GetCurrentData();
         if (data == null || !data.sdkActive)
         {
@@ -43,6 +48,7 @@ public partial class VisualizationView : UserControl
             Set("CoordXValue", "-");
             Set("CoordYValue", "-");
             Set("CoordZValue", "-");
+            Set("CruiseActiveValue", "-");
             return;
         }
 
@@ -82,7 +88,54 @@ public partial class VisualizationView : UserControl
         Set("CoordXValue", pos.X.ToString("F1"));
         Set("CoordYValue", pos.Y.ToString("F1"));
         Set("CoordZValue", pos.Z.ToString("F1"));
+
+        Set("CruiseActiveValue", b.cruiseControl
+            ? LocalizationManager.TranslateLiteral("已激活")
+            : LocalizationManager.TranslateLiteral("未激活"));
     }
+
+    private void RefreshAssistState()
+    {
+        var state = ApplicationState.Current;
+        Set("SteerAssistValue", SteeringText(state.DesiredSteeringLevel));
+        Set("LongAssistValue", LongitudinalText(state.DesiredLongitudinalLevel));
+        Set("SteerPausedValue", state.PauseSteeringAssist
+            ? LocalizationManager.TranslateLiteral("是")
+            : LocalizationManager.TranslateLiteral("否"));
+        Set("LongPausedValue", state.PauseLongitudinalAssist
+            ? LocalizationManager.TranslateLiteral("是")
+            : LocalizationManager.TranslateLiteral("否"));
+        Set("DesiredSpeedValue", state.DesiredSpeed > 0 ? (state.DesiredSpeed * 3.6f).ToString("F1") : "-");
+    }
+
+    private void RefreshPlugins()
+    {
+        var handler = PluginBackend.Current?.PluginHandler;
+        if (handler == null || handler.LoadedPlugins.Count == 0)
+        {
+            Set("PluginsValue", "-");
+            return;
+        }
+
+        var names = string.Join("、", handler.LoadedPlugins.Select(p => p.Info.Id.Split('.').Last()));
+        Set("PluginsValue", names);
+    }
+
+    private static string SteeringText(SteeringAssists value) => value switch
+    {
+        SteeringAssists.None => LocalizationManager.TranslateLiteral("无"),
+        SteeringAssists.LaneKeep => LocalizationManager.TranslateLiteral("车道保持"),
+        SteeringAssists.Full => LocalizationManager.TranslateLiteral("完整"),
+        _ => value.ToString()
+    };
+
+    private static string LongitudinalText(LongitudinalAssists value) => value switch
+    {
+        LongitudinalAssists.None => LocalizationManager.TranslateLiteral("无"),
+        LongitudinalAssists.EmergencyBraking => LocalizationManager.TranslateLiteral("紧急制动"),
+        LongitudinalAssists.AdaptiveCruiseControl => LocalizationManager.TranslateLiteral("自适应巡航"),
+        _ => value.ToString()
+    };
 
     private void Set(string name, string value)
     {
