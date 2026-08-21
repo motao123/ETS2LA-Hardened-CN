@@ -45,6 +45,13 @@
 - **Windows x64 便携版**：下载 `ETS2LA-Hardened-CN-windows-x64.zip`，解压后运行 `ETS2LA.exe`（self-contained，无需另装 .NET）。便携版不支持应用内自动更新，需手动下载替换。
 - 每个 Release 附带 `SHA256SUMS-*.txt`，可校验下载包完整性。
 
+**自定义安装位置（可选）**
+
+- MSI：`msiexec /i ETS2LA-win-release.msi VELOPACK_INSTALLDIR="D:\MyFolder"`
+- Setup.exe：`ETS2LA-win-release-Setup.exe --installto "D:\MyFolder"`
+
+安装器默认装到用户目录（`%LocalAppData%\ETS2LA`）。指定目录参数后，默认路径会被跳过，直接装到你的位置。
+
 完整的「下载 → 连接游戏 → 装插件 → 开驾驶辅助 → 覆盖层交互」图文教程见文档站：
 
 - 使用教程：https://motao123.github.io/ETS2LA-Hardened-CN/tutorial.html

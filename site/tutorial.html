@@ -35,6 +35,11 @@
           <li>安装器：运行安装向导即可；便携版：解压后双击 <code>ETS2LA.exe</code>（self-contained，无需装 .NET）。</li>
           <li>如需校验完整性，可用 Release 里的 <code>SHA256SUMS-*.txt</code> 比对下载包哈希。</li>
         </ol>
+        <h3>自定义安装位置</h3>
+        <p>安装器默认装到用户目录 <code>%LocalAppData%\ETS2LA</code>。想装到别的盘/目录，用下面的方式之一：</p>
+        <div class="code-block"><div class="code-head"><span>MSI（推荐）</span></div><pre><code>msiexec /i ETS2LA-win-release.msi VELOPACK_INSTALLDIR="D:\MyFolder"</code></pre></div>
+        <div class="code-block"><div class="code-head"><span>Setup.exe</span></div><pre><code>ETS2LA-win-release-Setup.exe --installto "D:\MyFolder"</code></pre></div>
+        <p>指定目录后，默认路径会被跳过。安装版仍支持应用内自动更新。</p>
       </section>
 
       <section id="t2">
