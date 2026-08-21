@@ -22,6 +22,7 @@ public sealed class GameOutput : IDisposable
     private readonly Stopwatch sinceTriedMemoryAccess = Stopwatch.StartNew();
     private readonly Dictionary<string, int> legacyShmOffsets = new(StringComparer.Ordinal);
     private readonly HashSet<string> previouslyMixedControls = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, float> slewState = new(StringComparer.Ordinal);
     private readonly TimeSpan tickInterval = TimeSpan.FromSeconds(1d / 60d);
     private DateTime lastLoopError = DateTime.MinValue;
     private bool isReset;
@@ -282,6 +283,15 @@ public sealed class GameOutput : IDisposable
             var value = mixed.TryGetValue(controlName, out var mixedValue) && float.IsFinite(mixedValue)
                 ? mixedValue
                 : 0f;
+
+            // 主机侧失效安全：对主要驾驶控制做 slew-rate 限幅，防止急转/急加油抖动。
+            if (controlName is "steering" or "acceleration")
+            {
+                slewState.TryGetValue(controlName, out var previous);
+                value = OutputSafety.LimitSlew(previous, value);
+                slewState[controlName] = value;
+            }
+
             WriteMixedControl(controlName, value);
         }
 
@@ -377,6 +387,7 @@ public sealed class GameOutput : IDisposable
         legacyAccessor!.Flush();
         modernAccessor!.Flush();
         previouslyMixedControls.Clear();
+        slewState.Clear();
         isReset = true;
     }
 
