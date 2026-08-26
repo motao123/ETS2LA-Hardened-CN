@@ -8,7 +8,7 @@
 
     <Title>ETS2LA Hardened CN</Title>
     <Description>Security-hardened self driving host for ETS2 and ATS.</Description>
-    <Version>0.2.2</Version>
+    <Version>0.2.3</Version>
     <AssemblyName>ETS2LA</AssemblyName>
     <RootNamespace>ETS2LA</RootNamespace>
   </PropertyGroup>

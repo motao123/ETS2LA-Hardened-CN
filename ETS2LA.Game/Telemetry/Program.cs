@@ -28,6 +28,7 @@ public class GameTelemetry
     private MemoryReader reader;
     private GameTelemetryData? currentData = new();
     private bool shutdown = false;
+    private long lastSuccessfulUpdateTimestamp;
 
 
     string mmapName = "Local\\SCSTelemetry";
@@ -98,6 +99,16 @@ public class GameTelemetry
             currentData = new();
         
         return currentData;
+    }
+
+    public bool IsFresh(TimeSpan maxAge)
+    {
+        var data = currentData;
+        return data != null && TelemetryFreshness.IsFresh(
+            Interlocked.Read(ref lastSuccessfulUpdateTimestamp),
+            Stopwatch.GetTimestamp(),
+            data.sdkActive,
+            maxAge);
     }
 
     private void UpdateThread()
@@ -532,6 +543,7 @@ public class GameTelemetry
         offset += 90;
 
         // Publish to the event bus
+        Interlocked.Exchange(ref lastSuccessfulUpdateTimestamp, Stopwatch.GetTimestamp());
         Events.Current.Publish<GameTelemetryData>(EventString, currentData);
         TelemetryEvents.Current.UpdateEvents(currentData);
 

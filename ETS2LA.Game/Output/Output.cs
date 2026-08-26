@@ -1,5 +1,6 @@
 using ETS2LA.Logging;
 using ETS2LA.Backend.Events;
+using ETS2LA.Game.Telemetry;
 
 using System.Diagnostics;
 using System.IO.MemoryMappedFiles;
@@ -24,7 +25,9 @@ public sealed class GameOutput : IDisposable
     private readonly HashSet<string> previouslyMixedControls = new(StringComparer.Ordinal);
     private readonly Dictionary<string, float> slewState = new(StringComparer.Ordinal);
     private readonly TimeSpan tickInterval = TimeSpan.FromSeconds(1d / 60d);
+    private readonly TimeSpan telemetryMaxAge = TimeSpan.FromSeconds(2);
     private DateTime lastLoopError = DateTime.MinValue;
+    private bool telemetryFailsafeActive;
     private bool isReset;
     private bool disposed;
 
@@ -171,6 +174,25 @@ public sealed class GameOutput : IDisposable
                 return;
             }
 
+            if (!GameTelemetry.Current.IsFresh(telemetryMaxAge))
+            {
+                MarkBooleanInputsHandled(snapshot);
+                lock (ioLock)
+                    ResetOutputs();
+                if (!telemetryFailsafeActive)
+                {
+                    telemetryFailsafeActive = true;
+                    Logger.Warn("Telemetry is stale; all game control outputs were reset to neutral.");
+                }
+                return;
+            }
+
+            if (telemetryFailsafeActive)
+            {
+                telemetryFailsafeActive = false;
+                Logger.Info("Telemetry recovered; game control output resumed.");
+            }
+
             lock (ioLock)
             {
                 if (!MemoryAccessAvailable)
@@ -206,6 +228,12 @@ public sealed class GameOutput : IDisposable
                 channels.Remove(channelId);
             return channels.Values.ToList();
         }
+    }
+
+    private static void MarkBooleanInputsHandled(IEnumerable<ControlChannel> snapshot)
+    {
+        foreach (var channel in snapshot)
+            channel.BoolsProcessed = true;
     }
 
     private void ProcessBooleans(IEnumerable<ControlChannel> snapshot, CancellationToken cancellationToken)

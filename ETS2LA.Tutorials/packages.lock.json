@@ -209,6 +209,7 @@
           "ETS2LA.Game": "[1.0.0, )",
           "ETS2LA.Logging": "[1.0.0, )",
           "ETS2LA.ML": "[1.0.0, )",
+          "ETS2LA.Shared": "[1.0.0, )",
           "ETS2LA.State": "[1.0.0, )",
           "ETS2LA.Telemetry": "[1.0.0, )",
           "Hexa.NET.GLFW": "[1.0.5, )",

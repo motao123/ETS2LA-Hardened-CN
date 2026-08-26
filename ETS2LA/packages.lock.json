@@ -726,6 +726,7 @@
           "ETS2LA.Game": "[1.0.0, )",
           "ETS2LA.Logging": "[1.0.0, )",
           "ETS2LA.ML": "[1.0.0, )",
+          "ETS2LA.Shared": "[1.0.0, )",
           "ETS2LA.State": "[1.0.0, )",
           "ETS2LA.Telemetry": "[1.0.0, )",
           "Hexa.NET.GLFW": "[1.0.5, )",
@@ -772,7 +773,8 @@
           "ETS2LA.Controls": "[1.0.0, )",
           "ETS2LA.Logging": "[1.0.0, )",
           "ETS2LA.Notifications": "[1.0.0, )",
-          "ETS2LA.Overlay": "[1.0.0, )"
+          "ETS2LA.Overlay": "[1.0.0, )",
+          "ETS2LA.Shared": "[1.0.0, )"
         }
       },
       "ets2la.ui": {
@@ -786,7 +788,8 @@
           "ETS2LA.Networking": "[1.0.0, )",
           "ETS2LA.Notifications": "[1.0.0, )",
           "ETS2LA.Overlay": "[1.0.0, )",
-          "ETS2LA.Shared": "[1.0.0, )"
+          "ETS2LA.Shared": "[1.0.0, )",
+          "ETS2LA.State": "[1.0.0, )"
         }
       },
       "trucklib": {

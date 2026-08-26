@@ -143,7 +143,7 @@ chmod +x build.sh</code></pre></div>
         <div class="section-kicker">SECURITY MODEL</div>
         <h2>安全模型</h2>
         <p>插件 DLL 在宿主进程内运行，因此完整性验证是安装边界，而不是权限沙箱。所有在线插件都必须经过明确校验。</p>
-        <div class="security-table"><div><b>边界</b><b>策略</b></div><div><code>下载</code><span>仅允许 HTTPS，并拒绝带凭据的 URL。</span></div><div><code>完整性</code><span>必须提供 64 位十六进制 SHA-256。</span></div><div><code>压缩包</code><span>拒绝穿越、重解析点、超大归档和过多条目。</span></div><div><code>安装</code><span>staging → 校验 → 原子切换；失败恢复旧版本。</span></div><div><code>凭据</code><span>Windows 使用 DPAPI，普通 JSON 不保存 JWT。</span></div></div>
+        <div class="security-table"><div><b>边界</b><b>策略</b></div><div><code>下载</code><span>仅允许 HTTPS，并拒绝带凭据的 URL。</span></div><div><code>完整性</code><span>提供 SHA-256 时严格校验；旧目录无摘要时只允许 HTTPS 并记录警告。</span></div><div><code>压缩包</code><span>拒绝穿越、重解析点、超大归档和过多条目。</span></div><div><code>安装</code><span>staging → 校验 → 原子切换；失败恢复旧版本。</span></div><div><code>控制</code><span>slew-rate 限幅；遥测超过 2 秒未更新时立即复位为中性，恢复后平滑接管。</span></div><div><code>凭据</code><span>Windows 使用 DPAPI，普通 JSON 不保存 JWT。</span></div></div>
         <a class="text-link" href="https://github.com/motao123/ETS2LA-Hardened-CN/blob/main/SECURITY.md" target="_blank" rel="noreferrer">阅读完整安全说明 ↗</a>
       </article>
 
@@ -151,7 +151,7 @@ chmod +x build.sh</code></pre></div>
         <div class="section-kicker">TESTING</div>
         <h2>测试</h2>
         <p>纯逻辑质量门不依赖真实游戏、网络服务或图形环境。</p>
-        <div class="status-line"><span class="status-dot"></span><strong>16 个测试通过</strong><span>控制融合、路径安全、ZIP 安全、依赖环、设置路径和凭据序列化</span></div>
+        <div class="status-line"><span class="status-dot"></span><strong>29 个测试通过</strong><span>控制融合、输出限幅、遥测陈旧、路径安全、ZIP 安全、依赖环、设置路径和凭据序列化</span></div>
         <div class="code-block"><div class="code-head"><span>PowerShell</span><button class="copy-button" type="button" data-copy="dotnet test tests\\ETS2LA.Hardened.Tests\\ETS2LA.Hardened.Tests.csproj -c Release --no-restore">复制</button></div><pre><code>dotnet test tests\\ETS2LA.Hardened.Tests\\ETS2LA.Hardened.Tests.csproj -c Release --no-restore</code></pre></div>
       </article>
 
