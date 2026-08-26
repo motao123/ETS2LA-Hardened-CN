@@ -147,6 +147,20 @@ public static class AppLocalization
         ["辅助目标速度 (km/h)"] = "Assist target speed (km/h)",
         ["巡航控制"] = "Cruise control",
         ["已加载插件"] = "Loaded plugins",
+        ["新鲜"] = "Fresh",
+        ["陈旧（已复位输出）"] = "Stale (outputs reset)",
+        ["不限速"] = "No limit",
+        ["未生效（未设限速）"] = "Inactive (no limit set)",
+        ["未超速"] = "Not overspeeding",
+        ["未生效"] = "Inactive",
+        ["超速 +{0} {1}"] = "Overspeed +{0} {1}",
+        ["正在制动"] = "Braking",
+        ["禁止油门"] = "Throttle cut",
+        ["安全兜底状态"] = "Safety failsafe",
+        ["遥测新鲜度"] = "Telemetry freshness",
+        ["最高速度设置"] = "Max speed setting",
+        ["超速状态"] = "Overspeed status",
+        ["限速保护"] = "Speed limit guard",
     };
 
     public static bool IsEnglish { get; private set; }

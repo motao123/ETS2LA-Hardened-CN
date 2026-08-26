@@ -2,7 +2,10 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using ETS2LA.Backend;
+using ETS2LA.Game.Output;
 using ETS2LA.Game.Telemetry;
+using ETS2LA.Settings.Global;
+using ETS2LA.Shared;
 using ETS2LA.State;
 using ETS2LA.UI.Localization;
 
@@ -28,6 +31,7 @@ public partial class VisualizationView : UserControl
     {
         RefreshAssistState();
         RefreshPlugins();
+        RefreshSafetyState();
 
         var data = GameTelemetry.Current.GetCurrentData();
         if (data == null || !data.sdkActive)
@@ -107,6 +111,60 @@ public partial class VisualizationView : UserControl
             : LocalizationManager.TranslateLiteral("否"));
         Set("DesiredSpeedValue", state.DesiredSpeed > 0 ? (state.DesiredSpeed * 3.6f).ToString("F1") : "-");
     }
+
+    private void RefreshSafetyState()
+    {
+        var fresh = GameTelemetry.Current.IsFresh(TimeSpan.FromSeconds(2));
+        Set("FreshnessValue", fresh
+            ? LocalizationManager.TranslateLiteral("新鲜")
+            : LocalizationManager.TranslateLiteral("陈旧（已复位输出）"));
+
+        var maxMps = AssistanceSettings.Current.MaximumSpeed;
+        var unit = ToSpeedUnit(StateSettingsHandler.Current.GetSettings().DisplayUnits);
+        Set("MaxSpeedValue", maxMps > 0
+            ? $"{SpeedUnitConverter.FromMetersPerSecond(maxMps, unit):F0} {GetSpeedAbbreviation(unit)}"
+            : LocalizationManager.TranslateLiteral("不限速"));
+
+        if (maxMps <= 0f)
+        {
+            Set("OverspeedValue", "-");
+            Set("SpeedGuardValue", LocalizationManager.TranslateLiteral("未生效（未设限速）"));
+            return;
+        }
+
+        var speedMps = GameTelemetry.Current.GetCurrentData()?.truckFloat.speed ?? 0f;
+        var deltaMps = speedMps - maxMps;
+        if (deltaMps <= 0f)
+        {
+            Set("OverspeedValue", LocalizationManager.TranslateLiteral("未超速"));
+            Set("SpeedGuardValue", LocalizationManager.TranslateLiteral("未生效"));
+            return;
+        }
+
+        Set("OverspeedValue", string.Format(LocalizationManager.TranslateLiteral("超速 +{0} {1}"),
+            SpeedUnitConverter.FromMetersPerSecond(deltaMps, unit).ToString("F1"), GetSpeedAbbreviation(unit)));
+
+        var guarded = SpeedLimitGuard.LimitAcceleration(speedMps, maxMps, acceleration: 1f);
+        Set("SpeedGuardValue", guarded < 0f
+            ? LocalizationManager.TranslateLiteral("正在制动")
+            : guarded < 1f
+                ? LocalizationManager.TranslateLiteral("禁止油门")
+                : LocalizationManager.TranslateLiteral("未生效"));
+    }
+
+    private static ETS2LA.Shared.SpeedUnit ToSpeedUnit(ETS2LA.State.Units units) => units switch
+    {
+        ETS2LA.State.Units.Imperial => ETS2LA.Shared.SpeedUnit.Imperial,
+        ETS2LA.State.Units.Scientific => ETS2LA.Shared.SpeedUnit.Scientific,
+        _ => ETS2LA.Shared.SpeedUnit.Metric
+    };
+
+    private static string GetSpeedAbbreviation(SpeedUnit unit) => unit switch
+    {
+        SpeedUnit.Imperial => "mph",
+        SpeedUnit.Scientific => "m/s",
+        _ => "km/h"
+    };
 
     private void RefreshPlugins()
     {

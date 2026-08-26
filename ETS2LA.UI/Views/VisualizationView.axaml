@@ -81,6 +81,25 @@
                 </StackPanel>
             </Border>
 
+            <Border Padding="16" CornerRadius="8" Background="{DynamicResource Gray3Color}">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="安全兜底状态" FontSize="16" FontWeight="SemiBold" />
+                    <Grid ColumnDefinitions="260,*" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="8" ColumnSpacing="12">
+                        <TextBlock Text="遥测新鲜度" VerticalAlignment="Center" />
+                        <TextBlock x:Name="FreshnessValue" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="1" Text="最高速度设置" VerticalAlignment="Center" />
+                        <TextBlock x:Name="MaxSpeedValue" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="2" Text="超速状态" VerticalAlignment="Center" />
+                        <TextBlock x:Name="OverspeedValue" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" />
+
+                        <TextBlock Grid.Row="3" Text="限速保护" VerticalAlignment="Center" />
+                        <TextBlock x:Name="SpeedGuardValue" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+
             <TextBlock Text="说明：本页实时读取游戏遥测数据，进入驾驶状态后数值会持续刷新。" Classes="Description" FontSize="12" TextWrapping="Wrap" />
         </StackPanel>
     </ScrollViewer>
