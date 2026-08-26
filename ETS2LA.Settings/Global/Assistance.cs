@@ -57,7 +57,7 @@ public class AssistanceSettings
     public SetSpeedBehaviour SetSpeedBehaviourOption { get; set; } = SetSpeedBehaviour.SpeedLimit;
     public SpeedLimitWarning SpeedLimitWarningOption { get; set; } = SpeedLimitWarning.Visual;
     public CollisionAvoidance CollisionAvoidanceOption { get; set; } = CollisionAvoidance.Early;
-    public float MaximumSpeed { get; set; } = 0f; // 0 = no limit
+    public float MaximumSpeed { get; set; } = 0f; // m/s（科学单位）；0 = 不限速
     public bool IgnoreTrafficRules { get; set; } = false;
 
     [NonSerialized]

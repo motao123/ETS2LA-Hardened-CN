@@ -239,9 +239,8 @@ public sealed class GameOutput : IDisposable
         if (maximumSpeed <= 0f || mixed.Count == 0)
             return;
 
-        // 设置里的上限以显示单位存储，这里统一按 m/s 参与保护；
-        // 是否换算到 km/h / mph 由使用方（UI）展示，主机只按科学单位执行。
-        var maxSpeedMps = maximumSpeed * 1000f / 3600f;
+        // “最高速度”设置以 m/s（科学单位）存储，主机直接按 m/s 执行保护。
+        var maxSpeedMps = maximumSpeed;
 
         var speedMps = telemetry.truckFloat.speed;
         if (speedMps <= maxSpeedMps)

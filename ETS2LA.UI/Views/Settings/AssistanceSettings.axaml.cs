@@ -106,15 +106,34 @@ public partial class AssistanceSettingsPage : UserControl, INotifyPropertyChange
         }
     }
 
-    public string MaximumSpeedDisplay => AssistanceSettings.Current.MaximumSpeed > 0 ? $"{AssistanceSettings.Current.MaximumSpeed:F0} {UnitConversions.GetUnitAbbreviation(UnitType.Speed, StateSettingsHandler.Current.GetSettings().DisplayUnits)}" : "No Limit";
+    private static ETS2LA.Shared.SpeedUnit ToSpeedUnit(ETS2LA.State.Units units) => units switch
+    {
+        ETS2LA.State.Units.Imperial => ETS2LA.Shared.SpeedUnit.Imperial,
+        ETS2LA.State.Units.Scientific => ETS2LA.Shared.SpeedUnit.Scientific,
+        _ => ETS2LA.Shared.SpeedUnit.Metric
+    };
+
+    public string MaximumSpeedDisplay => AssistanceSettings.Current.MaximumSpeed > 0
+        ? $"{MaximumSpeed:F0} {UnitConversions.GetUnitAbbreviation(UnitType.Speed, StateSettingsHandler.Current.GetSettings().DisplayUnits)}"
+        : "No Limit";
+
     public float MaximumSpeed
     {
-        get => AssistanceSettings.Current.MaximumSpeed;
+        get
+        {
+            var storedMps = AssistanceSettings.Current.MaximumSpeed;
+            if (storedMps <= 0f)
+                return 0f;
+            var unit = ToSpeedUnit(StateSettingsHandler.Current.GetSettings().DisplayUnits);
+            return ETS2LA.Shared.SpeedUnitConverter.FromMetersPerSecond(storedMps, unit);
+        }
         set
         {
-            if (AssistanceSettings.Current.MaximumSpeed != value)
+            var unit = ToSpeedUnit(StateSettingsHandler.Current.GetSettings().DisplayUnits);
+            var storedMps = value > 0f ? ETS2LA.Shared.SpeedUnitConverter.ToMetersPerSecond(value, unit) : 0f;
+            if (Math.Abs(AssistanceSettings.Current.MaximumSpeed - storedMps) > 0.01f)
             {
-                AssistanceSettings.Current.MaximumSpeed = value;
+                AssistanceSettings.Current.MaximumSpeed = storedMps;
                 AssistanceSettings.Current.Save();
             }
             OnPropertyChanged(nameof(MaximumSpeed));
