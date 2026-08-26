@@ -166,6 +166,8 @@ public static class AppLocalization
         ["输出状态"] = "Output status",
         ["停止输出"] = "Output stopped",
         ["正在写入"] = "Writing",
+        ["帧率趋势（最近 60 个采样）"] = "Frame rate trend (last 60 samples)",
+        ["最近：最低 {0} / 平均 {1} / 最高 {2} FPS"] = "Last: min {0} / avg {1} / max {2} FPS",
     };
 
     public static bool IsEnglish { get; private set; }

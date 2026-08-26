@@ -36,6 +36,14 @@
                 </StackPanel>
             </Border>
 
+            <Border Padding="16" CornerRadius="8" Background="{DynamicResource Gray3Color}">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="帧率趋势（最近 60 个采样）" FontSize="16" FontWeight="SemiBold" />
+                    <TextBlock x:Name="FpsStatsValue" Classes="Description" FontSize="12" />
+                    <Canvas x:Name="FpsCanvas" Width="560" Height="80" HorizontalAlignment="Left" />
+                </StackPanel>
+            </Border>
+
             <TextBlock Text="说明：帧率来自游戏内覆盖层渲染循环；CPU 使用率按上一采样周期的进程时间计算。" Classes="Description" FontSize="12" TextWrapping="Wrap" />
         </StackPanel>
     </ScrollViewer>
