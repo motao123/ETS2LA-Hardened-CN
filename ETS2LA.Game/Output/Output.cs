@@ -174,7 +174,8 @@ public sealed class GameOutput : IDisposable
                 return;
             }
 
-            if (!GameTelemetry.Current.IsFresh(telemetryMaxAge))
+            var telemetry = GameTelemetry.Current.GetCurrentData();
+            if (telemetry == null || !GameTelemetry.Current.IsFresh(telemetryMaxAge))
             {
                 MarkBooleanInputsHandled(snapshot);
                 lock (ioLock)
@@ -200,7 +201,9 @@ public sealed class GameOutput : IDisposable
 
                 isReset = false;
                 ProcessBooleans(snapshot, cancellationToken);
-                WriteMixedFloats(ControlMixer.Mix(snapshot));
+                var mixed = new Dictionary<string, float>(ControlMixer.Mix(snapshot), StringComparer.Ordinal);
+                ApplySpeedLimit(mixed, telemetry);
+                WriteMixedFloats(mixed);
                 legacyAccessor!.Flush();
                 modernAccessor!.Flush();
             }
@@ -228,6 +231,24 @@ public sealed class GameOutput : IDisposable
                 channels.Remove(channelId);
             return channels.Values.ToList();
         }
+    }
+
+    private void ApplySpeedLimit(Dictionary<string, float> mixed, GameTelemetryData telemetry)
+    {
+        var maximumSpeed = ETS2LA.Settings.Global.AssistanceSettings.Current.MaximumSpeed;
+        if (maximumSpeed <= 0f || mixed.Count == 0)
+            return;
+
+        // 设置里的上限以显示单位存储，这里统一按 m/s 参与保护；
+        // 是否换算到 km/h / mph 由使用方（UI）展示，主机只按科学单位执行。
+        var maxSpeedMps = maximumSpeed * 1000f / 3600f;
+
+        var speedMps = telemetry.truckFloat.speed;
+        if (speedMps <= maxSpeedMps)
+            return;
+
+        if (mixed.TryGetValue("acceleration", out var acceleration))
+            mixed["acceleration"] = SpeedLimitGuard.LimitAcceleration(speedMps, maxSpeedMps, acceleration);
     }
 
     private static void MarkBooleanInputsHandled(IEnumerable<ControlChannel> snapshot)
