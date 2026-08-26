@@ -24,6 +24,7 @@ public sealed class GameOutput : IDisposable
     private readonly Dictionary<string, int> legacyShmOffsets = new(StringComparer.Ordinal);
     private readonly HashSet<string> previouslyMixedControls = new(StringComparer.Ordinal);
     private readonly Dictionary<string, float> slewState = new(StringComparer.Ordinal);
+    private readonly OutputSnapshot lastOutput = new();
     private readonly TimeSpan tickInterval = TimeSpan.FromSeconds(1d / 60d);
     private readonly TimeSpan telemetryMaxAge = TimeSpan.FromSeconds(2);
     private DateTime lastLoopError = DateTime.MinValue;
@@ -39,6 +40,9 @@ public sealed class GameOutput : IDisposable
                 return new Dictionary<string, ControlChannel>(channels, StringComparer.Ordinal);
         }
     }
+
+    /// <summary>主机最后一次写出的转向/油门（含刹车）控制值。</summary>
+    public OutputSnapshot LastOutput => lastOutput;
 
     private const string LegacyMapName = "Local\\SCSControls";
     private const string LegacyMapNameLinux = "/dev/shm/SCS/SCSControls";
@@ -325,6 +329,7 @@ public sealed class GameOutput : IDisposable
 
     private void WriteMixedFloats(IReadOnlyDictionary<string, float> mixed)
     {
+        float lastSteering = 0f, lastAcceleration = 0f;
         var controlsToWrite = previouslyMixedControls.Concat(mixed.Keys).ToHashSet(StringComparer.Ordinal);
         foreach (var controlName in controlsToWrite)
         {
@@ -340,9 +345,13 @@ public sealed class GameOutput : IDisposable
                 slewState[controlName] = value;
             }
 
+            if (controlName == "steering") lastSteering = value;
+            else if (controlName == "acceleration") lastAcceleration = value;
+
             WriteMixedControl(controlName, value);
         }
 
+        lastOutput.Record(lastSteering, lastAcceleration);
         previouslyMixedControls.Clear();
         previouslyMixedControls.UnionWith(mixed.Keys);
     }
@@ -436,6 +445,7 @@ public sealed class GameOutput : IDisposable
         modernAccessor!.Flush();
         previouslyMixedControls.Clear();
         slewState.Clear();
+        lastOutput.Record(0f, 0f);
         isReset = true;
     }
 

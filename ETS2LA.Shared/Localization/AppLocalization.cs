@@ -161,6 +161,11 @@ public static class AppLocalization
         ["最高速度设置"] = "Max speed setting",
         ["超速状态"] = "Overspeed status",
         ["限速保护"] = "Speed limit guard",
+        ["输出转向"] = "Output steering",
+        ["输出油门/刹车"] = "Output throttle/brake",
+        ["输出状态"] = "Output status",
+        ["停止输出"] = "Output stopped",
+        ["正在写入"] = "Writing",
     };
 
     public static bool IsEnglish { get; private set; }

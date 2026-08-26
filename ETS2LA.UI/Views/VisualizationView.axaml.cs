@@ -114,6 +114,13 @@ public partial class VisualizationView : UserControl
 
     private void RefreshSafetyState()
     {
+        var output = GameOutput.Current.LastOutput;
+        Set("OutputSteeringValue", output.Steering.ToString("F2"));
+        Set("OutputAccelValue", output.Acceleration.ToString("F2"));
+        Set("OutputStatusValue", output.IsStale(TimeSpan.FromSeconds(1))
+            ? LocalizationManager.TranslateLiteral("停止输出")
+            : LocalizationManager.TranslateLiteral("正在写入"));
+
         var fresh = GameTelemetry.Current.IsFresh(TimeSpan.FromSeconds(2));
         Set("FreshnessValue", fresh
             ? LocalizationManager.TranslateLiteral("新鲜")
