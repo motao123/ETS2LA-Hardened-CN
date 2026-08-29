@@ -170,6 +170,8 @@ public static class AppLocalization
         ["最近：最低 {0} / 平均 {1} / 最高 {2} FPS"] = "Last: min {0} / avg {1} / max {2} FPS",
         ["遥测"] = "Telemetry",
         ["安全兜底"] = "Safety failsafe",
+        ["当前速度"] = "Current speed",
+        ["最高速度"] = "Max speed",
     };
 
     public static bool IsEnglish { get; private set; }
