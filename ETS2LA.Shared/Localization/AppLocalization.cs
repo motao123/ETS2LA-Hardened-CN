@@ -168,6 +168,8 @@ public static class AppLocalization
         ["正在写入"] = "Writing",
         ["帧率趋势（最近 60 个采样）"] = "Frame rate trend (last 60 samples)",
         ["最近：最低 {0} / 平均 {1} / 最高 {2} FPS"] = "Last: min {0} / avg {1} / max {2} FPS",
+        ["遥测"] = "Telemetry",
+        ["安全兜底"] = "Safety failsafe",
     };
 
     public static bool IsEnglish { get; private set; }

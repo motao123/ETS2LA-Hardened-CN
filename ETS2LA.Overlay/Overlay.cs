@@ -101,6 +101,7 @@ public class OverlayHandler
         windows.Add(new OverlayInfoWindow());
         windows.Add(new DemoWindow());
         windows.Add(new StateWindow());
+        windows.Add(new SafetyStatusWindow());
 
         if (MLSettings.Current.RenderVisionCameras)
             windows.Add(new VisionCamerasWindow());
