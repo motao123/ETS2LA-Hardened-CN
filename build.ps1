@@ -37,19 +37,25 @@ foreach ($path in $required) {
 Push-Location $root
 try {
     $rid = 'win-x64'
-    & $dotnetCommand restore ETS2LA.sln -r $rid --force-evaluate
+    # Neutral restore keeps the committed lock files RID-agnostic; CI runs
+    # locked-mode restores and would fail on a RID-pinned lock file.
+    & $dotnetCommand restore ETS2LA.sln --force-evaluate
     & $dotnetCommand build ETS2LA.sln -c $Configuration --no-restore
     if ($Test) {
         & $dotnetCommand test tests\ETS2LA.Hardened.Tests\ETS2LA.Hardened.Tests.csproj -c $Configuration --no-restore
     }
     if ($Publish) {
-        & $dotnetCommand publish ETS2LA\ETS2LA.csproj -c $Configuration -r $rid --self-contained true -o publish\win-x64 --no-restore
+        & $dotnetCommand restore ETS2LA\ETS2LA.csproj -r $rid --force-evaluate
+        & $dotnetCommand publish ETS2LA\ETS2LA.csproj -c $Configuration -r $rid --self-contained true -o publish\win-x64 --no-restore --no-build
         & $dotnetCommand build Plugins\AutoBehavior\AutoBehavior.csproj -c $Configuration --no-restore
         New-Item -ItemType Directory -Force -Path 'Assets\BundledPlugins', 'publish\win-x64\Assets\BundledPlugins' | Out-Null
         Copy-Item "Plugins\AutoBehavior\bin\$Configuration\net10.0\AutoBehavior.dll" 'Assets\BundledPlugins\' -Force
         Copy-Item 'Assets\BundledPlugins\AutoBehavior.dll' 'publish\win-x64\Assets\BundledPlugins\' -Force
         Copy-Item Assets publish\win-x64\Assets -Recurse -Force
         & (Join-Path $root 'publish\win-x64\ETS2LA.exe') --smoke-test
+        # The RID restore above re-pinned the lock files; bring them back to
+        # the neutral state so a RID-pinned lock never gets committed.
+        & $dotnetCommand restore ETS2LA.sln --force-evaluate | Out-Null
     }
 } finally {
     Pop-Location

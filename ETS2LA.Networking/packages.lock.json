@@ -195,23 +195,6 @@
         "resolved": "0.54.0",
         "contentHash": "StDXCFayfy0yB1xzUHT2tgEpV1/HFTiS4JgsAQS49EYTfMixSwwucaQs/bIOCwXjWwIQTMuxjUIxcB5XsJkFJA=="
       }
-    },
-    "net10.0/win-x64": {
-      "SoundFlow": {
-        "type": "CentralTransitive",
-        "requested": "[1.4.0, )",
-        "resolved": "1.4.0",
-        "contentHash": "PVc8NEpwmx16qJdOGRvc7Kpvs/3hNZBuldErmnMQSh9IClAA2UWrafcUIQUxki2GrWB2g71hPSDIUKEo3nRgeA=="
-      },
-      "SoundFlow.Codecs.FFMpeg": {
-        "type": "CentralTransitive",
-        "requested": "[1.4.0, )",
-        "resolved": "1.4.0",
-        "contentHash": "lp+y6joRjqqlR/UFaH4TptforIF2b18O/LXOvuLj/oX6RZy6U8IG8c3Nc1S2aOCX017YtI7yo7kLAZysPlc2VQ==",
-        "dependencies": {
-          "SoundFlow": "1.4.0"
-        }
-      }
     }
   }
 }

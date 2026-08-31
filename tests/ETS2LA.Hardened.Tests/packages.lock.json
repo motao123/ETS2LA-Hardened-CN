@@ -450,37 +450,6 @@
           "NuGet.Versioning": "6.14.0"
         }
       }
-    },
-    "net10.0/win-x64": {
-      "Microsoft.Win32.SystemEvents": {
-        "type": "Transitive",
-        "resolved": "7.0.0",
-        "contentHash": "2nXPrhdAyAzir0gLl8Yy8S5Mnm/uBSQQA7jEsILOS1MTyS7DbmV1NgViMtvV1sfCD1ebITpNwb1NIinKeJgUVQ=="
-      },
-      "SoundFlow": {
-        "type": "CentralTransitive",
-        "requested": "[1.4.0, )",
-        "resolved": "1.4.0",
-        "contentHash": "PVc8NEpwmx16qJdOGRvc7Kpvs/3hNZBuldErmnMQSh9IClAA2UWrafcUIQUxki2GrWB2g71hPSDIUKEo3nRgeA=="
-      },
-      "SoundFlow.Codecs.FFMpeg": {
-        "type": "CentralTransitive",
-        "requested": "[1.4.0, )",
-        "resolved": "1.4.0",
-        "contentHash": "lp+y6joRjqqlR/UFaH4TptforIF2b18O/LXOvuLj/oX6RZy6U8IG8c3Nc1S2aOCX017YtI7yo7kLAZysPlc2VQ==",
-        "dependencies": {
-          "SoundFlow": "1.4.0"
-        }
-      },
-      "System.Drawing.Common": {
-        "type": "CentralTransitive",
-        "requested": "[7.0.0, )",
-        "resolved": "7.0.0",
-        "contentHash": "KIX+oBU38pxkKPxvLcLfIkOV5Ien8ReN78wro7OF5/erwcmortzeFx+iBswlh2Vz6gVne0khocQudGwaO1Ey6A==",
-        "dependencies": {
-          "Microsoft.Win32.SystemEvents": "7.0.0"
-        }
-      }
     }
   }
 }
