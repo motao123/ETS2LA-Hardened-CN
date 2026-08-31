@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 # Build the entire project as release (to update plugins)
 dotnet build ETS2LA.Linux.slnf -c Release --no-incremental
 # Then publish the UI project as a self-contained Linux x64 application
