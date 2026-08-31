@@ -16,7 +16,10 @@ public class ARRenderer
 {
     private CameraData cameraData;
     private GameTelemetryData telemetryData;
-    private List<ARRenderCallback> renderCallbacks = new();
+    // Rendered on the overlay thread while plugins may register/unregister
+    // callbacks from their own threads, so every access must take this lock.
+    private readonly object callbacksLock = new();
+    private readonly List<ARRenderCallback> renderCallbacks = new();
     private Matrix4x4 thisFrameProjection;
     private Matrix4x4 thisFrameView;
     private Matrix4x4 thisFrameViewProjection;
@@ -88,7 +91,13 @@ public class ARRenderer
         thisFrameWidth = (int)OverlayHandler.Current.OverlayWidth;
         thisFrameHeight = (int)OverlayHandler.Current.OverlayHeight;
 
-        foreach (var callback in renderCallbacks)
+        ARRenderCallback[] snapshot;
+        lock (callbacksLock)
+        {
+            snapshot = renderCallbacks.ToArray();
+        }
+
+        foreach (var callback in snapshot)
         {
             try { callback.Render3D(); }
             catch (Exception ex)
@@ -113,7 +122,10 @@ public class ARRenderer
     /// <param name="callback">Callback definition / instance</param>
     public void RegisterRenderCallback(ARRenderCallback callback)
     {
-        renderCallbacks.Add(callback);
+        lock (callbacksLock)
+        {
+            renderCallbacks.Add(callback);
+        }
     }
 
     /// <summary>
@@ -122,7 +134,10 @@ public class ARRenderer
     /// <param name="name">Name of the callback to remove</param>
     public void UnregisterRenderCallback(string name)
     {
-        renderCallbacks.RemoveAll(callback => callback.Definition.Name == name);
+        lock (callbacksLock)
+        {
+            renderCallbacks.RemoveAll(callback => callback.Definition.Name == name);
+        }
     }
 
     /// <summary>

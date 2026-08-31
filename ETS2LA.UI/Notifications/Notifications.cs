@@ -25,6 +25,10 @@ public class UINotificationHandler
 
     private AppWindow? _window;
     private bool _isRunning = true;
+    // Notifications that arrived before the MainWindow was ready. They are
+    // flushed once the window loads instead of being dropped silently.
+    private readonly object pendingLock = new();
+    private readonly List<UINotification> pendingNotifications = new();
     public List<UINotification> ActiveNotifications { get; private set; } = new();
 
     public UINotificationHandler()
@@ -83,6 +87,20 @@ public class UINotificationHandler
     public void SetWindow(AppWindow window)
     {
         _window = window;
+
+        // The window is not "loaded" yet during construction; flush the
+        // pending notifications once it has actually opened.
+        window.Opened += (_, _) =>
+        {
+            UINotification[] pending;
+            lock (pendingLock)
+            {
+                pending = pendingNotifications.ToArray();
+                pendingNotifications.Clear();
+            }
+            foreach (var notification in pending)
+                SendNotification(notification);
+        };
     }
 
     private void WatcherThread()
@@ -184,7 +202,17 @@ public class UINotificationHandler
     private async void SendNotification(UINotification notification)
     {
         if (_window == null || !_window.IsLoaded) {
-            Logger.Warn("Attempted to send notification before MainWindow was loaded.");
+            // Queue instead of dropping so early notifications (startup, game
+            // connection, plugin loading) surface once the window is ready.
+            lock (pendingLock)
+            {
+                if (pendingNotifications.Any(x => x.Id == notification.Id))
+                    return;
+                pendingNotifications.Add(notification);
+                if (pendingNotifications.Count > 50)
+                    pendingNotifications.RemoveAt(0);
+            }
+            Logger.Info("Notification queued until MainWindow is loaded.");
             return;
         }
 

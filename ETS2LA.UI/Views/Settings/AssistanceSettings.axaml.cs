@@ -106,6 +106,48 @@ public partial class AssistanceSettingsPage : UserControl, INotifyPropertyChange
         }
     }
 
+    public bool AutoEngageAssists
+    {
+        get => StateSettingsHandler.Current.GetSettings().AutoEngageOnStartup;
+        set
+        {
+            if (StateSettingsHandler.Current.GetSettings().AutoEngageOnStartup != value)
+            {
+                StateSettingsHandler.Current.GetSettings().AutoEngageOnStartup = value;
+                StateSettingsHandler.Current.Save();
+            }
+            OnPropertyChanged(nameof(AutoEngageAssists));
+        }
+    }
+
+    public bool AutoResumeAfterIntervention
+    {
+        get => StateSettingsHandler.Current.GetSettings().AutoResumeAfterIntervention;
+        set
+        {
+            if (StateSettingsHandler.Current.GetSettings().AutoResumeAfterIntervention != value)
+            {
+                StateSettingsHandler.Current.GetSettings().AutoResumeAfterIntervention = value;
+                StateSettingsHandler.Current.Save();
+            }
+            OnPropertyChanged(nameof(AutoResumeAfterIntervention));
+        }
+    }
+
+    public bool AutoEnablePlugins
+    {
+        get => ETS2LA.Settings.BackendSettingsHandler.Current.GetSettings().AutoEnablePluginsOnStartup;
+        set
+        {
+            if (ETS2LA.Settings.BackendSettingsHandler.Current.GetSettings().AutoEnablePluginsOnStartup != value)
+            {
+                ETS2LA.Settings.BackendSettingsHandler.Current.GetSettings().AutoEnablePluginsOnStartup = value;
+                ETS2LA.Settings.BackendSettingsHandler.Current.Save();
+            }
+            OnPropertyChanged(nameof(AutoEnablePlugins));
+        }
+    }
+
     private static ETS2LA.Shared.SpeedUnit ToSpeedUnit(ETS2LA.State.Units units) => units switch
     {
         ETS2LA.State.Units.Imperial => ETS2LA.Shared.SpeedUnit.Imperial,

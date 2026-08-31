@@ -196,6 +196,19 @@
           "xunit.extensibility.core": "[2.9.3]"
         }
       },
+      "autobehavior": {
+        "type": "Project",
+        "dependencies": {
+          "ETS2LA.Backend": "[1.0.0, )",
+          "ETS2LA.Game": "[1.0.0, )",
+          "ETS2LA.Logging": "[1.0.0, )",
+          "ETS2LA.Notifications": "[1.0.0, )",
+          "ETS2LA.Settings": "[1.0.0, )",
+          "ETS2LA.Shared": "[1.0.0, )",
+          "ETS2LA.State": "[1.0.0, )",
+          "TruckLib": "[0.5.1, )"
+        }
+      },
       "ets2la.audio": {
         "type": "Project",
         "dependencies": {
@@ -275,6 +288,18 @@
         "dependencies": {
           "ETS2LA.Logging": "[1.0.0, )",
           "Huskui.Avalonia": "[1.1.3, )"
+        }
+      },
+      "ets2la.state": {
+        "type": "Project",
+        "dependencies": {
+          "ETS2LA.Backend": "[1.0.0, )",
+          "ETS2LA.Controls": "[1.0.0, )",
+          "ETS2LA.Game": "[1.0.0, )",
+          "ETS2LA.Logging": "[1.0.0, )",
+          "ETS2LA.Notifications": "[1.0.0, )",
+          "ETS2LA.Settings": "[1.0.0, )",
+          "ETS2LA.Telemetry": "[1.0.0, )"
         }
       },
       "ets2la.telemetry": {

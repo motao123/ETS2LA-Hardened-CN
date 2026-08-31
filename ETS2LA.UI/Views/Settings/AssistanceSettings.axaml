@@ -173,6 +173,32 @@
                 <TextBlock Text="检测到不稳定，或转向无响应/自行禁用时，我们将暂停游戏。" FontSize="12" Classes="Description" />
             </StackPanel>
 
+            <Separator />
+
+            <StackPanel Spacing="10">
+                <Grid ColumnDefinitions="*, Auto">
+                    <TextBlock Text="辅助自动激活" VerticalAlignment="Center" />
+                    <ToggleSwitch Grid.Column="1" IsChecked="{Binding AutoEngageAssists}" Classes="primary-toggle" AutomationProperties.Name="辅助自动激活" />
+                </Grid>
+                <TextBlock Text="检测到游戏连接后自动激活辅助，无需手动按 SET。" FontSize="12" Classes="Description" />
+            </StackPanel>
+
+            <StackPanel Spacing="10">
+                <Grid ColumnDefinitions="*, Auto">
+                    <TextBlock Text="接管后自动恢复" VerticalAlignment="Center" />
+                    <ToggleSwitch Grid.Column="1" IsChecked="{Binding AutoResumeAfterIntervention}" Classes="primary-toggle" AutomationProperties.Name="接管后自动恢复" />
+                </Grid>
+                <TextBlock Text="驾驶员接管、松开输入数秒后自动恢复辅助（车辆停止时不会自动起步）。" FontSize="12" Classes="Description" />
+            </StackPanel>
+
+            <StackPanel Spacing="10">
+                <Grid ColumnDefinitions="*, Auto">
+                    <TextBlock Text="启动自动启用插件" VerticalAlignment="Center" />
+                    <ToggleSwitch Grid.Column="1" IsChecked="{Binding AutoEnablePlugins}" Classes="primary-toggle" AutomationProperties.Name="启动自动启用插件" />
+                </Grid>
+                <TextBlock Text="启动时自动启用所有已加载的插件，无需逐个手动开启。" FontSize="12" Classes="Description" />
+            </StackPanel>
+
             <StackPanel Spacing="10">
                 <StackPanel Spacing="3">
                     <TextBlock Text="限速警告" />

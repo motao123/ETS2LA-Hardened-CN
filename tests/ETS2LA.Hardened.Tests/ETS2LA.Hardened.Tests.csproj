@@ -18,5 +18,7 @@
     <ProjectReference Include="..\..\ETS2LA.Game\ETS2LA.Game.csproj" />
     <ProjectReference Include="..\..\ETS2LA.Networking\ETS2LA.Networking.csproj" />
     <ProjectReference Include="..\..\ETS2LA.Settings\ETS2LA.Settings.csproj" />
+    <ProjectReference Include="..\..\ETS2LA.State\ETS2LA.State.csproj" />
+    <ProjectReference Include="..\..\Plugins\AutoBehavior\AutoBehavior.csproj" />
   </ItemGroup>
 </Project>

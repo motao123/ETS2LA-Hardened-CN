@@ -172,6 +172,19 @@ public static class AppLocalization
         ["安全兜底"] = "Safety failsafe",
         ["当前速度"] = "Current speed",
         ["最高速度"] = "Max speed",
+        ["辅助已自动激活"] = "Assists auto-engaged",
+        ["检测到游戏连接，自动驾驶辅助已自动接管。"] = "Game connection detected. Driving assists have taken over automatically.",
+        ["辅助已自动恢复"] = "Assists auto-resumed",
+        ["检测到驾驶员已松开输入，自动驾驶辅助已自动恢复。"] = "Driver input released. Driving assists have resumed automatically.",
+        ["油量不足提醒"] = "Low fuel",
+        ["油量剩余 {0}%，续航约 {1} km。最近的加油站在直线距离约 {2} km 处，请注意规划加油。"] = "Fuel level at {0}%, range about {1} km. The nearest gas station is about {2} km away (straight-line). Please plan a refueling stop.",
+        ["油量剩余 {0}%，续航约 {1} km。请在地图上尽快寻找加油站加油。"] = "Fuel level at {0}%, range about {1} km. Please find a gas station on the map soon.",
+        ["辅助自动激活"] = "Auto-engage assists",
+        ["检测到游戏连接后自动激活辅助，无需手动按 SET。"] = "Automatically engage assists when the game connects — no manual SET press needed.",
+        ["接管后自动恢复"] = "Auto-resume after intervention",
+        ["驾驶员接管、松开输入数秒后自动恢复辅助（车辆停止时不会自动起步）。"] = "Resume assists automatically a few seconds after the driver releases input (a stopped truck never starts moving on its own).",
+        ["启动自动启用插件"] = "Auto-enable plugins on startup",
+        ["启动时自动启用所有已加载的插件，无需逐个手动开启。"] = "Automatically enable all loaded plugins when ETS2LA starts — no manual toggling.",
     };
 
     public static bool IsEnglish { get; private set; }

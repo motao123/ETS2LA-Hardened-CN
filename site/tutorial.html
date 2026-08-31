@@ -100,13 +100,13 @@
         <h2>5.1 全自动接管与 AutoBehavior（v0.3.0 新增）</h2>
         <p>本版本把「启动后还要手动点一堆开关」的环节全部自动化了：</p>
         <ul class="clean-list">
-          <li><strong>插件自动启用</strong>：启动时自动启用全部已加载插件，不再需要逐个打开（BackendSettings.json 的 <code>AutoEnablePluginsOnStartup</code> 可关闭）。</li>
-          <li><strong>辅助自动激活</strong>：检测到游戏连接后自动等效按下 SET，无需再手动激活（StateSettings.json 的 <code>AutoEngageOnStartup</code> 可关闭）。</li>
-          <li><strong>接管后自动恢复</strong>：踩刹车/打方向接管后，松开约 3 秒自动恢复辅助（<code>AutoResumeAfterIntervention</code> 可关闭，<code>AutoResumeDelaySeconds</code> 可调）。</li>
+          <li><strong>插件自动启用</strong>：启动时自动启用全部已加载插件，不再需要逐个打开（「设置 → 辅助功能 → 启动自动启用插件」可关闭）。</li>
+          <li><strong>辅助自动激活</strong>：检测到游戏连接后自动等效按下 SET，无需再手动激活（「设置 → 辅助功能 → 辅助自动激活」可关闭）。</li>
+          <li><strong>接管后自动恢复</strong>：踩刹车/打方向接管后，松开约 3 秒自动恢复辅助；<strong>车辆完全停止时不会自动起步</strong>，起步仍需按 SET（「设置 → 辅助功能 → 接管后自动恢复」可关闭）。</li>
           <li><strong>收费站/道闸自动停车</strong>：前方道闸（收费站、边检、计重站）关闭时自动减速，停在杆前约 12 m 等待抬杆后自动起步。转向仍由 Lane Assist 负责，此插件只接管纵向控制。</li>
           <li><strong>油量监视</strong>：油量低于 15% 或续航低于 120 km 时弹窗提醒，并报告从地图数据找到的最近加油站直线距离。</li>
         </ul>
-        <div class="callout"><strong>注意</strong><span>自动恢复辅助意味着松开刹车后车会自己继续走。若需要传统行为（接管后保持暂停、手动按 SET 恢复），把 StateSettings.json 里的两个 Auto 开关设为 false 即可。</span></div>
+        <div class="callout"><strong>注意</strong><span>自动恢复只在车辆行驶中生效；因接管而完全停止的车辆不会被自动起步，需按 SET 确认后再走。以上开关都在「设置 → 辅助功能」页面，也可以继续改 StateSettings.json / BackendSettings.json。</span></div>
       </section>
 
       <section id="t6">

@@ -6,6 +6,7 @@ using ETS2LA.Game.Telemetry;
 using ETS2LA.Logging;
 using ETS2LA.Notifications;
 using ETS2LA.Shared;
+using ETS2LA.Shared.Localization;
 using ETS2LA.State;
 using TruckLib.ScsMap;
 using SdkSemaphore = ETS2LA.Game.SDK.Semaphore;
@@ -55,7 +56,6 @@ public class AutoBehaviorPlugin : Plugin
 
     private GameTelemetryData? latest;
     private readonly Dictionary<int, DateTime> clearedGates = new();
-    private float lastGateDistance = float.MaxValue;
     private bool brakeActive = false;
 
     // movement direction tracking (avoids relying on raw euler heading conventions)
@@ -163,7 +163,6 @@ public class AutoBehaviorPlugin : Plugin
 
         if (target == null)
         {
-            lastGateDistance = float.MaxValue;
             ClearBrake();
             return;
         }
@@ -181,19 +180,13 @@ public class AutoBehaviorPlugin : Plugin
                             + moveDirection.Value.Y * (toGateZ / toGateLength);
             if (alignment < 0.3f)
             {
-                lastGateDistance = bestDistance;
                 ClearBrake();
                 return;
             }
         }
 
-        float effective = MathF.Max(bestDistance - StopDistance, 0.1f);
-        float requiredDecel = speed > 0.3f ? (speed * speed) / (2f * effective) : 0f;
-        float brake = Math.Clamp(requiredDecel / MaxDecel, 0f, 1f);
-        if (bestDistance <= StopDistance)
-            brake = speed > 0.1f ? 1f : HoldBrake; // hold the truck at the barrier
-
-        if (brake <= 0.02f)
+        float brake = AutoBehaviorLogic.ComputeTollBrake(speed, bestDistance, StopDistance, MaxDecel, HoldBrake);
+        if (brake <= 0f)
         {
             ClearBrake();
             return;
@@ -260,15 +253,11 @@ public class AutoBehaviorPlugin : Plugin
 
         var truck = latest!.truckFloat;
         float capacity = latest.configFloat.fuelCapacity;
-        if (capacity <= 0)
-            return;
-
-        float fraction = truck.fuel / capacity;
         float range = truck.fuelRange;
-        bool low = fraction < FuelFractionThreshold || (range > 0 && range < FuelRangeThreshold);
-        if (!low)
+        if (!AutoBehaviorLogic.IsFuelLow(truck.fuel, capacity, range, FuelFractionThreshold, FuelRangeThreshold))
             return;
 
+        float fraction = capacity > 0f ? truck.fuel / capacity : 0f;
         Events.Current.Publish<float>("AutoBehavior.Fuel.Low", fraction);
 
         if ((DateTime.UtcNow - lastFuelNotification).TotalMinutes < FuelNotificationIntervalMinutes)
@@ -276,10 +265,22 @@ public class AutoBehaviorPlugin : Plugin
         lastFuelNotification = DateTime.UtcNow;
 
         (Vector3 position, float distance)? station = FindNearestGasStation();
-        string rangeText = range > 0 ? $"，续航约 {range / 1000f:0} km" : "";
-        string content = station.HasValue
-            ? $"当前油量剩余 {fraction * 100f:0}%{rangeText}。最近的加油站在直线距离约 {station.Value.distance / 1000f:0} km 处，请注意规划加油。"
-            : $"当前油量剩余 {fraction * 100f:0}%{rangeText}。请在地图上尽快寻找加油站加油。";
+        string content;
+        if (station.HasValue)
+        {
+            content = string.Format(
+                AppLocalization.Translate("油量剩余 {0}%，续航约 {1} km。最近的加油站在直线距离约 {2} km 处，请注意规划加油。"),
+                (fraction * 100f).ToString("0"),
+                (range / 1000f).ToString("0"),
+                (station.Value.distance / 1000f).ToString("0"));
+        }
+        else
+        {
+            content = string.Format(
+                AppLocalization.Translate("油量剩余 {0}%，续航约 {1} km。请在地图上尽快寻找加油站加油。"),
+                (fraction * 100f).ToString("0"),
+                (range / 1000f).ToString("0"));
+        }
 
         NotificationHandler.Current.SendNotification(new Notification
         {

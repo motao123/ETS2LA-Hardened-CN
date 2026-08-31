@@ -109,10 +109,6 @@ public class ApplicationState
 
     private void HandleAutoResume(GameTelemetryData data)
     {
-        if (!stateSettings.AutoResumeAfterIntervention) return;
-        if (!pausedByIntervention || (!PauseLongitudinalAssist && !PauseSteeringAssist)) return;
-        if (data.paused) return;
-
         var truck = data.truckFloat;
         bool driverHandsOff = truck.userBrake < 0.01f && truck.userThrottle < 0.01f &&
                               Math.Abs(truck.userSteer) < 0.1f;
@@ -123,7 +119,16 @@ public class ApplicationState
             return;
         }
 
-        if ((DateTime.UtcNow - interventionPausedAt).TotalSeconds < stateSettings.AutoResumeDelaySeconds)
+        bool shouldResume = AutoResumeLogic.ShouldResume(
+            enabled: stateSettings.AutoResumeAfterIntervention,
+            interventionPaused: pausedByIntervention,
+            anyAssistPaused: PauseLongitudinalAssist || PauseSteeringAssist,
+            gamePaused: data.paused,
+            driverHandsOff: driverHandsOff,
+            secondsSincePause: (DateTime.UtcNow - interventionPausedAt).TotalSeconds,
+            resumeDelaySeconds: stateSettings.AutoResumeDelaySeconds,
+            speedMps: truck.speed);
+        if (!shouldResume)
             return;
 
         Logger.Info("Driver input released, automatically resuming assists.");
