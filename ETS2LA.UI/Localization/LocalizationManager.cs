@@ -190,7 +190,9 @@ public static class LocalizationManager
     {
         get
         {
-            var value = UISettingsHandler.Current.GetSettings().Language;
+            var settings = UISettingsHandler.Current.GetSettings();
+            var value = settings?.Language;
+            if (string.IsNullOrWhiteSpace(value)) return UiLanguage.ChineseSimplified;
             var language = Enum.TryParse<UiLanguage>(value, out var parsed) ? parsed : UiLanguage.ChineseSimplified;
             AppLocalization.SetEnglish(language == UiLanguage.English);
             return language;

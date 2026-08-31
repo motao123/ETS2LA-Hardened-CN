@@ -82,11 +82,58 @@ public class ApplicationState
             if (RunningGame == null && (parsingTask == null || parsingTask.IsCompleted))
                 // This function will run until game data is successfully parsed.
                 parsingTask = WaitForParseSuccessful();
+
+            // Auto-engage the first time the game connects so the user does not
+            // have to press SET after every launch (full autonomy mode).
+            if (!wasGameActive && stateSettings.AutoEngageOnStartup &&
+                (PauseLongitudinalAssist || PauseSteeringAssist))
+            {
+                ResumeAssists(ensureMovingTarget: true);
+                NotificationHandler.Current.SendNotification(new Notification
+                {
+                    Id = "ApplicationState.AutoEngaged",
+                    Title = "辅助已自动激活",
+                    Content = "检测到游戏连接，自动驾驶辅助已自动接管。"
+                });
+            }
         }
         else
         {
             IsGameRunning = false;
         }
+        wasGameActive = data.sdkActive;
+        HandleAutoResume(data);
+    }
+
+    private bool wasGameActive = false;
+
+    private void HandleAutoResume(GameTelemetryData data)
+    {
+        if (!stateSettings.AutoResumeAfterIntervention) return;
+        if (!pausedByIntervention || (!PauseLongitudinalAssist && !PauseSteeringAssist)) return;
+        if (data.paused) return;
+
+        var truck = data.truckFloat;
+        bool driverHandsOff = truck.userBrake < 0.01f && truck.userThrottle < 0.01f &&
+                              Math.Abs(truck.userSteer) < 0.1f;
+        if (!driverHandsOff)
+        {
+            // The driver is still intervening, keep pushing the resume moment forward.
+            interventionPausedAt = DateTime.UtcNow;
+            return;
+        }
+
+        if ((DateTime.UtcNow - interventionPausedAt).TotalSeconds < stateSettings.AutoResumeDelaySeconds)
+            return;
+
+        Logger.Info("Driver input released, automatically resuming assists.");
+        ResumeAssists(ensureMovingTarget: true);
+        NotificationHandler.Current.SendNotification(new Notification
+        {
+            Id = "ApplicationState.AutoResumed",
+            Title = "辅助已自动恢复",
+            Content = "检测到驾驶员已松开输入，自动驾驶辅助已自动恢复。"
+        });
     }
 
     public void Shutdown()
@@ -115,7 +162,17 @@ public class ApplicationState
     ///  This value will be set to true if the user has temporarily paused the steering assist,
     ///  e.g. by braking. Once the user resumes assists this value will be set to false again.
     /// </summary>
-    public bool PauseSteeringAssist { get; set; } = true;
+    public bool PauseSteeringAssist
+    {
+        get => pauseSteeringAssist;
+        set
+        {
+            if (pauseSteeringAssist == value) return;
+            pauseSteeringAssist = value;
+            if (value) MarkExternalPause();
+            else pausedByIntervention = false;
+        }
+    }
 
     /// <summary>
     ///  Defines the level of longitudinal assistance the user wants. It is assumed that lower levels
@@ -127,7 +184,36 @@ public class ApplicationState
     ///  This value will be set to true if the user has temporarily paused the longitudinal assist,
     ///  e.g. by braking. Once the user resumes assists this value will be set to false again.
     /// </summary>
-    public bool PauseLongitudinalAssist { get; set; } = true;
+    public bool PauseLongitudinalAssist
+    {
+        get => pauseLongitudinalAssist;
+        set
+        {
+            if (pauseLongitudinalAssist == value) return;
+            pauseLongitudinalAssist = value;
+            if (value) MarkExternalPause();
+            else pausedByIntervention = false;
+        }
+    }
+
+    private bool pauseSteeringAssist = true;
+    private bool pauseLongitudinalAssist = true;
+
+    // True when the pause was caused by an external component (e.g. a plugin pausing
+    // assists because the driver physically took over), as opposed to an explicit
+    // SET key press. Only intervention pauses are eligible for auto-resume.
+    private bool pausedByIntervention = false;
+    private DateTime interventionPausedAt = DateTime.MinValue;
+    // Set while ApplicationState itself is changing the pause flags so that its
+    // own writes are not mistaken for external (driver intervention) pauses.
+    private bool suppressInterventionTracking = false;
+
+    private void MarkExternalPause()
+    {
+        if (suppressInterventionTracking) return;
+        pausedByIntervention = true;
+        interventionPausedAt = DateTime.UtcNow;
+    }
     /// <summary>
     ///  This value will be used by the longitudinal assist to determine the target speed. This value does
     ///  not take into account any environmental factors. That will either be provided by plugins, or the
@@ -230,6 +316,38 @@ public class ApplicationState
         });
     }
 
+    private void ResumeAssists(bool ensureMovingTarget = false)
+    {
+        suppressInterventionTracking = true;
+        try
+        {
+            PauseLongitudinalAssist = false;
+            PauseSteeringAssist = false;
+        }
+        finally { suppressInterventionTracking = false; }
+        pausedByIntervention = false;
+
+        if (assistanceSettings.SetSpeedBehaviourOption == SetSpeedBehaviour.CurrentSpeed)
+            DesiredSpeed = latestTelemetryData.truckFloat.speed;
+        else if (assistanceSettings.SetSpeedBehaviourOption == SetSpeedBehaviour.SpeedLimit)
+            DesiredSpeed = latestTelemetryData.truckFloat.speedLimit != 0 ?
+                           latestTelemetryData.truckFloat.speedLimit :
+                           UnitConversions.ToScientificUnits(UnitType.Speed, 30, Units.Metric);
+
+        // For automatic resumes (startup / after driver intervention) a zero target
+        // speed would leave the truck standing forever, so fall back to the speed limit.
+        if (ensureMovingTarget && DesiredSpeed < 0.5f)
+            DesiredSpeed = latestTelemetryData.truckFloat.speedLimit != 0 ?
+                           latestTelemetryData.truckFloat.speedLimit :
+                           UnitConversions.ToScientificUnits(UnitType.Speed, 30, Units.Metric);
+
+        Events.Current.Publish<EventArgs>("ETS2LA.State.AssistsUnpaused", new EventArgs());
+        Events.Current.Publish<bool>("ETS2LA.State.SteeringPaused", PauseSteeringAssist);
+        Events.Current.Publish<bool>("ETS2LA.State.LongitudinalPaused", PauseLongitudinalAssist);
+        RoundToNearestUnit();
+        LimitToMax();
+    }
+
     private void HandleSet(object sender, ControlChangeEventArgs e)
     {
         bool b = (bool)e.NewValue;
@@ -237,25 +355,18 @@ public class ApplicationState
 
         if (PauseLongitudinalAssist)
         {
-            PauseLongitudinalAssist = false;
-            PauseSteeringAssist = false;
-            if (assistanceSettings.SetSpeedBehaviourOption == SetSpeedBehaviour.CurrentSpeed)
-                DesiredSpeed = latestTelemetryData.truckFloat.speed;
-            else if (assistanceSettings.SetSpeedBehaviourOption == SetSpeedBehaviour.SpeedLimit)
-                DesiredSpeed = latestTelemetryData.truckFloat.speedLimit != 0 ?
-                               latestTelemetryData.truckFloat.speedLimit :
-                               UnitConversions.ToScientificUnits(UnitType.Speed, 30, Units.Metric);
-
-            Events.Current.Publish<EventArgs>("ETS2LA.State.AssistsUnpaused", new EventArgs());
-            Events.Current.Publish<bool>("ETS2LA.State.SteeringPaused", PauseSteeringAssist);
-            Events.Current.Publish<bool>("ETS2LA.State.LongitudinalPaused", PauseLongitudinalAssist);
-            RoundToNearestUnit();
-            LimitToMax();
+            ResumeAssists();
         }
         else
         {
-            PauseLongitudinalAssist = true;
-            PauseSteeringAssist = true;
+            suppressInterventionTracking = true;
+            try
+            {
+                PauseLongitudinalAssist = true;
+                PauseSteeringAssist = true;
+            }
+            finally { suppressInterventionTracking = false; }
+            pausedByIntervention = false; // explicit user pause, never auto-resumed
 
             Events.Current.Publish<EventArgs>("ETS2LA.State.AssistsPaused", new EventArgs());
             Events.Current.Publish<bool>("ETS2LA.State.SteeringPaused", PauseSteeringAssist);

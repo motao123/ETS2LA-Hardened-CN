@@ -29,6 +29,10 @@
 | --- | --- |
 | 🔐 插件供应链 | HTTPS、SHA-256、ZIP 路径穿越防护、重解析点拒绝、staging 安装、失败回滚 |
 | 🎛️ 控制输出 | 线程安全快照、有限浮点校验、正权重融合、NaN 防护、中性值复位、slew-rate 限幅；遥测超过 2 秒未更新时强制归零；超过“最高速度”（以 m/s 存储、UI 按 km/h/mph 显示）时禁止正油门并渐进制动 |
+| 🤖 全自动接管 | 启动自动启用全部插件；检测到游戏连接后自动激活辅助（等效按下 SET）；驾驶员接管、松开输入约 3 秒后自动恢复（均可通过 StateSettings.json / BackendSettings.json 关闭） |
+| 🚧 收费站/道闸自动停车 | 内置 AutoBehavior 插件：前方 GATE 道闸（收费站、边检、计重站）关闭时自动减速，停在杆前约 12 m 等待，抬杆后自动放行（仅纵向控制，转向仍由 LaneAssist 负责） |
+| ⛽ 油量监视 | AutoBehavior 持续监测油量与续航，低于 15% 或续航低于 120 km 时弹窗提醒，并从地图数据索引最近加油站的直线距离 |
+| 📦 内置插件分发 | AutoBehavior 随发布包内置（`Assets/BundledPlugins`），启动时自动安装到插件目录并启用，无需手动下载安装 |
 | 🧩 依赖管理 | 固定 .NET SDK、集中包版本、NuGet lock files、TruckLib 源码随仓库交付 |
 | 🛡️ 配置与凭据 | 配置目录边界校验、独立实例目录、Windows DPAPI、JWT 不写入普通 JSON |
 | 📡 隐私默认值 | 遥测默认关闭；只有用户开启后才创建远程 OTLP exporter |

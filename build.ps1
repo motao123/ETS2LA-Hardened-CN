@@ -44,6 +44,10 @@ try {
     }
     if ($Publish) {
         & $dotnetCommand publish ETS2LA\ETS2LA.csproj -c $Configuration -r $rid --self-contained true -o publish\win-x64 --no-restore
+        & $dotnetCommand build Plugins\AutoBehavior\AutoBehavior.csproj -c $Configuration --no-restore
+        New-Item -ItemType Directory -Force -Path 'Assets\BundledPlugins', 'publish\win-x64\Assets\BundledPlugins' | Out-Null
+        Copy-Item "Plugins\AutoBehavior\bin\$Configuration\net10.0\AutoBehavior.dll" 'Assets\BundledPlugins\' -Force
+        Copy-Item 'Assets\BundledPlugins\AutoBehavior.dll' 'publish\win-x64\Assets\BundledPlugins\' -Force
         Copy-Item Assets publish\win-x64\Assets -Recurse -Force
         & (Join-Path $root 'publish\win-x64\ETS2LA.exe') --smoke-test
     }
